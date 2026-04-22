@@ -1,0 +1,76 @@
+{
+  "id": "orb_sphere",
+  "name": "Orb / Sphere",
+  "era": "sensor",
+  "craft_class": "unknown",
+  "description": "A perfectly spherical luminous object, 0.5–6 feet in diameter. May appear as a solid metallic sphere, a translucent glowing ball, or a plasma-like energetic form. The defining modern sensor-era UAP alongside the Tic Tac. Transmedium capable — documented entering and exiting water without splash or disturbance. Often appears in groups. IR signature is complex: some appear warmer than ambient, some cooler, some thermally neutral.",
+
+  "geometry": {
+    "primitive_type": "sphere",
+    "aspect_ratio": 1.0,
+    "length_m": 1.8,
+    "dome": false,
+    "dome_position": "none",
+    "symmetry_order": 0,
+    "rim_segments": 0,
+    "underside_features": []
+  },
+
+  "surface": {
+    "metallic": 0.3,
+    "roughness": 0.2,
+    "albedo_hex": "#EDEDE9",
+    "emissive_hex": "#FFFFFF",
+    "clearcoat": 0.1,
+    "subsurface_mm": 0.0,
+    "normal_detail": "none"
+  },
+
+  "lights": {
+    "count": 1,
+    "positions": ["center"],
+    "colors_hex": ["#FFFFFF"],
+    "behavior": "corona_bloom",
+    "pulse_hz": 0
+  },
+
+  "motion": {
+    "primary": "hover_bob",
+    "secondary": ["instant_translation", "transmedium_entry"],
+    "hover_amplitude_m": 0.2,
+    "hover_period_s": 2.0,
+    "max_speed_knots": 138,
+    "silent": true
+  },
+
+  "ir_signature": {
+    "hotter_than_ambient": true,
+    "radiometric_saturation": true,
+    "thermal_polarity_flip": false,
+    "ir_notes": "USS Omaha footage: 6-foot sphere, illuminated, solid mass confirmed by three-sensor radar correlation. Appears bright (hot) in WHT HOT mode. Descends into Pacific with zero surface disturbance."
+  },
+
+  "physics_subtractions": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_rotor_downwash",
+    "no_condensation_trail",
+    "no_water_ripple",
+    "no_inertial_coupling",
+    "transmedium_capable",
+    "instant_acceleration"
+  ],
+
+  "shader_params": {
+    "fresnel_power": 4.5,
+    "bloom_radius_px": 25,
+    "glow_color_hex": "#FFFFFF",
+    "scanline_overlay": true,
+    "chromatic_aberration": false,
+    "era_palette": ["#EDEDE9", "#9A9A94", "#1A1A1A", "#F2F2F2", "#6CFF00", "#101418"]
+  },
+
+  "canonical_cases": ["omaha_sphere_2019", "aguadilla_2013"],
+  "cultural_context": "The orb/sphere class has become the most commonly reported UAP type in the post-2017 disclosure era. Ryan Graves (former F/A-18 pilot) testified before Congress in July 2023 that his squadron encountered solid spheres near the Virginia coast for years. The transmedium characteristic — smooth water entry and exit — is the defining behavior. Related to but distinct from plasma orbs, ball lightning, and atmospheric phenomena."
+}

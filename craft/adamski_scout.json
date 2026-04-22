@@ -1,0 +1,70 @@
+{
+  "id": "adamski_scout",
+  "name": "Adamski Scout Craft",
+  "era": "classic",
+  "craft_class": "vehicle",
+  "description": "George Adamski's famous 1952 contactee photographs showed a distinctive bell-domed saucer with three hemispherical landing spheres on the underside and one larger central sphere — the so-called 'Venusian scout craft.' The shape is slightly different from the generic saucer: more bell-like, less lens-like, with the dome being a larger proportion of the total height. The three underside spheres were described as landing gear. Whether hoax or genuine, the design became enormously influential — endlessly replicated in models, sketches, and B-movie props.",
+
+  "geometry": {
+    "primitive_type": "oblate_lens",
+    "aspect_ratio": 2.2,
+    "length_m": 9.0,
+    "dome": true,
+    "dome_position": "top",
+    "symmetry_order": 3,
+    "rim_segments": 0,
+    "underside_features": ["three_landing_spheres", "central_sphere", "smooth_underbelly"]
+  },
+
+  "surface": {
+    "metallic": 0.9,
+    "roughness": 0.08,
+    "albedo_hex": "#D0D4D8",
+    "emissive_hex": null,
+    "clearcoat": 0.7,
+    "subsurface_mm": 0.0,
+    "normal_detail": "none"
+  },
+
+  "lights": {
+    "count": 0,
+    "positions": [],
+    "colors_hex": [],
+    "behavior": "corona_bloom",
+    "pulse_hz": 0
+  },
+
+  "motion": {
+    "primary": "hover_bob",
+    "secondary": ["falling_leaf"],
+    "hover_amplitude_m": 0.5,
+    "hover_period_s": 4.0,
+    "max_speed_knots": 0,
+    "silent": true
+  },
+
+  "ir_signature": {
+    "hotter_than_ambient": false,
+    "radiometric_saturation": false,
+    "thermal_polarity_flip": false,
+    "ir_notes": "Pre-IR-sensor era. Classic photographic context only."
+  },
+
+  "physics_subtractions": [
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_condensation_trail"
+  ],
+
+  "shader_params": {
+    "fresnel_power": 5.0,
+    "bloom_radius_px": 12,
+    "glow_color_hex": "#D0D4D8",
+    "scanline_overlay": false,
+    "chromatic_aberration": false,
+    "era_palette": ["#D0D4D8", "#B8BCC0", "#7A8A98", "#F5F0E8", "#2A3540", "#0E1116"]
+  },
+
+  "canonical_cases": [],
+  "cultural_context": "Adamski's 1952 Desert Center, California contact story remains one of the most influential in UFO lore — not because it was believed, but because the craft design was so distinctive and photogenic that it became THE template for 'Venusian scout' iconography. The three underside spheres appear in model kits, film props, and countless illustrations. Whether the photos were a chicken-feeder-lid hoax or not, the design is a genuine cultural artifact."
+}

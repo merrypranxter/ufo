@@ -1,0 +1,40 @@
+{
+  "meta": {
+    "schema_version": 1,
+    "craft_count": 15,
+    "case_count": 12,
+    "last_updated": "2026-04-21",
+    "description": "Flat manifest of all UFO craft archetypes and canonical cases in this library."
+  },
+  "craft": [
+    { "id": "tic_tac", "name": "Tic Tac", "era": "sensor", "craft_class": "unknown", "primitive_type": "capsule", "canonical_cases": ["nimitz_2004","gofast_2015"] },
+    { "id": "classic_domed_saucer", "name": "Classic Domed Saucer", "era": "classic", "craft_class": "vehicle", "primitive_type": "oblate_lens", "canonical_cases": ["trent_mcminnville_1950"] },
+    { "id": "adamski_scout", "name": "Adamski Scout Craft", "era": "classic", "craft_class": "vehicle", "primitive_type": "oblate_lens", "canonical_cases": [] },
+    { "id": "black_triangle", "name": "Black Triangle", "era": "modern", "craft_class": "vehicle", "primitive_type": "equilateral_plate", "canonical_cases": ["belgian_wave_1989","phoenix_lights_1997"] },
+    { "id": "orb_sphere", "name": "Orb / Sphere", "era": "sensor", "craft_class": "unknown", "primitive_type": "sphere", "canonical_cases": ["omaha_sphere_2019","aguadilla_2013"] },
+    { "id": "diamond_rhombus", "name": "Diamond / Rhombus", "era": "modern", "craft_class": "vehicle", "primitive_type": "rhombic_prism", "canonical_cases": ["calvine_1990"] },
+    { "id": "jellyfish_uap", "name": "Jellyfish UAP", "era": "sensor", "craft_class": "biological", "primitive_type": "spheroid_tendril", "canonical_cases": ["iraq_jellyfish_2018","aguadilla_2013"] },
+    { "id": "mothership_radial", "name": "Mothership Radial Disc", "era": "classic", "craft_class": "vehicle", "primitive_type": "radial_disc", "canonical_cases": [] },
+    { "id": "cigar_cylinder", "name": "Cigar / Cylinder", "era": "classic", "craft_class": "vehicle", "primitive_type": "capsule", "canonical_cases": [] },
+    { "id": "boomerang_chevron", "name": "Boomerang / Chevron", "era": "modern", "craft_class": "vehicle", "primitive_type": "chevron_plate", "canonical_cases": ["phoenix_lights_1997"] },
+    { "id": "cube_box", "name": "Cube / Box", "era": "sensor", "craft_class": "unknown", "primitive_type": "cube", "canonical_cases": [] },
+    { "id": "gimbal", "name": "Gimbal", "era": "sensor", "craft_class": "vehicle", "primitive_type": "oblate_lens", "canonical_cases": ["gimbal_2015"] },
+    { "id": "monolith_shell", "name": "Monolith Shell", "era": "modern", "craft_class": "vehicle", "primitive_type": "ovoid_lozenge", "canonical_cases": [] },
+    { "id": "biological_organic", "name": "Biological / Organic", "era": "sensor", "craft_class": "biological", "primitive_type": "organic_fold_rig", "canonical_cases": [] },
+    { "id": "plasma_portal", "name": "Plasma Portal / Doorway", "era": "speculative", "craft_class": "phenomenon", "primitive_type": "torus_frustum", "canonical_cases": [] }
+  ],
+  "cases": [
+    { "id": "nimitz_2004", "name": "USS Nimitz Tic Tac", "date": "2004-11-14", "craft_type_ref": "tic_tac", "era": "sensor", "source_quality": "official_release" },
+    { "id": "belgian_wave_1989", "name": "Belgian UFO Wave", "date": "1989-11-29", "craft_type_ref": "black_triangle", "era": "modern", "source_quality": "military_radar" },
+    { "id": "phoenix_lights_1997", "name": "Phoenix Lights", "date": "1997-03-13", "craft_type_ref": "boomerang_chevron", "era": "modern", "source_quality": "multi_witness" },
+    { "id": "calvine_1990", "name": "Calvine UFO Photograph", "date": "1990-08-04", "craft_type_ref": "diamond_rhombus", "era": "modern", "source_quality": "photographic" },
+    { "id": "rendlesham_1980", "name": "Rendlesham Forest Incident", "date": "1980-12-26", "craft_type_ref": "diamond_rhombus", "era": "classic", "source_quality": "multi_witness" },
+    { "id": "trent_mcminnville_1950", "name": "Trent McMinnville Photos", "date": "1950-05-11", "craft_type_ref": "classic_domed_saucer", "era": "classic", "source_quality": "photographic" },
+    { "id": "chilbolton_2001", "name": "Chilbolton Arecibo Response", "date": "2001-08-01", "craft_type_ref": "classic_domed_saucer", "era": "modern", "source_quality": "photographic" },
+    { "id": "aguadilla_2013", "name": "Aguadilla DHS FLIR", "date": "2013-04-25", "craft_type_ref": "jellyfish_uap", "era": "sensor", "source_quality": "official_release_contested" },
+    { "id": "omaha_sphere_2019", "name": "USS Omaha Sphere", "date": "2019-07-15", "craft_type_ref": "orb_sphere", "era": "sensor", "source_quality": "official_release" },
+    { "id": "gimbal_2015", "name": "GIMBAL", "date": "2015-01-21", "craft_type_ref": "gimbal", "era": "sensor", "source_quality": "official_release" },
+    { "id": "gofast_2015", "name": "GO FAST", "date": "2015-01-01", "craft_type_ref": "tic_tac", "era": "sensor", "source_quality": "official_release" },
+    { "id": "iraq_jellyfish_2018", "name": "Iraq Jellyfish UAP", "date": "2018-10-01", "craft_type_ref": "jellyfish_uap", "era": "sensor", "source_quality": "official_release_contested" }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "id": "black_triangle",
+  "name": "Black Triangle",
+  "era": "modern",
+  "craft_class": "vehicle",
+  "description": "A flat equilateral plate, matte black or near-black, with three bright white or amber lights at the corners and a red pulsating light at the center. Reported sizes range from 30 meters to over 200 meters. Always silent or near-silent. Moves at low altitude, sometimes hovering, sometimes drifting at low speed. The three corner lights are diagnostic — the central red pulse is the secondary signature. The hull is essentially invisible in darkness; the craft reads as three lights in triangular formation.",
+
+  "geometry": {
+    "primitive_type": "equilateral_plate",
+    "aspect_ratio": 1.0,
+    "length_m": 100.0,
+    "dome": false,
+    "dome_position": "none",
+    "symmetry_order": 3,
+    "rim_segments": 0,
+    "underside_features": ["three_corner_lights", "central_light", "downward_beams"]
+  },
+
+  "surface": {
+    "metallic": 0.1,
+    "roughness": 0.9,
+    "albedo_hex": "#0A0A0C",
+    "emissive_hex": null,
+    "clearcoat": 0.0,
+    "subsurface_mm": 0.0,
+    "normal_detail": "none"
+  },
+
+  "lights": {
+    "count": 4,
+    "positions": ["corners", "center_underside"],
+    "colors_hex": ["#FFA62B", "#FFA62B", "#FFA62B", "#C1272D"],
+    "behavior": "steady_constellation",
+    "pulse_hz": 0.8
+  },
+
+  "motion": {
+    "primary": "hover_bob",
+    "secondary": ["v_formation_drift", "tilt_to_bank"],
+    "hover_amplitude_m": 0.4,
+    "hover_period_s": 3.5,
+    "max_speed_knots": 1100,
+    "silent": true
+  },
+
+  "ir_signature": {
+    "hotter_than_ambient": false,
+    "radiometric_saturation": false,
+    "thermal_polarity_flip": false,
+    "ir_notes": "Night-sky star-occlusion is diagnostic — the hull blocks stars behind it, confirming solid body. IR imagery rare; Belgian F-16 radar confirmed solid return."
+  },
+
+  "physics_subtractions": [
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_rotor_downwash",
+    "no_condensation_trail",
+    "no_inertial_coupling",
+    "instant_acceleration"
+  ],
+
+  "shader_params": {
+    "fresnel_power": 1.5,
+    "bloom_radius_px": 30,
+    "glow_color_hex": "#FFA62B",
+    "scanline_overlay": false,
+    "chromatic_aberration": false,
+    "era_palette": ["#0A0A0C", "#FFA62B", "#C1272D", "#B8B8B8", "#1A1C20", "#070709"]
+  },
+
+  "canonical_cases": ["belgian_wave_1989", "phoenix_lights_1997"],
+  "cultural_context": "The black triangle is the second most culturally prominent UAP type after the saucer. The 1989–90 Belgian Wave — 2,000+ witnesses, multiple police officers, two F-16 intercept attempts, the iconic (later confessed-fake) Petit-Rechain photograph — locked the equilateral plate + 3-amber-lights grammar into public consciousness. Phoenix Lights 1997 reinforced it at mass scale. Frequently associated with TR-3B reverse-engineering theories."
+}

@@ -1,0 +1,55 @@
+{
+  "id": "trent_mcminnville_1950",
+  "name": "Trent McMinnville UFO Photographs",
+  "date": "1950-05-11",
+  "location": "McMinnville, Oregon, USA",
+  "craft_type_ref": "classic_domed_saucer",
+
+  "witnesses": {
+    "count": 2,
+    "types": ["civilian"],
+    "notable": [
+      "Paul Trent",
+      "Evelyn Trent"
+    ]
+  },
+
+  "sensor": {
+    "type": "film_35mm",
+    "device": "Roamer I camera, 105mm lens, Verichrome Pan film",
+    "resolution": "35mm B&W negative",
+    "footage_available": false
+  },
+
+  "source_quality": "photographic",
+  "era": "classic",
+
+  "visual_description": "Evelyn Trent first observed the object while feeding rabbits in the backyard around 7:45 PM. She called her husband Paul, who grabbed their camera and took two photographs before the object departed to the northwest at high speed. The photographs show a classic oblate disc saucer shape — wider than tall, slight dome on top, smooth underside — suspended in the sky with an overhead power-line and the Trent property visible for scale. The object appears to be metallic, reflecting afternoon sky light on its upper curved surface while casting shadow on its underside. Extensive analysis by LIFE magazine (1950), the Condon Committee (1966–1968), and subsequently multiple photogrammetric studies found no evidence of hoax. The Condon Report notably concluded that the Trents' photographs were 'among the few UFO reports in which all factors investigated... are consistent with the assertion that an extraordinary flying object... was photographed.' A pendulum-shaped shadow beneath the object in one photograph was initially interpreted as a thread (suggesting a model), but analysis showed it to be a shadow of the house's eave.",
+
+  "dimensions_reported_m": 20.0,
+  "duration_s": 60,
+
+  "motion_observed": ["hover_bob", "instant_translation"],
+
+  "light_behavior_observed": [],
+
+  "physics_anomalies": [
+    "no_exhaust_plume",
+    "no_condensation_trail"
+  ],
+
+  "shader_params": {
+    "background_hex": "#8A9088",
+    "craft_albedo_hex": "#C8CCD0",
+    "glow_hex": "#E6E8EA",
+    "grain_profile": "kodachrome",
+    "hud_overlay": false,
+    "era_palette": ["#C8CCD0", "#8A9088", "#E6E8EA", "#3A3A3A", "#B0B0A8", "#1A1A18"]
+  },
+
+  "authenticity_chain": "Overcast Oregon dusk sky (warm grey-white, magic-hour diffuse). Verichrome Pan film grain simulation (fine grain, good tonal range). Black-and-white or sepia conversion. Overhead power-line in upper third of frame for authentic compositional context. Object should show specular highlight on upper curved surface, shadow on underside, slight motion blur on upper edge if near-departure frame.",
+
+  "cultural_significance": "The Trent photographs are the most analyzed UFO photographs in history and remain unrefuted after 75 years. Unlike many UFO photographs, the Trents never sought fame or money — they continued farming and gave interviews reluctantly for decades. The photos were nearly lost: Paul Trent gave them to a bank as collateral for a loan, the bank lost them, they were eventually recovered and displayed at the McMinnville UFO Festival, which continues annually.",
+
+  "notes": "Mick West and others have argued the photographs show a suspended model. The counterargument is that analysis of the negative grain pattern, shadow orientation, and relative size calculations under the known camera optics are inconsistent with a small nearby object. The debate continues. What's undisputed: the Trents' behavior before and after was entirely inconsistent with a hoax attempt."
+}

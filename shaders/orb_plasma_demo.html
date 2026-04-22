@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>orb plasma shader</title>
+  <style>*{margin:0;padding:0;}html,body{width:100%;height:100%;background:#000;overflow:hidden;}canvas{display:block;width:100%;height:100%;}</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+const VERT=`attribute vec2 a_position;void main(){gl_Position=vec4(a_position,0.0,1.0);}`;
+const FRAG=`
+precision mediump float;
+uniform float iTime;
+uniform vec2 iResolution;
+#define ORB vec3(0.93,0.93,0.91)
+#define PLASMA vec3(0.2,0.85,1.0)
+#define WATER vec3(0.05,0.12,0.18)
+float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.0-2.0*f);return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);}
+void main(){
+  vec2 uv=(gl_FragCoord.xy-0.5*iResolution.xy)/iResolution.y;float t=iTime;
+  float hover=sin(t*0.9)*0.02;vec2 op=vec2(0.0,0.05+hover);float or_=0.09;
+  vec3 col=mix(vec3(0.02,0.03,0.04),vec3(0.06,0.08,0.12),uv.y+0.5);
+  col+=step(0.965,hash(floor(uv*10.0)))*0.4*vec3(0.8,0.9,1.0);
+  float wl=-0.22;
+  if(uv.y<wl){float wd=(wl-uv.y)*4.0;col=mix(WATER,vec3(0.01,0.02,0.03),wd);col+=PLASMA*noise(uv*8.0+t*0.3)*noise(uv*12.0-t*0.2)*0.1*exp(-wd*2.0);}
+  col+=PLASMA*exp(-abs(uv.y-wl)*30.0)*0.2*(0.5+0.5*sin(uv.x*15.0+t*2.0));
+  float d=length(uv-op);float sdf=d-or_;
+  col=mix(col,ORB,smoothstep(0.005,-0.005,sdf));
+  col+=vec3(1.0)*exp(-length(uv-(op+vec2(-0.03,0.04)))*40.0)*smoothstep(0.005,-0.005,sdf)*0.5;
+  float fr=exp(-max(0.0,d-or_)*18.0);float pn=noise(uv*6.0+t*0.5)*0.3;
+  col+=PLASMA*fr*(0.6+pn);col+=PLASMA*exp(-d*5.0)*0.15+ORB*exp(-d*3.0)*0.08;
+  for(int i=0;i<5;i++){float ang=float(i)*1.2566+t*0.4;vec2 tv=op+vec2(cos(ang),sin(ang))*(or_*1.5);col+=PLASMA*exp(-length(uv-tv)*25.0)*0.3*(0.5+0.5*sin(t*3.0+float(i)));}
+  col*=1.0-length(uv)*0.55;
+  gl_FragColor=vec4(clamp(col,0.0,1.0),1.0);
+}`;
+const c=document.getElementById('c'),gl=c.getContext('webgl');
+function cs(t,s){const sh=gl.createShader(t);gl.shaderSource(sh,s);gl.compileShader(sh);return sh;}
+const p=gl.createProgram();gl.attachShader(p,cs(gl.VERTEX_SHADER,VERT));gl.attachShader(p,cs(gl.FRAGMENT_SHADER,FRAG));gl.linkProgram(p);gl.useProgram(p);
+const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
+const pl=gl.getAttribLocation(p,'a_position');gl.enableVertexAttribArray(pl);gl.vertexAttribPointer(pl,2,gl.FLOAT,false,0,0);
+const tL=gl.getUniformLocation(p,'iTime'),rL=gl.getUniformLocation(p,'iResolution');
+function resize(){c.width=innerWidth;c.height=innerHeight;gl.viewport(0,0,c.width,c.height);}
+window.addEventListener('resize',resize);resize();
+const t0=performance.now();(function r(){const t=(performance.now()-t0)/1e3;gl.uniform1f(tL,t);gl.uniform2f(rL,c.width,c.height);gl.drawArrays(gl.TRIANGLES,0,6);requestAnimationFrame(r);})();
+</script></body></html>

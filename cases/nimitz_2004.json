@@ -1,0 +1,63 @@
+{
+  "id": "nimitz_2004",
+  "name": "USS Nimitz Tic Tac Encounter",
+  "date": "2004-11-14",
+  "location": "Pacific Ocean, ~100 miles off San Diego, CA, USA",
+  "craft_type_ref": "tic_tac",
+
+  "witnesses": {
+    "count": 6,
+    "types": ["military", "pilot"],
+    "notable": [
+      "Commander David Fravor (CO Black Aces VFA-41)",
+      "Lt. Cmdr. Alex Dietrich",
+      "Chad Underwood (WSO, filmed FLIR1)"
+    ]
+  },
+
+  "sensor": {
+    "type": "atflir_ir",
+    "device": "AN/ASQ-228 ATFLIR",
+    "resolution": "640x480",
+    "footage_available": true
+  },
+
+  "source_quality": "official_release",
+  "era": "sensor",
+
+  "visual_description": "Commander Fravor and Lt. Cmdr. Dietrich were vectored to an area showing radar contacts that had been tracked descending from 80,000 feet to sea level repeatedly over two weeks. At the target location, Fravor observed a churning white water patch below with no obvious cause — as if something large were submerged beneath. Above this patch hovered a smooth white oblong approximately 40 feet long, the size of his F/A-18F, with no wings, no exhaust ports, no markings, no visible propulsion of any kind. He described it as looking like a large Tic Tac candy. It appeared to notice Fravor's spiral descent and mirrored his maneuver, then accelerated horizontally across his nose and vanished instantaneously. The FLIR1 footage shows a small bright oblong heat source in black-hot IR, tracking smoothly, then accelerating out of frame. The entire visual impression is of total physical wrongness — a thing that moves like nothing else.",
+
+  "dimensions_reported_m": 12.0,
+  "duration_s": 300,
+
+  "motion_observed": ["hover_bob", "mirror_maneuver", "instant_translation"],
+
+  "light_behavior_observed": ["instant_translation"],
+
+  "physics_anomalies": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_rotor_downwash",
+    "no_condensation_trail",
+    "no_ir_engine_heat",
+    "no_water_ripple",
+    "no_inertial_coupling",
+    "instant_acceleration"
+  ],
+
+  "shader_params": {
+    "background_hex": "#101418",
+    "craft_albedo_hex": "#EDEDE9",
+    "glow_hex": "#F2F2F2",
+    "grain_profile": "atflir",
+    "hud_overlay": true,
+    "era_palette": ["#EDEDE9", "#9A9A94", "#1A1A1A", "#F2F2F2", "#6CFF00", "#101418"]
+  },
+
+  "authenticity_chain": "640×480 MPEG-2 greyscale, BLK HOT polarity (hot→black), radiometric bloom on thermal sources, fixed-pattern column noise 0.02 amplitude, ATFLIR HUD overlay with NAR/FLIR mode text, crosshair reticle, autotrack lock box, range/bearing telemetry strings, discrete zoom-step rescales at 2× intervals.",
+
+  "cultural_significance": "The Nimitz encounter is the defining case of the modern UAP era. Fravor's testimony, Underwood's FLIR1 footage, and the 2017 NYT disclosure by Helene Cooper and Leslie Kean mainstreamed UAP as a serious subject after decades on the fringe. Fravor's line — 'I have no idea what I saw. It had no plumes, wings, or rotors and outran our F-18s' — is the canonical sensor-era UAP description.",
+
+  "notes": "FLIR1 footage officially released by DoD April 27 2020. Underwood's name was withheld for years; he gave his first named interview to The Black Vault in 2019. The whitewater patch — selectively disturbed water with no perimeter rippling — is a signature rarely discussed but extremely visually specific."
+}

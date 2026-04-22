@@ -1,0 +1,55 @@
+{
+  "id": "calvine_1990",
+  "name": "Calvine UFO Photograph",
+  "date": "1990-08-04",
+  "location": "Near Calvine, Perthshire, Scotland, UK",
+  "craft_type_ref": "diamond_rhombus",
+
+  "witnesses": {
+    "count": 2,
+    "types": ["civilian"],
+    "notable": ["Names withheld by MoD, still anonymous as of 2024"]
+  },
+
+  "sensor": {
+    "type": "film_35mm",
+    "device": "Consumer 35mm camera (model unknown)",
+    "resolution": "35mm color negative, 6 prints made",
+    "footage_available": false
+  },
+
+  "source_quality": "photographic",
+  "era": "modern",
+
+  "visual_description": "Two men walking near Calvine photographed a large dark-grey metallic-sheen diamond-shaped object hovering silently for approximately 10 minutes before ascending vertically at high speed. A Royal Air Force Harrier jet is also visible in the photographs, providing scale: the object is estimated at approximately 30 meters (100 feet) across. The surface appeared to be dark grey metal with a slight sheen. No lights, no markings, no visible propulsion. The MoD analyst who received the photographs considered them genuine and not fakes. Six color prints were taken; all were confiscated by MoD. The sole remaining print held by RAF press officer Craig Lindsay was released in June 2022 via Sheffield Hallam University — 32 years after the event. Nick Pope, who ran the MoD UFO desk 1991–1994, had an enlarged copy on his office wall and called it the best UFO photograph he had ever seen.",
+
+  "dimensions_reported_m": 30.0,
+  "duration_s": 600,
+
+  "motion_observed": ["hover_bob", "vertical_exit"],
+
+  "light_behavior_observed": [],
+
+  "physics_anomalies": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_condensation_trail",
+    "instant_acceleration"
+  ],
+
+  "shader_params": {
+    "background_hex": "#6A7A8A",
+    "craft_albedo_hex": "#1B1B1F",
+    "glow_hex": "#2E2E34",
+    "grain_profile": "kodachrome",
+    "hud_overlay": false,
+    "era_palette": ["#1B1B1F", "#2E2E34", "#9BA0A6", "#D0D4D8", "#6A7A8A", "#0A0A0C"]
+  },
+
+  "authenticity_chain": "Overcast Scottish highland sky (grey-blue, slight mist). Kodachrome/Ektachrome grain simulation. Harrier jet in frame at distance for scale reference. Object should appear as pure silhouette-shadow against lighter sky — no self-illumination, no glow, maximum geometric legibility. Slight film grain and chromatic aberration at edges.",
+
+  "cultural_significance": "Calvine is exceptional because the photographs convinced the MoD analyst rather than being dismissed. The 32-year suppression — the longest of any British UFO photo — and the eventual accidental release through a retired RAF officer's estate sale of memorabilia is itself a remarkable story. Sheffield Hallam's forensic photographic analysis (2022) found no evidence of hoaxing.",
+
+  "notes": "A reconstruction of the object was made from the description and surviving print by Dr. David Clarke (Sheffield Hallam). The witnesses have never come forward publicly despite 30+ years. The Harrier jet in frame is either coincidence or the craft was watching the military exercise taking place that day."
+}

@@ -1,0 +1,70 @@
+{
+  "id": "biological_organic",
+  "name": "Biological / Organic",
+  "era": "sensor",
+  "craft_class": "biological",
+  "description": "A craft that reads as living rather than built — origami folds, tendril appendages, single sensor-eye, fabric-like surface. Jean Jacket from Jordan Peele's Nope (2022) is the cinematic canonical form: a classic saucer at rest, unfolding into a radially symmetric angel/jellyfish when active, with a square camera-eye and green lash tendrils. Related to but distinct from the jellyfish_uap type. The biological class upends the vehicle mental model entirely.",
+
+  "geometry": {
+    "primitive_type": "organic_fold_rig",
+    "aspect_ratio": 2.0,
+    "length_m": 75.0,
+    "dome": false,
+    "dome_position": "none",
+    "symmetry_order": 4,
+    "rim_segments": 0,
+    "underside_features": ["square_sensor_eye", "tendril_lashes", "fold_surfaces"]
+  },
+
+  "surface": {
+    "metallic": 0.0,
+    "roughness": 0.8,
+    "albedo_hex": "#2A2020",
+    "emissive_hex": "#39FF14",
+    "clearcoat": 0.0,
+    "subsurface_mm": 0.0,
+    "normal_detail": "tendril"
+  },
+
+  "lights": {
+    "count": 1,
+    "positions": ["sensor_eye"],
+    "colors_hex": ["#39FF14"],
+    "behavior": "cloaking_fade",
+    "pulse_hz": 0
+  },
+
+  "motion": {
+    "primary": "cloaking_fade",
+    "secondary": ["hover_bob", "axial_rotation"],
+    "hover_amplitude_m": 2.0,
+    "hover_period_s": 6.0,
+    "max_speed_knots": 0,
+    "silent": true
+  },
+
+  "ir_signature": {
+    "hotter_than_ambient": false,
+    "radiometric_saturation": false,
+    "thermal_polarity_flip": false,
+    "ir_notes": "Cinematic archetype. The origami-fold unfolding reveal (4–6 second elastic fold hierarchy) is the defining animation. Cloud-hiding behavior: uses cumulus as cover."
+  },
+
+  "physics_subtractions": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom"
+  ],
+
+  "shader_params": {
+    "fresnel_power": 2.5,
+    "bloom_radius_px": 15,
+    "glow_color_hex": "#39FF14",
+    "scanline_overlay": false,
+    "chromatic_aberration": false,
+    "era_palette": ["#2A2020", "#39FF14", "#1A1A1A", "#4A3030", "#6A5050", "#101010"]
+  },
+
+  "canonical_cases": [],
+  "cultural_context": "Jordan Peele's Nope (2022) — Jean Jacket is 'an apex predator that evolved to mimic a saucer.' The square camera-eye stares directly at the viewer. The green lash tendrils echo alien abduction imagery and also (given the #39FF14 green) the little_green_men palette — intentional cross-repo resonance. Note: the biological_organic emissive_hex is deliberately set to the little_green_men canonical green."
+}

@@ -1,0 +1,57 @@
+{
+  "id": "rendlesham_1980",
+  "name": "Rendlesham Forest Incident",
+  "date": "1980-12-26",
+  "location": "Rendlesham Forest, Suffolk, UK (near RAF Woodbridge / RAF Bentwaters)",
+  "craft_type_ref": "diamond_rhombus",
+
+  "witnesses": {
+    "count": 80,
+    "types": ["military"],
+    "notable": [
+      "Sgt. Jim Penniston (USAF Security Police)",
+      "Airman John Burroughs (USAF Security Police)",
+      "Lt. Col. Charles Halt (Deputy Base Commander, RAF Woodbridge)"
+    ]
+  },
+
+  "sensor": {
+    "type": "naked_eye",
+    "device": "None (tape recorder used by Halt, recordings released)",
+    "resolution": "n/a",
+    "footage_available": false
+  },
+
+  "source_quality": "multi_witness",
+  "era": "classic",
+
+  "visual_description": "December 26 1980, 3 AM. USAF Security Police Sgt. Jim Penniston and Airman John Burroughs were dispatched after reports of lights crashing in the forest. Penniston described a triangular metallic craft approximately 3 meters long and 2 meters high, hovering a foot above the ground, with a smooth glass-like surface and symbols or hieroglyphic-like markings inscribed on the hull. He touched the craft and felt heat and an electrical charge. It departed silently into the forest. Ground traces included three depressions in a triangular pattern, broken branches above, and radiation readings significantly elevated. Lt. Col. Halt independently witnessed subsequent night events including colored lights moving through the trees — a red light like an eye, white lights, one beam that illuminated the ground briefly at his feet — and his cassette recording ('Now we're observing what appears to be a beam coming down to the ground...') remains one of the most compelling first-hand accounts in UFO history.",
+
+  "dimensions_reported_m": 3.0,
+  "duration_s": 3600,
+
+  "motion_observed": ["hover_bob", "cloaking_fade"],
+
+  "light_behavior_observed": ["steady_constellation", "beam_drop", "cloaking_fade"],
+
+  "physics_anomalies": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom"
+  ],
+
+  "shader_params": {
+    "background_hex": "#0A0C0A",
+    "craft_albedo_hex": "#1B2020",
+    "glow_hex": "#C1272D",
+    "grain_profile": "none",
+    "hud_overlay": false,
+    "era_palette": ["#0A0C0A", "#1B2020", "#C1272D", "#39FF14", "#2A3020", "#050605"]
+  },
+
+  "authenticity_chain": "Dense forest at night, no ambient light. Flashlight beams creating volumetric cones in fog/mist. Craft visible only by its own red running light and the flashlights catching its surface. Halt's cassette recording audio could accompany the visual — 'Here I am ... we're about 150 to 200 yards from the edge of the forest.' Ground traces visible: three depressions in triangular pattern, slightly darker soil.",
+
+  "cultural_significance": "Called 'Britain's Roswell' — the most significant British UFO case and one of the best-documented military encounters anywhere. The Halt memo (written days after the event and later released via FOIA) is the primary document. The three physical traces, radiation readings, and Halt's own real-time audio recording make this one of the few cases with multiple independently corroborated physical effects.",
+
+  "notes": "Penniston later claimed under regression hypnosis to have received a binary message from the craft. The binary, if decoded, reportedly contains coordinates and references to human DNA. This is disputed even among UFO researchers. The uncontested core events — the triangular marks, elevated radiation, and Halt's recording — stand independent of Penniston's later additions."
+}

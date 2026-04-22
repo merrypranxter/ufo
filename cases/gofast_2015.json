@@ -1,0 +1,53 @@
+{
+  "id": "gofast_2015",
+  "name": "GO FAST",
+  "date": "2015-01-01",
+  "location": "Atlantic Ocean, approximate",
+  "craft_type_ref": "tic_tac",
+
+  "witnesses": {
+    "count": 2,
+    "types": ["military", "pilot"],
+    "notable": ["F/A-18 pilots from USS Theodore Roosevelt air wing"]
+  },
+
+  "sensor": {
+    "type": "atflir_ir",
+    "device": "AN/ASQ-228 ATFLIR",
+    "resolution": "640x480 FLIR",
+    "footage_available": true
+  },
+
+  "source_quality": "official_release",
+  "era": "sensor",
+
+  "visual_description": "ATFLIR footage showing a small white ovoid object that appears to skim at extremely low altitude over the ocean surface at high apparent speed — the name 'Go Fast' referring to the pilots' exclamation. However, analysis by Mick West and others showed that the apparent high speed is primarily a parallax effect: the aircraft was flying at 25,000 feet at 400 knots, the object was moving at approximately 30–40 knots at much lower altitude, and the combination of different velocities and altitudes creates the illusion of extreme speed in the ATFLIR frame. Even under this interpretation, a 30-40 knot smooth white featureless ovoid at low altitude with no visible propulsion is anomalous. Pilot audio: 'Oh my gosh, dude. Wow, what is that man? Look at it fly!'",
+
+  "dimensions_reported_m": 4.0,
+  "duration_s": 34,
+
+  "motion_observed": ["hover_bob", "instant_translation"],
+
+  "light_behavior_observed": [],
+
+  "physics_anomalies": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_condensation_trail"
+  ],
+
+  "shader_params": {
+    "background_hex": "#101418",
+    "craft_albedo_hex": "#EDEDE9",
+    "glow_hex": "#F2F2F2",
+    "grain_profile": "atflir",
+    "hud_overlay": true,
+    "era_palette": ["#EDEDE9", "#9A9A94", "#1A1A1A", "#F2F2F2", "#6CFF00", "#101418"]
+  },
+
+  "authenticity_chain": "ATFLIR WHT HOT mode. Small white ovoid, ocean surface visible below as textured grey. Parallax motion effect: object appears faster than it is due to altitude/velocity differential. HUD with range/altitude numerics, crosshair, mode text.",
+
+  "cultural_significance": "GO FAST is part of the canonical Pentagon UAP video trio (with FLIR1 and GIMBAL). Released April 2020 by DoD. The West parallax analysis is a good-faith attempt at conventional explanation, but the existence of the Theodore Roosevelt air wing's sustained encounters across 2014–2015 (eventually testified to before Congress) contextualizes all three videos as part of a pattern, not isolated incidents.",
+
+  "notes": "Ryan Graves, the F/A-18 pilot who reported encounters to the Pentagon and later testified before Congress, described objects from this deployment as 'solid white objects, roughly the size and shape of a sphere, moving at very high speeds with no exhaust, no wings, and behaving in ways that made no sense.' GO FAST may be from his flight group."
+}

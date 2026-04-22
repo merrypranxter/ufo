@@ -1,0 +1,72 @@
+{
+  "id": "monolith_shell",
+  "name": "Monolith Shell",
+  "era": "modern",
+  "craft_class": "vehicle",
+  "description": "A vertical ovoid or lozenge, aspect ratio approximately 1:2.8 (taller than wide). Surface is basalt-like stone with subtle iridescent clearcoat at grazing angles. Does not take off — dissolves into mist. Interior is luminous white void. Hovering 28 feet above ground. Denis Villeneuve's Arrival (2016) is the canonical cinematic reference. Anti-saucer minimalism. The monolith class embodies the 'Turrell interior' aesthetic — interior light as revelation.",
+
+  "geometry": {
+    "primitive_type": "ovoid_lozenge",
+    "aspect_ratio": 0.36,
+    "length_m": 450.0,
+    "dome": false,
+    "dome_position": "none",
+    "symmetry_order": 1,
+    "rim_segments": 0,
+    "underside_features": ["mist_dissolve", "luminous_interior_aperture"]
+  },
+
+  "surface": {
+    "metallic": 0.0,
+    "roughness": 0.6,
+    "albedo_hex": "#0D0D0F",
+    "emissive_hex": null,
+    "clearcoat": 0.15,
+    "subsurface_mm": 0.0,
+    "normal_detail": "basalt"
+  },
+
+  "lights": {
+    "count": 1,
+    "positions": ["interior_aperture"],
+    "colors_hex": ["#F4F1EC"],
+    "behavior": "cloaking_fade",
+    "pulse_hz": 0
+  },
+
+  "motion": {
+    "primary": "cloaking_fade",
+    "secondary": ["hover_bob"],
+    "hover_amplitude_m": 0.5,
+    "hover_period_s": 10.0,
+    "max_speed_knots": 0,
+    "silent": true
+  },
+
+  "ir_signature": {
+    "hotter_than_ambient": false,
+    "radiometric_saturation": false,
+    "thermal_polarity_flip": false,
+    "ir_notes": "Cinematic archetype, not based on sensor footage. Would read as cold-body in IR — the basalt surface absorbs rather than emits."
+  },
+
+  "physics_subtractions": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_inertial_coupling",
+    "no_shadow"
+  ],
+
+  "shader_params": {
+    "fresnel_power": 1.5,
+    "bloom_radius_px": 30,
+    "glow_color_hex": "#F4F1EC",
+    "scanline_overlay": false,
+    "chromatic_aberration": false,
+    "era_palette": ["#0D0D0F", "#F4F1EC", "#1A1A1A", "#8C8073", "#B0B8BD", "#242A2E"]
+  },
+
+  "canonical_cases": [],
+  "cultural_context": "Denis Villeneuve's Arrival (2016) — the Shell design drew on Turrell's light installation work and 2001's monolith. The lack of saucer-ness was intentional: a craft that doesn't reference any human vehicle grammar. Villeneuve and production designer Patrice Vermette called it 'a tool, not a vehicle.' The mist-dissolve departure and the luminous white interior are its defining aesthetic moments."
+}

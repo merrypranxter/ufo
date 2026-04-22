@@ -1,0 +1,71 @@
+{
+  "id": "gimbal",
+  "name": "Gimbal",
+  "era": "sensor",
+  "craft_class": "vehicle",
+  "description": "In the GIMBAL ATFLIR footage (January 2015), a dark saucer or top-hat silhouette appears in black-hot IR with a white cold-halo surrounding it. The object smoothly rotates approximately 90 degrees from horizontal to vertical while maintaining a constant flight path against 120-knot headwinds. Radar-corroborated, with 4–6 additional unknowns in the area. The object and its behavior are now its own archetype: the rotating, halo-surrounded saucer silhouette in FLIR greyscale.",
+
+  "geometry": {
+    "primitive_type": "oblate_lens",
+    "aspect_ratio": 2.5,
+    "length_m": 15.0,
+    "dome": false,
+    "dome_position": "none",
+    "symmetry_order": 1,
+    "rim_segments": 0,
+    "underside_features": []
+  },
+
+  "surface": {
+    "metallic": 0.95,
+    "roughness": 0.05,
+    "albedo_hex": "#1A1A1A",
+    "emissive_hex": "#F2F2F2",
+    "clearcoat": 0.0,
+    "subsurface_mm": 0.0,
+    "normal_detail": "none"
+  },
+
+  "lights": {
+    "count": 1,
+    "positions": ["rim_halo"],
+    "colors_hex": ["#F2F2F2"],
+    "behavior": "radiometric_halo",
+    "pulse_hz": 0
+  },
+
+  "motion": {
+    "primary": "axial_rotation",
+    "secondary": ["hover_bob"],
+    "hover_amplitude_m": 0.0,
+    "hover_period_s": 0.0,
+    "max_speed_knots": 250,
+    "silent": true
+  },
+
+  "ir_signature": {
+    "hotter_than_ambient": false,
+    "radiometric_saturation": true,
+    "thermal_polarity_flip": false,
+    "ir_notes": "BLK HOT mode: object appears dark/black (cooler than ambient) with bright white COLD halo. Smooth 90-degree axial rotation while maintaining horizontal flight path. The radiometric halo is at approximately 1.3× object radius."
+  },
+
+  "physics_subtractions": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_inertial_coupling"
+  ],
+
+  "shader_params": {
+    "fresnel_power": 0.5,
+    "bloom_radius_px": 20,
+    "glow_color_hex": "#F2F2F2",
+    "scanline_overlay": true,
+    "chromatic_aberration": false,
+    "era_palette": ["#1A1A1A", "#F2F2F2", "#9A9A94", "#2A2A2A", "#6CFF00", "#101418"]
+  },
+
+  "canonical_cases": ["gimbal_2015"],
+  "cultural_context": "Named GIMBAL by the pilots who filmed it. One says 'look at that thing, dude' and another replies 'it's rotating.' The footage shows an object that rotates 90 degrees while flying, surrounded by a distinctive white halo in black-hot FLIR. Mick West argues the rotation is a camera gimbal-lock artifact and the halo is ATFLIR engine-glare derotation. Either way, the GIMBAL visual signature — dark saucer + white halo + smooth rotation in greyscale IR — is now a standalone cultural artifact."
+}

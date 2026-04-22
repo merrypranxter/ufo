@@ -1,0 +1,54 @@
+{
+  "id": "gimbal_2015",
+  "name": "GIMBAL",
+  "date": "2015-01-21",
+  "location": "Atlantic Ocean off Florida coast (exact coordinates classified)",
+  "craft_type_ref": "gimbal",
+
+  "witnesses": {
+    "count": 4,
+    "types": ["military", "pilot"],
+    "notable": ["F/A-18 pilots from USS Theodore Roosevelt air wing (names classified)"]
+  },
+
+  "sensor": {
+    "type": "atflir_ir",
+    "device": "AN/ASQ-228 ATFLIR aboard F/A-18",
+    "resolution": "640x480 FLIR",
+    "footage_available": true
+  },
+
+  "source_quality": "official_release",
+  "era": "sensor",
+
+  "visual_description": "ATFLIR footage showing a dark disc/top-hat shaped object in black-hot IR mode with a distinctive bright white halo surrounding it. The object moves against a 120-knot headwind and is then observed rotating approximately 90 degrees from horizontal to vertical orientation while maintaining its flight path — without any visible roll, bank, or corresponding change in direction. Radar tracks confirm the object and 4–6 similar unknowns in the area. Pilot audio: 'Look at that thing, dude.' Second pilot: 'It's rotating.' Object holds the rotation for several seconds then steadies. The footage was filmed by the Theodore Roosevelt air wing which reported repeated UAP encounters in 2014–2015 off the Virginia and Florida coasts. Pilots from this wing later testified before Congress in July 2023.",
+
+  "dimensions_reported_m": 15.0,
+  "duration_s": 34,
+
+  "motion_observed": ["axial_rotation", "hover_bob"],
+
+  "light_behavior_observed": ["radiometric_halo"],
+
+  "physics_anomalies": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_inertial_coupling"
+  ],
+
+  "shader_params": {
+    "background_hex": "#101418",
+    "craft_albedo_hex": "#1A1A1A",
+    "glow_hex": "#F2F2F2",
+    "grain_profile": "atflir",
+    "hud_overlay": true,
+    "era_palette": ["#1A1A1A", "#F2F2F2", "#9A9A94", "#2A2A2A", "#6CFF00", "#101418"]
+  },
+
+  "authenticity_chain": "BLK HOT mode: hot→black, cold→white. Object appears dark (cold) against grey-black background. White halo at 1.3× object radius. Smooth axial rotation animation over 3 seconds. HUD overlay: FLIR mode text top-left, crosshair center, autotrack box on object, bearing/range bottom. ATFLIR grain + fixed-pattern noise.",
+
+  "cultural_significance": "GIMBAL is named by the pilots — they believed the camera's gimbal mechanism caused the rotation artifact, not the object itself rotating. Whether that's true or not (Mick West argues it is; others disagree), the visual signature of the rotating halo-wrapped dark saucer in greyscale IR is now canonical. Released by the DoD April 2020. Fravor, Graves, and other Roosevelt wing pilots testified about encounters from this deployment at the July 2023 House Oversight UAP hearings.",
+
+  "notes": "The most contested of the three official Pentagon UAP videos in terms of conventional explanation. West's gimbal-artifact analysis is technically coherent; the primary counterargument is radar corroboration of the object as a real physical target, not a sensor artifact. Both the visual and the debate are equally important for the cultural record."
+}

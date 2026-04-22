@@ -1,0 +1,58 @@
+{
+  "id": "phoenix_lights_1997",
+  "name": "Phoenix Lights",
+  "date": "1997-03-13",
+  "location": "Henderson NV to Tucson AZ, USA",
+  "craft_type_ref": "boomerang_chevron",
+
+  "witnesses": {
+    "count": 10000,
+    "types": ["civilian", "military"],
+    "notable": [
+      "Fife Symington (Governor of Arizona)",
+      "Frances Emma Barwood (Phoenix City Councilwoman)",
+      "Multiple Phoenix police officers"
+    ]
+  },
+
+  "sensor": {
+    "type": "vhs_ntsc",
+    "device": "Consumer camcorders (multiple)",
+    "resolution": "480i NTSC",
+    "footage_available": true
+  },
+
+  "source_quality": "multi_witness",
+  "era": "modern",
+
+  "visual_description": "Beginning around 7:30 PM MST, a formation of five to ten amber/white lights in a V-configuration was observed moving from Henderson Nevada southeastward across Arizona to Tucson. Ground witnesses described a massive craft — some estimating mile-wide — moving silently at low altitude, 100–300 feet overhead in some accounts. A Phoenix family reported the object passing directly overhead, occluding stars, with amber lights at each point of a carpenter's-square V-formation. Camcorder footage shows a formation of lights against the dark sky; the most famous footage shows a V of lights filmed from the Squaw Peak area that eventually extinguishes one by one from left to right — consistent either with flares on a para-chute sequentially released by National Guard A-10s (official explanation for the second event, ~10 PM) or lights shutting off sequentially on a single craft. The initial wave (7:30–8:45 PM), distinct from the later flare drop, has no conventional explanation.",
+
+  "dimensions_reported_m": 1600.0,
+  "duration_s": 4500,
+
+  "motion_observed": ["v_formation_drift", "hover_bob"],
+
+  "light_behavior_observed": ["steady_constellation", "cloaking_fade"],
+
+  "physics_anomalies": [
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_rotor_downwash",
+    "no_condensation_trail"
+  ],
+
+  "shader_params": {
+    "background_hex": "#050506",
+    "craft_albedo_hex": "#0A0A0C",
+    "glow_hex": "#FFA62B",
+    "grain_profile": "vhs_ntsc",
+    "hud_overlay": false,
+    "era_palette": ["#0A0A0C", "#FFA62B", "#FFFFFF", "#1A1C20", "#2A2D33", "#070709"]
+  },
+
+  "authenticity_chain": "480i NTSC interlace, chroma bleed on amber lights against dark sky, VHS luma/chroma separation artifacts, gentle rolling noise, star-field background with light-pollution haze near horizon. V-formation of 7 amber point-lights with soft corona bloom at 30px radius.",
+
+  "cultural_significance": "The most widely witnessed mass-UFO event in American history. Governor Symington called a press conference the next day and had an aide dressed in an alien costume brought out — he later admitted to investigators that he had also seen the formation from his car and was genuinely shaken. Frances Emma Barwood, the only Phoenix official who demanded a public investigation, was subsequently defeated in her next election. The event has been continuously re-examined for 25+ years.",
+
+  "notes": "Two distinct events: the V-formation sighting (7:30–8:45 PM, no conventional explanation) and the A-10 flare drop over the Estrella Mountains (~10 PM, officially explained). Much of the famous camcorder footage documents the second event. The first event — the silent mile-wide formation with witness accounts of overhead pass and star occlusion — remains unexplained."
+}

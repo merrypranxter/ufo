@@ -1,0 +1,71 @@
+{
+  "id": "plasma_portal",
+  "name": "Plasma Portal / Doorway",
+  "era": "speculative",
+  "craft_class": "phenomenon",
+  "description": "Not a vehicle — a transition point. A Cherenkov-blue luminous aperture, circular or toroidal, with ionization fringe effects, ultraviolet edge, and void-black interior suggesting depth beyond. L-system branching lightning on the frame edge. The plasma portal class represents the 'interdimensional' hypothesis made visual: not a craft that arrived, but a location where the fabric of space is different. Raymarched SDF torus or cone frustum with animated Perlin isosurface.",
+
+  "geometry": {
+    "primitive_type": "torus_frustum",
+    "aspect_ratio": 0.2,
+    "length_m": 20.0,
+    "dome": false,
+    "dome_position": "none",
+    "symmetry_order": 0,
+    "rim_segments": 0,
+    "underside_features": ["void_aperture", "ionization_fringe"]
+  },
+
+  "surface": {
+    "metallic": 0.0,
+    "roughness": 0.0,
+    "albedo_hex": "#05060A",
+    "emissive_hex": "#2BA6FF",
+    "clearcoat": 0.0,
+    "subsurface_mm": 0.0,
+    "normal_detail": "none"
+  },
+
+  "lights": {
+    "count": 0,
+    "positions": [],
+    "colors_hex": ["#2BA6FF", "#6A00FF", "#B8F1FF"],
+    "behavior": "corona_bloom",
+    "pulse_hz": 0.5
+  },
+
+  "motion": {
+    "primary": "cloaking_fade",
+    "secondary": [],
+    "hover_amplitude_m": 0.0,
+    "hover_period_s": 0.0,
+    "max_speed_knots": 0,
+    "silent": false
+  },
+
+  "ir_signature": {
+    "hotter_than_ambient": true,
+    "radiometric_saturation": true,
+    "thermal_polarity_flip": false,
+    "ir_notes": "Speculative/theoretical class. Would appear as extreme emitter in IR — ionized plasma frame would saturate any detector."
+  },
+
+  "physics_subtractions": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_inertial_coupling"
+  ],
+
+  "shader_params": {
+    "fresnel_power": 6.0,
+    "bloom_radius_px": 50,
+    "glow_color_hex": "#2BA6FF",
+    "scanline_overlay": false,
+    "chromatic_aberration": true,
+    "era_palette": ["#2BA6FF", "#6A00FF", "#B8F1FF", "#05060A", "#FFFFFF", "#0B3D91"]
+  },
+
+  "canonical_cases": [],
+  "cultural_context": "The interdimensional portal is the most speculative archetype in this repo — not tied to any specific documented sighting but derived from persistent witness descriptions of 'lights that opened' and 'craft that seemed to come through something.' Visually it references Cherenkov radiation (the blue glow of nuclear reactors), plasma physics, and the concept of wormhole geometry. For shader work it's the most purely aesthetic class — raymarched volumetric plasma, L-system lightning, UV edge."
+}

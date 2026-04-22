@@ -1,0 +1,69 @@
+{
+  "id": "classic_domed_saucer",
+  "name": "Classic Domed Saucer",
+  "era": "classic",
+  "craft_class": "vehicle",
+  "description": "The canonical flying saucer: an oblate lens body with a capsule dome on top, polished aluminum or chrome surface, segmented rim with rotating lights, and occasional porthole windows around the equator. The 3:1 diameter-to-height ratio is standard. This is the kitsch archetype — the bumper sticker, the patch, the Halloween costume. For generative work, this is the richest geometry: dome, rim segments, porthole array, underside detail, and landing gear provide infinite parameterization.",
+
+  "geometry": {
+    "primitive_type": "oblate_lens",
+    "aspect_ratio": 3.0,
+    "length_m": 30.0,
+    "dome": true,
+    "dome_position": "top",
+    "symmetry_order": 24,
+    "rim_segments": 24,
+    "underside_features": ["central_light", "landing_pads", "beam_emitter"]
+  },
+
+  "surface": {
+    "metallic": 0.95,
+    "roughness": 0.05,
+    "albedo_hex": "#C8CCD0",
+    "emissive_hex": "#F6E27A",
+    "clearcoat": 0.9,
+    "subsurface_mm": 0.0,
+    "normal_detail": "rivets"
+  },
+
+  "lights": {
+    "count": 24,
+    "positions": ["rim", "dome_top", "underside"],
+    "colors_hex": ["#F6E27A", "#FFFFFF", "#D3212D"],
+    "behavior": "strobe_sequence",
+    "pulse_hz": 2.0
+  },
+
+  "motion": {
+    "primary": "hover_bob",
+    "secondary": ["tilt_to_bank", "falling_leaf"],
+    "hover_amplitude_m": 1.5,
+    "hover_period_s": 2.5,
+    "max_speed_knots": 0,
+    "silent": false
+  },
+
+  "ir_signature": {
+    "hotter_than_ambient": true,
+    "radiometric_saturation": false,
+    "thermal_polarity_flip": false,
+    "ir_notes": "Classic saucer predates IR sensor footage. Not modeled for FLIR. Day/dusk photographic appearance only."
+  },
+
+  "physics_subtractions": [
+    "no_exhaust_plume",
+    "no_condensation_trail"
+  ],
+
+  "shader_params": {
+    "fresnel_power": 3.0,
+    "bloom_radius_px": 20,
+    "glow_color_hex": "#F6E27A",
+    "scanline_overlay": false,
+    "chromatic_aberration": false,
+    "era_palette": ["#C8CCD0", "#E6E8EA", "#1F3A6B", "#F6E27A", "#D3212D", "#0E1116"]
+  },
+
+  "canonical_cases": ["trent_mcminnville_1950"],
+  "cultural_context": "The pop-culture ur-saucer. Every alien emoji, every bumper sticker, every rave flyer. Also the canonical little_green_men vehicle — see merrypranxter/little_green_men for the character that pilots it. The saucer_dance.js sketch in this repo is the crossover moment."
+}

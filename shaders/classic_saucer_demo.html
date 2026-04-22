@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>classic saucer shader</title>
+  <style>*{margin:0;padding:0;}html,body{width:100%;height:100%;background:#000;overflow:hidden;}canvas{display:block;width:100%;height:100%;}</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+const VERT=`attribute vec2 a_position;void main(){gl_Position=vec4(a_position,0.0,1.0);}`;
+const FRAG=`
+precision mediump float;
+uniform float iTime;
+uniform vec2 iResolution;
+#define CHROME vec3(0.784,0.8,0.816)
+#define RIM_GLOW vec3(0.965,0.886,0.478)
+#define SKY vec3(0.122,0.227,0.42)
+#define BLACK vec3(0.0)
+float hash2(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+float sdEllipsoid(vec3 p,vec3 r){float k0=length(p/r);float k1=length(p/(r*r));return k0*(k0-1.0)/k1;}
+float sdSaucer(vec2 p){return sdEllipsoid(vec3(p.x,p.y*1.8,0.0),vec3(0.38,0.22,0.38));}
+float sdDome(vec2 p){p.y-=0.08;return sdEllipsoid(vec3(p.x,p.y,0.0),vec3(0.14,0.10,0.14));}
+void main(){
+  vec2 uv=(gl_FragCoord.xy-0.5*iResolution.xy)/iResolution.y;
+  float t=iTime;
+  uv.y-=sin(t*0.8)*0.02;
+  vec3 col=mix(SKY*0.3,SKY*0.1,uv.y+0.5);
+  vec2 sUV=uv*8.0;
+  float star=step(0.98,hash2(floor(sUV)));
+  col+=star*0.6;
+  float saucerOut=sdSaucer(uv);
+  col=mix(col,BLACK,smoothstep(0.01,-0.01,saucerOut+0.015));
+  float saucer=sdSaucer(uv);
+  vec3 cc=CHROME*mix(0.3,1.2,smoothstep(-0.15,0.15,uv.y));
+  col=mix(col,cc,smoothstep(0.008,-0.008,saucer));
+  float spec=exp(-pow(length(uv-vec2(-0.08,0.12))*6.0,2.0));
+  col+=vec3(1.0)*spec*smoothstep(0.008,-0.008,saucer)*0.4;
+  float dome=sdDome(uv);
+  col=mix(col,BLACK,smoothstep(0.01,-0.01,dome+0.012));
+  col=mix(col,CHROME*1.1,smoothstep(0.008,-0.008,dome));
+  float rimGlow=0.0;
+  for(int i=0;i<24;i++){
+    float angle=float(i)/24.0*6.28318+t*1.2;
+    vec2 lp=vec2(cos(angle)*0.36,-0.01);
+    float d=length(uv-lp);
+    float vis=step(0.0,sin(angle-t*1.2));
+    rimGlow+=exp(-d*80.0)*0.5*vis;
+    if(mod(float(i),3.0)<1.0){float pulse=step(0.5,sin(t*4.0+float(i)*0.8));rimGlow+=exp(-d*60.0)*0.4*pulse*vis;}
+  }
+  col+=RIM_GLOW*rimGlow;
+  col+=RIM_GLOW*exp(-abs(sdSaucer(uv))*15.0)*0.15;
+  float beamActive=step(0.5,sin(t*0.3));
+  float bX=abs(uv.x);float bY=uv.y+0.25;
+  float beam=smoothstep(0.15,0.0,bX-(-bY*0.15))*smoothstep(-0.25,-0.6,uv.y)*smoothstep(-0.6,-0.25,uv.y)*beamActive;
+  col+=vec3(0.7,0.9,0.6)*beam*0.3;
+  col*=1.0-length(uv)*0.6;
+  gl_FragColor=vec4(col,1.0);
+}`;
+const c=document.getElementById('c'),gl=c.getContext('webgl');
+function cs(t,s){const sh=gl.createShader(t);gl.shaderSource(sh,s);gl.compileShader(sh);return sh;}
+const p=gl.createProgram();gl.attachShader(p,cs(gl.VERTEX_SHADER,VERT));gl.attachShader(p,cs(gl.FRAGMENT_SHADER,FRAG));gl.linkProgram(p);gl.useProgram(p);
+const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
+const pl=gl.getAttribLocation(p,'a_position');gl.enableVertexAttribArray(pl);gl.vertexAttribPointer(pl,2,gl.FLOAT,false,0,0);
+const tL=gl.getUniformLocation(p,'iTime'),rL=gl.getUniformLocation(p,'iResolution');
+function resize(){c.width=innerWidth;c.height=innerHeight;gl.viewport(0,0,c.width,c.height);}
+window.addEventListener('resize',resize);resize();
+const t0=performance.now();(function r(){const t=(performance.now()-t0)/1e3;gl.uniform1f(tL,t);gl.uniform2f(rL,c.width,c.height);gl.drawArrays(gl.TRIANGLES,0,6);requestAnimationFrame(r);})();
+</script></body></html>

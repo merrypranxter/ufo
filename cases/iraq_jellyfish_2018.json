@@ -1,0 +1,56 @@
+{
+  "id": "iraq_jellyfish_2018",
+  "name": "Iraq Jellyfish UAP",
+  "date": "2018-10-01",
+  "location": "Al Taqaddum Airbase, Anbar Province, Iraq",
+  "craft_type_ref": "jellyfish_uap",
+
+  "witnesses": {
+    "count": 10,
+    "types": ["military"],
+    "notable": ["Michael Cincoski (Marine, named the object 'the spaghetti monster')"]
+  },
+
+  "sensor": {
+    "type": "aerostat_ir",
+    "device": "Aerostat-mounted IR camera at Al Taqaddum",
+    "resolution": "Standard definition IR",
+    "footage_available": true
+  },
+
+  "source_quality": "official_release_contested",
+  "era": "sensor",
+
+  "visual_description": "A 17-minute full-length video (released by Jeremy Corbell in January 2024 after a 35-second excerpt circulated in 2023) shows an elongated oval body with three dangling appendage-like structures. The object drifts over the airbase, descends toward a nearby lake, enters the lake, and remains submerged for 17 minutes before departing. The thermal signature is unusual: the dangling appendages appear to cycle between hot and cold in the IR image — cycling black (cold), grey (neutral), and white (hot) repeatedly over approximately 3-second periods. This thermal polarity flip is unlike any known aircraft or biological creature. Base personnel were reportedly disturbed by the presence of this object; Marines tracked it and it became a persistent 'ghost story' at the base. Some soldiers reported the aerostat camera operators turning off the feed when the object appeared.",
+
+  "dimensions_reported_m": 1.5,
+  "duration_s": 1020,
+
+  "motion_observed": ["hover_bob", "transmedium_entry", "cloaking_fade"],
+
+  "light_behavior_observed": ["thermal_polarity_flip", "corona_bloom"],
+
+  "physics_anomalies": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_water_ripple",
+    "no_inertial_coupling",
+    "transmedium_capable"
+  ],
+
+  "shader_params": {
+    "background_hex": "#101418",
+    "craft_albedo_hex": "#9A9A94",
+    "glow_hex": "#F2F2F2",
+    "grain_profile": "atflir",
+    "hud_overlay": false,
+    "era_palette": ["#9A9A94", "#1A1A1A", "#F2F2F2", "#5A5A56", "#2A2A2A", "#101418"]
+  },
+
+  "authenticity_chain": "Aerostat IR — wider FOV, lower resolution than ATFLIR. Object appears small relative to frame. Thermal polarity cycle on appendages: emissive channel inverts from hot-white to cold-black over 3 seconds, repeat. Lake water surface visible as flat grey plane. Submersion: object descends below surface plane, no ripple. 17-minute dwell time — camera holds position with just occasional drift.",
+
+  "cultural_significance": "The Iraq Jellyfish UAP is the most biologically suggestive documented UAP case. The thermal polarity flip — the appendages cycling through temperature states — is the defining anomaly. No conventional aircraft, drone, balloon, bird, or insect swarm produces this specific thermal signature. Marine Michael Cincoski's 'spaghetti monster' nickname captures the visceral strangeness of the thing. The 17-minute submersion suggests either an extremely capable vehicle or something genuinely not a vehicle.",
+
+  "notes": "Corbell released the full 17-minute video in January 2024 with additional context from base personnel interviews. Pentagon confirmed the footage as authentic UAP material under investigation. The Islamic concept of Jinn — invisible beings from the Quran — was reportedly invoked by some local Iraqi workers at the base in reference to the object."
+}

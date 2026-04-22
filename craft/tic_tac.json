@@ -1,0 +1,76 @@
+{
+  "id": "tic_tac",
+  "name": "Tic Tac",
+  "era": "sensor",
+  "craft_class": "unknown",
+  "description": "A smooth, featureless white oblong roughly 40 feet long with hemispherical caps, no wings, no exhaust, no markings, no visible propulsion. The defining sensor-era UAP archetype. Visually minimal to the point of near-absence — a ceramic-white capsule that breaks every rule of aerodynamics and physics. Best rendered as a single PBR capsule primitive with subsurface scatter and clearcoat, surrounded by ATFLIR HUD chrome.",
+
+  "geometry": {
+    "primitive_type": "capsule",
+    "aspect_ratio": 3.0,
+    "length_m": 12.0,
+    "dome": false,
+    "dome_position": "none",
+    "symmetry_order": 1,
+    "rim_segments": 0,
+    "underside_features": []
+  },
+
+  "surface": {
+    "metallic": 0.0,
+    "roughness": 0.35,
+    "albedo_hex": "#EDEDE9",
+    "emissive_hex": null,
+    "clearcoat": 0.2,
+    "subsurface_mm": 0.4,
+    "normal_detail": "none"
+  },
+
+  "lights": {
+    "count": 0,
+    "positions": [],
+    "colors_hex": [],
+    "behavior": "instant_translation",
+    "pulse_hz": 0
+  },
+
+  "motion": {
+    "primary": "hover_bob",
+    "secondary": ["mirror_maneuver", "instant_translation"],
+    "hover_amplitude_m": 0.5,
+    "hover_period_s": 3.0,
+    "max_speed_knots": 24000,
+    "silent": true
+  },
+
+  "ir_signature": {
+    "hotter_than_ambient": false,
+    "radiometric_saturation": false,
+    "thermal_polarity_flip": false,
+    "ir_notes": "Appears as white object in BLK HOT mode — meaning it is COOLER than ambient. No engine heat signature. White water disturbance patch below during hover."
+  },
+
+  "physics_subtractions": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_rotor_downwash",
+    "no_condensation_trail",
+    "no_ir_engine_heat",
+    "no_water_ripple",
+    "no_inertial_coupling",
+    "instant_acceleration"
+  ],
+
+  "shader_params": {
+    "fresnel_power": 4.0,
+    "bloom_radius_px": 8,
+    "glow_color_hex": "#EDEDE9",
+    "scanline_overlay": false,
+    "chromatic_aberration": false,
+    "era_palette": ["#EDEDE9", "#9A9A94", "#1A1A1A", "#F2F2F2", "#6CFF00", "#101418"]
+  },
+
+  "canonical_cases": ["nimitz_2004", "gofast_2015"],
+  "cultural_context": "Defined by Commander David Fravor's description at the Nimitz encounter, November 14 2004. Became the anchor image of the modern UAP era after the 2017 NYT AATIP disclosure. The name 'Tic Tac' is Fravor's own — he said it looked like the candy. The FLIR1 footage is 35 seconds of a featureless white oblong in black-hot IR. Its cultural weight comes entirely from what it doesn't do."
+}
