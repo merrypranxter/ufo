@@ -1,0 +1,3855 @@
+# REPO SEED: ufo
+
+## Metadata
+- Name: ufo
+- Purpose: Comprehensive reference data library and creative coding laboratory for UFO/UAP craft typology — schema, visual language, canonical case files, GLSL shaders, and p5.js sketches
+- Tech Stack: JSON data files, GLSL/WebGL, p5.js, Node.js validator
+- Deployment: GitHub Pages (sketches/shaders) + reference library
+- License: MIT
+- GitHub: https://github.com/merrypranxter/ufo
+
+---
+
+## Directory Structure
+
+```
+ufo/
+├── docs/
+│   ├── ufo-visual-language.md        ← master reference: all archetypes, palettes, shader params
+│   ├── ufo-schema.jsonc              ← schema definition for craft/ and cases/ JSON files
+│   ├── ERA_GUIDE.md                  ← additive→subtractive arc, era palettes, authenticity chains
+│   └── SENSOR_AESTHETICS.md         ← FLIR/IR vocabulary, HUD overlays, post-processing
+├── craft/                            ← one JSON per craft archetype (the visual types)
+│   ├── tic_tac.json
+│   ├── classic_domed_saucer.json
+│   ├── adamski_scout.json
+│   ├── black_triangle.json
+│   ├── orb_sphere.json
+│   ├── diamond_rhombus.json
+│   ├── jellyfish_uap.json
+│   ├── mothership_radial.json
+│   ├── cigar_cylinder.json
+│   ├── boomerang_chevron.json
+│   ├── cube_box.json
+│   ├── gimbal.json
+│   ├── monolith_shell.json
+│   ├── biological_organic.json
+│   └── plasma_portal.json
+├── cases/                            ← one JSON per canonical sighting (instances of craft types)
+│   ├── nimitz_2004.json
+│   ├── belgian_wave_1989.json
+│   ├── phoenix_lights_1997.json
+│   ├── calvine_1990.json
+│   ├── rendlesham_1980.json
+│   ├── trent_mcminnville_1950.json
+│   ├── chilbolton_2001.json
+│   ├── aguadilla_2013.json
+│   ├── omaha_sphere_2019.json
+│   ├── gimbal_2015.json
+│   ├── gofast_2015.json
+│   └── iraq_jellyfish_2018.json
+├── shaders/
+│   ├── classic_saucer.frag           ← 50s chrome saucer, SDF, rotating rim, beam
+│   ├── classic_saucer_demo.html
+│   ├── tic_tac_flir.frag             ← FLIR simulation: greyscale IR, thermal halo, HUD
+│   ├── tic_tac_flir_demo.html
+│   ├── black_triangle_night.frag     ← night sky, 3 amber lights + red center, star occlusion
+│   ├── black_triangle_night_demo.html
+│   ├── orb_plasma.frag               ← glowing sphere, fresnel plasma corona
+│   ├── orb_plasma_demo.html
+│   └── _webgl_template.html
+├── sketches/
+│   └── p5js/
+│       ├── saucer_dance.js           ← 🛸👽 CROSSOVER: classic saucer + little green man inside
+│       ├── saucer_dance_standalone.html
+│       ├── triangle_lights.js        ← Phoenix Lights V-formation drift
+│       ├── triangle_lights_standalone.html
+│       └── _p5_template.html
+├── index.json
+├── validate.js
+├── AGENTS.md
+├── README.md
+├── LICENSE
+└── .gitignore
+```
+
+---
+
+## File Contents
+
+### ===== FILE: README.md =====
+
+# 🛸 ufo
+
+> *The craft. Not the character — the vehicle. The geometry of dread and wonder.*
+
+This repo is a comprehensive reference data library and creative coding laboratory for **UFO/UAP craft typology** — treating every documented saucer, orb, triangle, and jellyfish as a **visual design object** with extractable geometry, shader parameters, palette, motion vocabulary, and cultural context.
+
+## What Lives Here
+
+| Directory | Contents |
+|-----------|----------|
+| `docs/` | Visual language reference, schema, era guide, sensor aesthetics |
+| `craft/` | 15 craft archetype JSON files — the abstract visual types |
+| `cases/` | 12 canonical sighting JSON files — real-world instances with full visual params |
+| `shaders/` | GLSL fragment shaders: chrome saucer, FLIR tic-tac, black triangle, orb plasma |
+| `sketches/p5js/` | p5.js sketches including the little_green_men crossover |
+
+## The Core Design Insight
+
+UFO visual grammar has **inverted twice**:
+
+1. **1947–1977 (Additive)** — Chrome hardware. Rivets, fins, portholes, spinning rims, solid death-rays. More = more alien.
+2. **1977–2017 (Luminescent)** — Trumbull's *Close Encounters* replaced hulls with light. The craft IS the glow.
+3. **2017–now (Subtractive)** — FLIR footage. Featureless white primitive framed by sensor chrome. The strongest UAP reads come from **removing physics**, not adding detail.
+
+## Craft Archetypes
+
+| ID | Name | Era | Class | Canonical Case |
+|----|------|-----|-------|----------------|
+| `tic_tac` | Tic Tac | sensor | vehicle | nimitz_2004 |
+| `classic_domed_saucer` | Classic Domed Saucer | classic | vehicle | trent_mcminnville_1950 |
+| `adamski_scout` | Adamski Scout Craft | classic | vehicle | — |
+| `black_triangle` | Black Triangle | modern | vehicle | belgian_wave_1989 |
+| `orb_sphere` | Orb / Sphere | sensor | unknown | omaha_sphere_2019 |
+| `diamond_rhombus` | Diamond / Rhombus | modern | vehicle | calvine_1990 |
+| `jellyfish_uap` | Jellyfish UAP | sensor | biological? | iraq_jellyfish_2018 |
+| `mothership_radial` | Mothership Radial Disc | classic | vehicle | — |
+| `cigar_cylinder` | Cigar / Cylinder | classic | vehicle | — |
+| `boomerang_chevron` | Boomerang / Chevron | modern | vehicle | phoenix_lights_1997 |
+| `cube_box` | Cube / Box | sensor | unknown | — |
+| `gimbal` | Gimbal | sensor | vehicle | gimbal_2015 |
+| `monolith_shell` | Monolith Shell | modern | vehicle | — |
+| `biological_organic` | Biological / Organic | sensor | biological | — |
+| `plasma_portal` | Plasma Portal / Doorway | speculative | phenomenon | — |
+
+## Cross-Repo Integration
+
+The `saucer_dance.js` sketch is designed to cross-reference [`merrypranxter/little_green_men`](https://github.com/merrypranxter/little_green_men) — the little green man character from that repo riding inside a classic saucer from this one. Drop it into either gallery.
+
+## Stack
+- **JSON/JSONC** — data files
+- **GLSL/WebGL** — shader demos
+- **p5.js** — sketch animations
+- **Node.js** — validator (stdlib only, no npm install)
+
+## Part of the Ecosystem
+- [`merrypranxter/little_green_men`](https://github.com/merrypranxter/little_green_men) — the alien character as art trope
+- [`merrypranxter/crop_circles`](https://github.com/merrypranxter/crop_circles) — crop circle formation reference library
+- [`merrypranxter/raymarching`](https://github.com/merrypranxter/raymarching) — GLSL raymarching workbench
+- [`merrypranxter/merrys_visual_bible`](https://github.com/merrypranxter/merrys_visual_bible) — creative/technical reference
+
+
+### ===== FILE: AGENTS.md =====
+
+# AGENTS.md — Instructions for AI Agents
+
+> Read this first. Always.
+
+## What This Repo Is
+
+A **data library + creative coding lab** for UFO/UAP craft visual typology. Two kinds of output: structured JSON reference data, and working GLSL/p5.js creative code. No application framework, no build system.
+
+## Rules
+
+### Stack
+- **No npm, no bundler, no build step.** Static files only.
+- **No React, Vue, or any SPA framework.** Vanilla JS in sketches.
+- **p5.js CDN only:** `https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js`
+- **All paths relative.** Deploys to GitHub Pages.
+
+### JSON files
+- `craft/` files: **strict JSON**, no comments, no trailing commas. Must pass `node validate.js`.
+- `cases/` files: same — strict JSON only.
+- `docs/ufo-schema.jsonc`: JSONC (comments allowed). For human reading only. Do NOT auto-generate from it.
+- `id` field MUST match filename without `.json`.
+- Every `cases/` file MUST have a `craft_type_ref` that matches a valid `craft/` filename id.
+
+### File naming
+- Craft files: `[slug].json` — descriptive, lowercase, underscores. e.g. `black_triangle.json`
+- Case files: `[location_or_name]_[year].json` — e.g. `nimitz_2004.json`
+- Shader files: `[craft_slug].frag` + `[craft_slug]_demo.html`
+- Sketch files: `[name].js` + `[name]_standalone.html`
+
+### Palette (ALWAYS use these)
+```
+--ufo-green:    #39FF14   /* little_green_men crossover color */
+--ufo-black:    #000000   /* void black background */
+--ufo-amber:    #FFA62B   /* triangle lights, classic beacon */
+--ufo-chrome:   #C8CCD0   /* classic saucer surface */
+--ufo-white:    #EDEDE9   /* sensor-era UAP body */
+--ufo-cyan:     #7EC8E3   /* CE3K/Trumbull luminescence */
+--ufo-plasma:   #2BA6FF   /* portal/Cherenkov blue */
+--ufo-red:      #C1272D   /* center triangle light */
+```
+
+### Typography
+- `'Chakra Petch'` — headers, labels
+- `'Share Tech Mono'` — data readouts, telemetry strings, HUD text
+
+### Design rules
+- Background ALWAYS `#000000`
+- Border-radius ALWAYS `0`
+- UI chrome should feel like a military sensor display when applicable
+
+### Shader rules
+- All shaders MUST use `uniform float iTime` and `uniform vec2 iResolution`
+- Demo HTML files inline the shader source — do NOT load external .frag files via fetch
+- Use `_webgl_template.html` as base for all new demo files
+
+### Sketch rules
+- All standalone HTMLs use `_p5_template.html` as base
+- Canvas fills full viewport — use `windowWidth, windowHeight` not fixed px
+- `saucer_dance.js` is the canonical cross-repo sketch — do not rename or restructure it
+
+### When adding a new craft type
+1. Create `craft/[id].json` — pass `node validate.js [id].json`
+2. Add entry to `index.json` under `craft`
+3. Increment `index.json` → `meta.craft_count`
+4. Update README table
+5. Optionally create matching shader + demo
+
+### When adding a new case
+1. Create `cases/[id].json` — pass `node validate.js cases/[id].json`
+2. `craft_type_ref` must match existing craft id
+3. Add entry to `index.json` under `cases`
+4. Increment `index.json` → `meta.case_count`
+5. Update README
+
+### DO NOT
+- ❌ Add application code, SPA frameworks, or server-side anything
+- ❌ Use JSONC in craft/ or cases/ files
+- ❌ Change `validate.js` logic without testing all existing files
+- ❌ Add border-radius to any UI element
+- ❌ Rename `saucer_dance.js` — it's the cross-repo integration sketch
+- ❌ Invent sighting data — all cases must be documented
+
+
+### ===== FILE: docs/ufo-schema.jsonc =====
+
+// ufo-schema.jsonc
+// Schema definitions for craft/ and cases/ JSON files.
+// JSONC — strip comments for strict JSON parsing.
+// This file is the source of truth for field names and enums.
+{
+  "schema_version": 1,
+
+  "enums": {
+    "era": ["classic", "modern", "sensor", "speculative"],
+    "craft_class": ["vehicle", "biological", "phenomenon", "unknown"],
+    "primitive_type": [
+      "capsule",            // Tic Tac, cigar
+      "oblate_lens",        // classic saucer
+      "sphere",             // orb
+      "equilateral_plate",  // black triangle
+      "rhombic_prism",      // diamond
+      "radial_disc",        // mothership
+      "ovoid_lozenge",      // monolith
+      "spheroid_tendril",   // jellyfish
+      "cube",               // cube/box
+      "chevron_plate",      // boomerang
+      "organic_fold_rig",   // biological
+      "torus_frustum"       // plasma portal
+    ],
+    "light_behavior": [
+      "steady_constellation",   // Phoenix V, Belgian triangle
+      "strobe_sequence",        // 50s rim lights
+      "spectral_conversation",  // CE3K mothership
+      "corona_bloom",           // orbs, Gulf Breeze
+      "cloaking_fade",          // star occlusion
+      "beam_drop",              // abduction column
+      "instant_translation",    // Tic Tac, sophon
+      "thermal_polarity_flip",  // jellyfish IR
+      "radiometric_halo"        // Gimbal
+    ],
+    "motion_type": [
+      "hover_bob",
+      "tilt_to_bank",
+      "instant_translation",
+      "falling_leaf",
+      "v_formation_drift",
+      "cloaking_fade",
+      "mirror_maneuver",
+      "vertical_exit",
+      "transmedium_entry",
+      "axial_rotation"
+    ],
+    "sensor_type": [
+      "naked_eye",
+      "film_35mm",
+      "vhs_ntsc",
+      "atflir_ir",
+      "wescam_ir",
+      "aerostat_ir",
+      "radar_only",
+      "multi_sensor"
+    ],
+    "source_quality": [
+      "anecdotal",
+      "photographic",
+      "multi_witness",
+      "military_radar",
+      "official_release",
+      "official_release_contested"
+    ],
+    "physics_subtraction": [
+      "no_wings",
+      "no_exhaust_plume",
+      "no_sonic_boom",
+      "no_rotor_downwash",
+      "no_condensation_trail",
+      "no_ir_engine_heat",
+      "no_water_ripple",
+      "no_radar_return",
+      "no_shadow",
+      "no_inertial_coupling",
+      "transmedium_capable",
+      "instant_acceleration"
+    ]
+  },
+
+  // ── craft/ file schema ──────────────────────────────────────────────────
+  "craft_schema": {
+    "id": "string",                    // matches filename
+    "name": "string",                  // human-readable
+    "era": "era",
+    "craft_class": "craft_class",
+    "description": "string",           // one paragraph visual description
+
+    "geometry": {
+      "primitive_type": "primitive_type",
+      "aspect_ratio": "number",        // diameter:height or length:width
+      "length_m": "number",            // estimated meters
+      "dome": "boolean",
+      "dome_position": "string",       // "top", "bottom", "none"
+      "symmetry_order": "number",      // rotational symmetry
+      "rim_segments": "number",        // 0 if no segmented rim
+      "underside_features": ["string"] // "central_sphere", "landing_pads", etc.
+    },
+
+    "surface": {
+      "metallic": "number",            // 0–1 PBR metallic
+      "roughness": "number",           // 0–1 PBR roughness
+      "albedo_hex": "string",
+      "emissive_hex": "string",        // null if no emission
+      "clearcoat": "number",           // 0–1
+      "subsurface_mm": "number",       // SSS depth in mm, 0 if none
+      "normal_detail": "string"        // "none", "rivets", "greeble", "basalt", "tendril"
+    },
+
+    "lights": {
+      "count": "number",
+      "positions": ["string"],         // "corners", "rim", "underside", "dome_top"
+      "colors_hex": ["string"],
+      "behavior": "light_behavior",
+      "pulse_hz": "number"             // 0 = steady
+    },
+
+    "motion": {
+      "primary": "motion_type",
+      "secondary": ["motion_type"],
+      "hover_amplitude_m": "number",
+      "hover_period_s": "number",
+      "max_speed_knots": "number",     // 0 = unknown
+      "silent": "boolean"
+    },
+
+    "ir_signature": {
+      "hotter_than_ambient": "boolean",
+      "radiometric_saturation": "boolean",
+      "thermal_polarity_flip": "boolean",
+      "ir_notes": "string"
+    },
+
+    "physics_subtractions": ["physics_subtraction"],
+
+    "shader_params": {
+      "fresnel_power": "number",
+      "bloom_radius_px": "number",
+      "glow_color_hex": "string",
+      "scanline_overlay": "boolean",
+      "chromatic_aberration": "boolean",
+      "era_palette": ["string"]        // hex array, 6 values
+    },
+
+    "canonical_cases": ["string"],     // case ids
+    "cultural_context": "string"
+  },
+
+  // ── cases/ file schema ──────────────────────────────────────────────────
+  "case_schema": {
+    "id": "string",
+    "name": "string",
+    "date": "string",                  // ISO 8601 YYYY-MM-DD
+    "location": "string",
+    "craft_type_ref": "string",        // must match a craft/ id
+
+    "witnesses": {
+      "count": "number",
+      "types": ["string"],             // "civilian", "military", "pilot", "police"
+      "notable": ["string"]            // named witnesses
+    },
+
+    "sensor": {
+      "type": "sensor_type",
+      "device": "string",              // e.g. "ATFLIR", "WESCAM MX-15D"
+      "resolution": "string",
+      "footage_available": "boolean"
+    },
+
+    "source_quality": "source_quality",
+    "era": "era",
+
+    "visual_description": "string",    // detailed prose from witnesses/footage
+    "dimensions_reported_m": "number", // best estimate in meters
+    "duration_s": "number",            // observation duration in seconds
+
+    "motion_observed": ["motion_type"],
+
+    "light_behavior_observed": ["light_behavior"],
+
+    "physics_anomalies": ["physics_subtraction"],
+
+    "shader_params": {
+      "background_hex": "string",
+      "craft_albedo_hex": "string",
+      "glow_hex": "string",
+      "grain_profile": "string",       // "kodachrome", "vhs_ntsc", "atflir", "none"
+      "hud_overlay": "boolean",
+      "era_palette": ["string"]
+    },
+
+    "authenticity_chain": "string",    // post-processing recipe description
+    "cultural_significance": "string",
+    "notes": "string"
+  }
+}
+
+
+### ===== FILE: docs/ERA_GUIDE.md =====
+
+# Era Guide — The Additive→Subtractive Arc
+
+The single most important design insight for generative UFO work: **the visual grammar has inverted twice.**
+
+---
+
+## The Three Eras
+
+### Era 1: Classic (1947–1979) — ADDITIVE
+**More = more alien.**
+
+Hardware-forward. Chrome rivets. Spinning rim segments. Porthole windows. Tripod landing gear. Solid death-ray beams. The craft is a *thing* — you can see its parts.
+
+Key touchpoints: Trent McMinnville (1950), Adamski scout (1952), *Earth vs. Flying Saucers* (1956), Gulf Breeze (1987).
+
+**Design principle:** Layer detail until it reads as "not from here." Every surface should have a secondary surface. Lights should have casings. Casings should have rivets.
+
+**Authenticity chain:** Kodachrome 400 grain simulation, dusk/magic-hour directional light, overhead powerline or rooftop for scale, slight motion blur from "handheld camera."
+
+**Palette:**
+```
+#C8CCD0  — brushed aluminum
+#E6E8EA  — polished chrome
+#1F3A6B  — cobalt twilight sky
+#F6E27A  — sodium rim glow
+#D3212D  — port running light
+#0E1116  — shadow black
+```
+
+---
+
+### Era 2: Luminescent (1977–2000) — LIGHT AS OBJECT
+**The craft IS the glow.**
+
+Trumbull's *Close Encounters* mothership (1977) replaced hull detail with thousands of pin-lights in smoke-filled rooms on 65mm. The saucer itself became illegible — only its luminescent signature remained. This era established: craft = light source, hardware = secondary.
+
+Key touchpoints: CE3K mothership (1977), E.T. organic scout (1982), *V* (1983), *Independence Day* (1996), *X-Files* (1993–2002).
+
+**Design principle:** The hull is a light-delivery mechanism. Bloom should overwhelm silhouette. Layer 3–5 light sources at different intensities and temperatures.
+
+**Authenticity chain:** VHS NTSC chroma bleed, forest volumetric fog for ABF-era, rain-slick surfaces for X-Files aesthetic.
+
+**Palette:**
+```
+#FFF3D4  — neon warm white (point lights)
+#FFB347  — sodium amber (underside glow)
+#7EC8E3  — mercury cyan (CE3K spectral)
+#B08A5B  — Devil's Tower ochre
+#2A2D33  — smoke grey
+#3E2A14  — dusk forest brown
+```
+
+---
+
+### Era 3: Sensor (2004–present) — SUBTRACTIVE
+**Featureless primitive + sensor chrome = maximum UAP.**
+
+The strongest "UAP reads" come from *removing* physics, not adding detail. The Tic Tac has no wings, no exhaust, no sonic boom, no radar signature, no heat source. It's a ceramic-white capsule that does physically impossible things. The FLIR frame around it — crosshair, telemetry strings, lock box, greyscale IR — is the aesthetic.
+
+Key touchpoints: Nimitz FLIR1 (2004), GIMBAL (2015), GO FAST (2015), USS Omaha orbs (2019), Iraq Jellyfish (2018), House Oversight Hearings (2023).
+
+**Design principle:** Strip the primitive until it's almost nothing. Then break the physics. No wings. No exhaust. No shadow. No water ripple. No inertial coupling. The wrongness is the content.
+
+**Authenticity chain:** 640×480 or lower greyscale MPEG-2, ATFLIR radiometric quantization, fixed-pattern column noise, mode text (WHT HOT / BLK HOT), crosshair reticle at center, range/bearing telemetry strings at frame edges, discrete zoom-step rescales.
+
+**Palette:**
+```
+#EDEDE9  — sensor-era UAP body (ceramic white)
+#9A9A94  — FLIR mid-grey ambient
+#1A1A1A  — black-hot background
+#F2F2F2  — white-hot foreground
+#6CFF00  — HUD green telemetry
+#FFB000  — HUD amber mode text
+#101418  — void background
+```
+
+---
+
+## Cross-Era Mixing
+
+The three eras can be mixed as style weights (same pattern as `crop_circles` style_weights):
+
+```json
+"era_weights": {
+  "classic_additive": 0.8,
+  "luminescent": 0.4,
+  "sensor_subtractive": 0.1
+}
+```
+
+A `classic_additive: 1.0, luminescent: 0.0` craft gets full rivets + porthole grammar.
+A `sensor_subtractive: 1.0` craft gets featureless capsule + FLIR overlay.
+Mixed weights produce hybrid aesthetics — e.g. a chrome saucer in FLIR context.
+
+---
+
+## Authenticity Chains (Post-Processing Recipes)
+
+| Era | Grain | Color | Artifacts |
+|-----|-------|-------|-----------|
+| Classic 1950s | Kodachrome 400 | Saturated, slight cyan shift | Halation on bright edges |
+| Classic 1960s-70s | Ektachrome 64 | Warm, slight yellow | Vignette, chromatic aberration |
+| 1980s witness | VHS NTSC | Chroma bleed, desaturated | Horizontal scan dropout, field interlace |
+| 1990s witness | 640×480 MPEG-2 | Muted, block artifacts | Macro-block squares at edges |
+| Sensor 2004+ | ATFLIR | 8-bit grayscale LUT | Fixed-pattern noise, autotrack box |
+| Sensor 2015+ | WESCAM IR | 10-bit→8-bit quantized | HUD overlay, mode text |
+
+
+### ===== FILE: docs/SENSOR_AESTHETICS.md =====
+
+# Sensor Aesthetics — FLIR/IR Visual Language
+
+The dominant contemporary UFO visual register. Understanding this is essential for modern UAP shader work.
+
+---
+
+## FLIR/IR Fundamentals
+
+**Two polarity modes:**
+- **WHT HOT**: hot objects → white. Cold objects → black. Standard human-readable.
+- **BLK HOT**: hot objects → black. Cold objects → white. Inverted. The GIMBAL and FLIR1 footage uses BLK HOT — which is why the Tic Tac appears as a bright white object (it is *cold* relative to ambient in the thermal frame).
+
+**Radiometric saturation**: when a heat source exceeds the detector's dynamic range, pixels saturate and bloom outward. Creates the characteristic white halo around jet engines — or around a UAP in WHT HOT mode.
+
+**Fixed-pattern noise**: IR detector arrays have column-by-column sensitivity variation that creates faint vertical striping even in clean footage.
+
+**Autotrack lock box**: when the camera's tracking system locks onto a target, a small square or crosshair appears around it. When the tracked object "accelerates" in FLIR footage, it's often the lock box jumping to a parallax-induced apparent position shift.
+
+---
+
+## HUD Overlay Elements
+
+For sensor-era shader work, these elements make a simple white blob read as "military FLIR footage":
+
+```
+Top-left:     sensor mode     e.g. "FLIR" or "NAR" or "TV"
+Top-center:   timestamp       e.g. "14:22:31Z"
+Top-right:    polarity        e.g. "WHT HOT" or "BLK HOT"
+Center:       crosshair reticle  — thin cross, 10px each arm, 1px stroke
+Center:       autotrack box   — 20×20px square, dashed or solid
+Bottom-left:  range           e.g. "RNG 7.4 NM"
+Bottom-center: altitude       e.g. "ALT 19400"
+Bottom-right: heading/speed   e.g. "HDG 276  GS 347"
+```
+
+All HUD text in `Share Tech Mono` at 10–12px, color `#6CFF00` (sensor green) or `#FFB000` (amber).
+
+---
+
+## ATFLIR/WESCAM Specific Quirks
+
+**ATFLIR (AN/ASQ-228):** Used by F/A-18F Super Hornets. 640×480 MWIR focal-plane array. Image stabilization with occasional judder on high-G maneuvers. The "FLIR1" (Tic Tac) footage was shot on this. Key artifacts: column FPN, infrequent frame dropout, discrete FOV zoom steps (NAR/MED/WIDE), scan pattern at edge of frame when target is at limit.
+
+**WESCAM MX-15D:** Used by DHS/CBP aircraft and the Chilean Navy case. Higher resolution (1280×720 IR mode), more stable, gyro-stabilized. The Aguadilla footage shows smoother tracking but thermal polarity behavior around the water entry.
+
+**Aerostat IR:** Used in Iraq Jellyfish case. Wide FOV, stationary platform, lower fidelity. Objects appear smaller relative to frame. Long dwell time.
+
+---
+
+## Shader Implementation Guide
+
+```glsl
+// FLIR monochrome remap
+// temp = normalized scene temperature (0=cold, 1=hot)
+// polarity: 1.0 = WHT HOT, -1.0 = BLK HOT
+float flir_luma = mix(0.0, 1.0, temp * polarity * 0.5 + 0.5);
+
+// Radiometric saturation halo
+float saturation_halo = exp(-dist_from_hot * 8.0) * 0.6;
+flir_luma += saturation_halo;
+
+// Fixed-pattern noise (column variation)
+float fpn = (hash(floor(gl_FragCoord.x)) - 0.5) * 0.02;
+flir_luma += fpn;
+
+// Quantize to 8-bit
+flir_luma = floor(flir_luma * 255.0) / 255.0;
+
+// 1/f temporal noise
+float temporal = (hash(floor(iTime * 24.0) + dot(gl_FragCoord.xy, vec2(12.9, 78.2))) - 0.5) * 0.015;
+flir_luma += temporal;
+```
+
+---
+
+## The Physics-Subtraction List
+
+Each of these, rendered explicitly, strengthens the UAP read in sensor footage:
+
+| Subtraction | Visual implementation |
+|------------|----------------------|
+| No exhaust plume | No trailing hot-pixel streak behind object |
+| No sonic boom | No shockwave cone, no compression ripple |
+| No IR engine heat | Object thermal signature equal to or cooler than ambient |
+| No water ripple | Whitewater patch exactly under craft, perimeter undisturbed |
+| No inertial coupling | Rigid-body pivot with zero radius of turn |
+| No condensation trail | Clean background behind object at any altitude |
+| Instant acceleration | 1-frame position jump + brief motion streak, no velocity ramp |
+| Transmedium entry | Object enters water with zero splash, no surface disturbance |
+
+
+### ===== FILE: craft/tic_tac.json =====
+
+{
+  "id": "tic_tac",
+  "name": "Tic Tac",
+  "era": "sensor",
+  "craft_class": "unknown",
+  "description": "A smooth, featureless white oblong roughly 40 feet long with hemispherical caps, no wings, no exhaust, no markings, no visible propulsion. The defining sensor-era UAP archetype. Visually minimal to the point of near-absence — a ceramic-white capsule that breaks every rule of aerodynamics and physics. Best rendered as a single PBR capsule primitive with subsurface scatter and clearcoat, surrounded by ATFLIR HUD chrome.",
+
+  "geometry": {
+    "primitive_type": "capsule",
+    "aspect_ratio": 3.0,
+    "length_m": 12.0,
+    "dome": false,
+    "dome_position": "none",
+    "symmetry_order": 1,
+    "rim_segments": 0,
+    "underside_features": []
+  },
+
+  "surface": {
+    "metallic": 0.0,
+    "roughness": 0.35,
+    "albedo_hex": "#EDEDE9",
+    "emissive_hex": null,
+    "clearcoat": 0.2,
+    "subsurface_mm": 0.4,
+    "normal_detail": "none"
+  },
+
+  "lights": {
+    "count": 0,
+    "positions": [],
+    "colors_hex": [],
+    "behavior": "instant_translation",
+    "pulse_hz": 0
+  },
+
+  "motion": {
+    "primary": "hover_bob",
+    "secondary": ["mirror_maneuver", "instant_translation"],
+    "hover_amplitude_m": 0.5,
+    "hover_period_s": 3.0,
+    "max_speed_knots": 24000,
+    "silent": true
+  },
+
+  "ir_signature": {
+    "hotter_than_ambient": false,
+    "radiometric_saturation": false,
+    "thermal_polarity_flip": false,
+    "ir_notes": "Appears as white object in BLK HOT mode — meaning it is COOLER than ambient. No engine heat signature. White water disturbance patch below during hover."
+  },
+
+  "physics_subtractions": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_rotor_downwash",
+    "no_condensation_trail",
+    "no_ir_engine_heat",
+    "no_water_ripple",
+    "no_inertial_coupling",
+    "instant_acceleration"
+  ],
+
+  "shader_params": {
+    "fresnel_power": 4.0,
+    "bloom_radius_px": 8,
+    "glow_color_hex": "#EDEDE9",
+    "scanline_overlay": false,
+    "chromatic_aberration": false,
+    "era_palette": ["#EDEDE9", "#9A9A94", "#1A1A1A", "#F2F2F2", "#6CFF00", "#101418"]
+  },
+
+  "canonical_cases": ["nimitz_2004", "gofast_2015"],
+  "cultural_context": "Defined by Commander David Fravor's description at the Nimitz encounter, November 14 2004. Became the anchor image of the modern UAP era after the 2017 NYT AATIP disclosure. The name 'Tic Tac' is Fravor's own — he said it looked like the candy. The FLIR1 footage is 35 seconds of a featureless white oblong in black-hot IR. Its cultural weight comes entirely from what it doesn't do."
+}
+
+
+### ===== FILE: craft/classic_domed_saucer.json =====
+
+{
+  "id": "classic_domed_saucer",
+  "name": "Classic Domed Saucer",
+  "era": "classic",
+  "craft_class": "vehicle",
+  "description": "The canonical flying saucer: an oblate lens body with a capsule dome on top, polished aluminum or chrome surface, segmented rim with rotating lights, and occasional porthole windows around the equator. The 3:1 diameter-to-height ratio is standard. This is the kitsch archetype — the bumper sticker, the patch, the Halloween costume. For generative work, this is the richest geometry: dome, rim segments, porthole array, underside detail, and landing gear provide infinite parameterization.",
+
+  "geometry": {
+    "primitive_type": "oblate_lens",
+    "aspect_ratio": 3.0,
+    "length_m": 30.0,
+    "dome": true,
+    "dome_position": "top",
+    "symmetry_order": 24,
+    "rim_segments": 24,
+    "underside_features": ["central_light", "landing_pads", "beam_emitter"]
+  },
+
+  "surface": {
+    "metallic": 0.95,
+    "roughness": 0.05,
+    "albedo_hex": "#C8CCD0",
+    "emissive_hex": "#F6E27A",
+    "clearcoat": 0.9,
+    "subsurface_mm": 0.0,
+    "normal_detail": "rivets"
+  },
+
+  "lights": {
+    "count": 24,
+    "positions": ["rim", "dome_top", "underside"],
+    "colors_hex": ["#F6E27A", "#FFFFFF", "#D3212D"],
+    "behavior": "strobe_sequence",
+    "pulse_hz": 2.0
+  },
+
+  "motion": {
+    "primary": "hover_bob",
+    "secondary": ["tilt_to_bank", "falling_leaf"],
+    "hover_amplitude_m": 1.5,
+    "hover_period_s": 2.5,
+    "max_speed_knots": 0,
+    "silent": false
+  },
+
+  "ir_signature": {
+    "hotter_than_ambient": true,
+    "radiometric_saturation": false,
+    "thermal_polarity_flip": false,
+    "ir_notes": "Classic saucer predates IR sensor footage. Not modeled for FLIR. Day/dusk photographic appearance only."
+  },
+
+  "physics_subtractions": [
+    "no_exhaust_plume",
+    "no_condensation_trail"
+  ],
+
+  "shader_params": {
+    "fresnel_power": 3.0,
+    "bloom_radius_px": 20,
+    "glow_color_hex": "#F6E27A",
+    "scanline_overlay": false,
+    "chromatic_aberration": false,
+    "era_palette": ["#C8CCD0", "#E6E8EA", "#1F3A6B", "#F6E27A", "#D3212D", "#0E1116"]
+  },
+
+  "canonical_cases": ["trent_mcminnville_1950"],
+  "cultural_context": "The pop-culture ur-saucer. Every alien emoji, every bumper sticker, every rave flyer. Also the canonical little_green_men vehicle — see merrypranxter/little_green_men for the character that pilots it. The saucer_dance.js sketch in this repo is the crossover moment."
+}
+
+
+### ===== FILE: craft/adamski_scout.json =====
+
+{
+  "id": "adamski_scout",
+  "name": "Adamski Scout Craft",
+  "era": "classic",
+  "craft_class": "vehicle",
+  "description": "George Adamski's famous 1952 contactee photographs showed a distinctive bell-domed saucer with three hemispherical landing spheres on the underside and one larger central sphere — the so-called 'Venusian scout craft.' The shape is slightly different from the generic saucer: more bell-like, less lens-like, with the dome being a larger proportion of the total height. The three underside spheres were described as landing gear. Whether hoax or genuine, the design became enormously influential — endlessly replicated in models, sketches, and B-movie props.",
+
+  "geometry": {
+    "primitive_type": "oblate_lens",
+    "aspect_ratio": 2.2,
+    "length_m": 9.0,
+    "dome": true,
+    "dome_position": "top",
+    "symmetry_order": 3,
+    "rim_segments": 0,
+    "underside_features": ["three_landing_spheres", "central_sphere", "smooth_underbelly"]
+  },
+
+  "surface": {
+    "metallic": 0.9,
+    "roughness": 0.08,
+    "albedo_hex": "#D0D4D8",
+    "emissive_hex": null,
+    "clearcoat": 0.7,
+    "subsurface_mm": 0.0,
+    "normal_detail": "none"
+  },
+
+  "lights": {
+    "count": 0,
+    "positions": [],
+    "colors_hex": [],
+    "behavior": "corona_bloom",
+    "pulse_hz": 0
+  },
+
+  "motion": {
+    "primary": "hover_bob",
+    "secondary": ["falling_leaf"],
+    "hover_amplitude_m": 0.5,
+    "hover_period_s": 4.0,
+    "max_speed_knots": 0,
+    "silent": true
+  },
+
+  "ir_signature": {
+    "hotter_than_ambient": false,
+    "radiometric_saturation": false,
+    "thermal_polarity_flip": false,
+    "ir_notes": "Pre-IR-sensor era. Classic photographic context only."
+  },
+
+  "physics_subtractions": [
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_condensation_trail"
+  ],
+
+  "shader_params": {
+    "fresnel_power": 5.0,
+    "bloom_radius_px": 12,
+    "glow_color_hex": "#D0D4D8",
+    "scanline_overlay": false,
+    "chromatic_aberration": false,
+    "era_palette": ["#D0D4D8", "#B8BCC0", "#7A8A98", "#F5F0E8", "#2A3540", "#0E1116"]
+  },
+
+  "canonical_cases": [],
+  "cultural_context": "Adamski's 1952 Desert Center, California contact story remains one of the most influential in UFO lore — not because it was believed, but because the craft design was so distinctive and photogenic that it became THE template for 'Venusian scout' iconography. The three underside spheres appear in model kits, film props, and countless illustrations. Whether the photos were a chicken-feeder-lid hoax or not, the design is a genuine cultural artifact."
+}
+
+
+### ===== FILE: craft/black_triangle.json =====
+
+{
+  "id": "black_triangle",
+  "name": "Black Triangle",
+  "era": "modern",
+  "craft_class": "vehicle",
+  "description": "A flat equilateral plate, matte black or near-black, with three bright white or amber lights at the corners and a red pulsating light at the center. Reported sizes range from 30 meters to over 200 meters. Always silent or near-silent. Moves at low altitude, sometimes hovering, sometimes drifting at low speed. The three corner lights are diagnostic — the central red pulse is the secondary signature. The hull is essentially invisible in darkness; the craft reads as three lights in triangular formation.",
+
+  "geometry": {
+    "primitive_type": "equilateral_plate",
+    "aspect_ratio": 1.0,
+    "length_m": 100.0,
+    "dome": false,
+    "dome_position": "none",
+    "symmetry_order": 3,
+    "rim_segments": 0,
+    "underside_features": ["three_corner_lights", "central_light", "downward_beams"]
+  },
+
+  "surface": {
+    "metallic": 0.1,
+    "roughness": 0.9,
+    "albedo_hex": "#0A0A0C",
+    "emissive_hex": null,
+    "clearcoat": 0.0,
+    "subsurface_mm": 0.0,
+    "normal_detail": "none"
+  },
+
+  "lights": {
+    "count": 4,
+    "positions": ["corners", "center_underside"],
+    "colors_hex": ["#FFA62B", "#FFA62B", "#FFA62B", "#C1272D"],
+    "behavior": "steady_constellation",
+    "pulse_hz": 0.8
+  },
+
+  "motion": {
+    "primary": "hover_bob",
+    "secondary": ["v_formation_drift", "tilt_to_bank"],
+    "hover_amplitude_m": 0.4,
+    "hover_period_s": 3.5,
+    "max_speed_knots": 1100,
+    "silent": true
+  },
+
+  "ir_signature": {
+    "hotter_than_ambient": false,
+    "radiometric_saturation": false,
+    "thermal_polarity_flip": false,
+    "ir_notes": "Night-sky star-occlusion is diagnostic — the hull blocks stars behind it, confirming solid body. IR imagery rare; Belgian F-16 radar confirmed solid return."
+  },
+
+  "physics_subtractions": [
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_rotor_downwash",
+    "no_condensation_trail",
+    "no_inertial_coupling",
+    "instant_acceleration"
+  ],
+
+  "shader_params": {
+    "fresnel_power": 1.5,
+    "bloom_radius_px": 30,
+    "glow_color_hex": "#FFA62B",
+    "scanline_overlay": false,
+    "chromatic_aberration": false,
+    "era_palette": ["#0A0A0C", "#FFA62B", "#C1272D", "#B8B8B8", "#1A1C20", "#070709"]
+  },
+
+  "canonical_cases": ["belgian_wave_1989", "phoenix_lights_1997"],
+  "cultural_context": "The black triangle is the second most culturally prominent UAP type after the saucer. The 1989–90 Belgian Wave — 2,000+ witnesses, multiple police officers, two F-16 intercept attempts, the iconic (later confessed-fake) Petit-Rechain photograph — locked the equilateral plate + 3-amber-lights grammar into public consciousness. Phoenix Lights 1997 reinforced it at mass scale. Frequently associated with TR-3B reverse-engineering theories."
+}
+
+
+### ===== FILE: craft/orb_sphere.json =====
+
+{
+  "id": "orb_sphere",
+  "name": "Orb / Sphere",
+  "era": "sensor",
+  "craft_class": "unknown",
+  "description": "A perfectly spherical luminous object, 0.5–6 feet in diameter. May appear as a solid metallic sphere, a translucent glowing ball, or a plasma-like energetic form. The defining modern sensor-era UAP alongside the Tic Tac. Transmedium capable — documented entering and exiting water without splash or disturbance. Often appears in groups. IR signature is complex: some appear warmer than ambient, some cooler, some thermally neutral.",
+
+  "geometry": {
+    "primitive_type": "sphere",
+    "aspect_ratio": 1.0,
+    "length_m": 1.8,
+    "dome": false,
+    "dome_position": "none",
+    "symmetry_order": 0,
+    "rim_segments": 0,
+    "underside_features": []
+  },
+
+  "surface": {
+    "metallic": 0.3,
+    "roughness": 0.2,
+    "albedo_hex": "#EDEDE9",
+    "emissive_hex": "#FFFFFF",
+    "clearcoat": 0.1,
+    "subsurface_mm": 0.0,
+    "normal_detail": "none"
+  },
+
+  "lights": {
+    "count": 1,
+    "positions": ["center"],
+    "colors_hex": ["#FFFFFF"],
+    "behavior": "corona_bloom",
+    "pulse_hz": 0
+  },
+
+  "motion": {
+    "primary": "hover_bob",
+    "secondary": ["instant_translation", "transmedium_entry"],
+    "hover_amplitude_m": 0.2,
+    "hover_period_s": 2.0,
+    "max_speed_knots": 138,
+    "silent": true
+  },
+
+  "ir_signature": {
+    "hotter_than_ambient": true,
+    "radiometric_saturation": true,
+    "thermal_polarity_flip": false,
+    "ir_notes": "USS Omaha footage: 6-foot sphere, illuminated, solid mass confirmed by three-sensor radar correlation. Appears bright (hot) in WHT HOT mode. Descends into Pacific with zero surface disturbance."
+  },
+
+  "physics_subtractions": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_rotor_downwash",
+    "no_condensation_trail",
+    "no_water_ripple",
+    "no_inertial_coupling",
+    "transmedium_capable",
+    "instant_acceleration"
+  ],
+
+  "shader_params": {
+    "fresnel_power": 4.5,
+    "bloom_radius_px": 25,
+    "glow_color_hex": "#FFFFFF",
+    "scanline_overlay": true,
+    "chromatic_aberration": false,
+    "era_palette": ["#EDEDE9", "#9A9A94", "#1A1A1A", "#F2F2F2", "#6CFF00", "#101418"]
+  },
+
+  "canonical_cases": ["omaha_sphere_2019", "aguadilla_2013"],
+  "cultural_context": "The orb/sphere class has become the most commonly reported UAP type in the post-2017 disclosure era. Ryan Graves (former F/A-18 pilot) testified before Congress in July 2023 that his squadron encountered solid spheres near the Virginia coast for years. The transmedium characteristic — smooth water entry and exit — is the defining behavior. Related to but distinct from plasma orbs, ball lightning, and atmospheric phenomena."
+}
+
+
+### ===== FILE: craft/diamond_rhombus.json =====
+
+{
+  "id": "diamond_rhombus",
+  "name": "Diamond / Rhombus",
+  "era": "modern",
+  "craft_class": "vehicle",
+  "description": "A rhombic prism shape — essentially a 3D diamond or double pyramid. Dark grey to near-black metallic sheen. No lights, no markings, no sound. Defined almost entirely by its geometric silhouette against the sky. The Calvine photograph (1990) is the canonical case: a roughly 30-meter dark-grey diamond hanging in the Scottish sky alongside a Harrier jet. Vertical-only departure — straight up at high speed with no banking or turning.",
+
+  "geometry": {
+    "primitive_type": "rhombic_prism",
+    "aspect_ratio": 1.2,
+    "length_m": 30.0,
+    "dome": false,
+    "dome_position": "none",
+    "symmetry_order": 4,
+    "rim_segments": 0,
+    "underside_features": []
+  },
+
+  "surface": {
+    "metallic": 0.9,
+    "roughness": 0.15,
+    "albedo_hex": "#1B1B1F",
+    "emissive_hex": null,
+    "clearcoat": 0.1,
+    "subsurface_mm": 0.0,
+    "normal_detail": "none"
+  },
+
+  "lights": {
+    "count": 0,
+    "positions": [],
+    "colors_hex": [],
+    "behavior": "steady_constellation",
+    "pulse_hz": 0
+  },
+
+  "motion": {
+    "primary": "hover_bob",
+    "secondary": ["vertical_exit"],
+    "hover_amplitude_m": 0.0,
+    "hover_period_s": 0.0,
+    "max_speed_knots": 0,
+    "silent": true
+  },
+
+  "ir_signature": {
+    "hotter_than_ambient": false,
+    "radiometric_saturation": false,
+    "thermal_polarity_flip": false,
+    "ir_notes": "No IR footage exists for canonical Calvine case. Photographic evidence only: color prints showing dark metallic sheen."
+  },
+
+  "physics_subtractions": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_condensation_trail",
+    "instant_acceleration"
+  ],
+
+  "shader_params": {
+    "fresnel_power": 2.0,
+    "bloom_radius_px": 5,
+    "glow_color_hex": "#1B1B1F",
+    "scanline_overlay": false,
+    "chromatic_aberration": false,
+    "era_palette": ["#1B1B1F", "#2E2E34", "#9BA0A6", "#D0D4D8", "#1F3A6B", "#0A0A0C"]
+  },
+
+  "canonical_cases": ["calvine_1990"],
+  "cultural_context": "The Calvine photograph, taken August 4 1990 near Calvine, Scotland, is considered one of the most significant UFO photographs ever taken by British MoD analysts who studied it. Six color prints were confiscated; the sole remaining print held by RAF press officer Craig Lindsay was published in August 2022 via Sheffield Hallam University — 32 years after the event. Nick Pope, who ran the MoD UFO desk, called it the best UFO photograph he'd ever seen."
+}
+
+
+### ===== FILE: craft/jellyfish_uap.json =====
+
+{
+  "id": "jellyfish_uap",
+  "name": "Jellyfish UAP",
+  "era": "sensor",
+  "craft_class": "biological",
+  "description": "A roughly oval body 3–5 feet across with three dangling tentacle-like appendages that change thermal polarity. Glides at low altitude, enters water, submerges for extended periods, departs. The defining biological UAP archetype — or at minimum, the archetype that most resists the 'vehicle' interpretation. Seen in both the 2013 Aguadilla footage and the 2018 Iraq base footage. The thermal polarity flip (the appendages cycling between hot and cold) is unlike any known aircraft or natural phenomenon.",
+
+  "geometry": {
+    "primitive_type": "spheroid_tendril",
+    "aspect_ratio": 1.3,
+    "length_m": 1.5,
+    "dome": false,
+    "dome_position": "none",
+    "symmetry_order": 3,
+    "rim_segments": 0,
+    "underside_features": ["three_tendrils", "trailing_appendages"]
+  },
+
+  "surface": {
+    "metallic": 0.0,
+    "roughness": 0.7,
+    "albedo_hex": "#9A9A94",
+    "emissive_hex": "#F2F2F2",
+    "clearcoat": 0.0,
+    "subsurface_mm": 0.0,
+    "normal_detail": "tendril"
+  },
+
+  "lights": {
+    "count": 3,
+    "positions": ["tendril_tips"],
+    "colors_hex": ["#F2F2F2"],
+    "behavior": "thermal_polarity_flip",
+    "pulse_hz": 0.3
+  },
+
+  "motion": {
+    "primary": "hover_bob",
+    "secondary": ["transmedium_entry", "instant_translation"],
+    "hover_amplitude_m": 0.3,
+    "hover_period_s": 2.5,
+    "max_speed_knots": 1200,
+    "silent": true
+  },
+
+  "ir_signature": {
+    "hotter_than_ambient": true,
+    "radiometric_saturation": false,
+    "thermal_polarity_flip": true,
+    "ir_notes": "Thermal polarity flip: appendages cycle hot→grey→cold→grey→hot over approximately 3-second period. No known aircraft or biological explanation. Iraq footage shows 17-minute submersion in lake."
+  },
+
+  "physics_subtractions": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_water_ripple",
+    "no_inertial_coupling",
+    "transmedium_capable",
+    "instant_acceleration"
+  ],
+
+  "shader_params": {
+    "fresnel_power": 3.5,
+    "bloom_radius_px": 15,
+    "glow_color_hex": "#F2F2F2",
+    "scanline_overlay": true,
+    "chromatic_aberration": false,
+    "era_palette": ["#9A9A94", "#1A1A1A", "#F2F2F2", "#5A5A56", "#2A2A2A", "#101418"]
+  },
+
+  "canonical_cases": ["iraq_jellyfish_2018", "aguadilla_2013"],
+  "cultural_context": "The jellyfish class is the most unsettling contemporary UAP category because it defies the 'vehicle' mental model most completely. Jordan Peele's Jean Jacket in Nope (2022) is the cinematic equivalent — an unfolding, ingesting, biological-seeming craft. The Iraq footage (October 2018, released January 2024 by Jeremy Corbell) was filmed from an aerostat over Al Taqaddum airbase. Soldiers nicknamed it 'the spaghetti monster.'"
+}
+
+
+### ===== FILE: craft/mothership_radial.json =====
+
+{
+  "id": "mothership_radial",
+  "name": "Mothership Radial Disc",
+  "era": "classic",
+  "craft_class": "vehicle",
+  "description": "Massive radial disc craft, typically hundreds of meters to miles across. Surface is a dense fractal greeble layer with thousands of point-lights punched through. The Trumbull aesthetic: luminescence overwhelms hardware. The craft reads as a city of lights rather than a vehicle. Bloom should override silhouette. CE3K's mothership was an inverted city of light drawn from a memory of a night oil refinery.",
+
+  "geometry": {
+    "primitive_type": "radial_disc",
+    "aspect_ratio": 8.0,
+    "length_m": 300.0,
+    "dome": true,
+    "dome_position": "top",
+    "symmetry_order": 32,
+    "rim_segments": 64,
+    "underside_features": ["fractal_greeble", "point_light_array", "central_bay"]
+  },
+
+  "surface": {
+    "metallic": 0.6,
+    "roughness": 0.4,
+    "albedo_hex": "#2A2D33",
+    "emissive_hex": "#FFF3D4",
+    "clearcoat": 0.0,
+    "subsurface_mm": 0.0,
+    "normal_detail": "greeble"
+  },
+
+  "lights": {
+    "count": 2000,
+    "positions": ["rim", "underside", "dome_top", "greeble_surface"],
+    "colors_hex": ["#FFF3D4", "#FFB347", "#7EC8E3", "#FFFFFF"],
+    "behavior": "spectral_conversation",
+    "pulse_hz": 0
+  },
+
+  "motion": {
+    "primary": "hover_bob",
+    "secondary": ["axial_rotation"],
+    "hover_amplitude_m": 5.0,
+    "hover_period_s": 8.0,
+    "max_speed_knots": 0,
+    "silent": false
+  },
+
+  "ir_signature": {
+    "hotter_than_ambient": true,
+    "radiometric_saturation": true,
+    "thermal_polarity_flip": false,
+    "ir_notes": "Pre-IR era archetype. Not designed for sensor footage context. Optical/photographic context only."
+  },
+
+  "physics_subtractions": [
+    "no_exhaust_plume",
+    "no_condensation_trail"
+  ],
+
+  "shader_params": {
+    "fresnel_power": 2.0,
+    "bloom_radius_px": 60,
+    "glow_color_hex": "#FFF3D4",
+    "scanline_overlay": false,
+    "chromatic_aberration": false,
+    "era_palette": ["#FFF3D4", "#FFB347", "#7EC8E3", "#B08A5B", "#2A2D33", "#3E2A14"]
+  },
+
+  "canonical_cases": [],
+  "cultural_context": "The Trumbull/Spielberg Close Encounters mothership (1977) is the canonical reference: a 300–450 meter inverted city filmed in smoke-filled rooms on 65mm with thousands of neon pin-lights. Also ID4's 15-mile City Destroyer (concave, petal bas-relief) and V's 3–5 mile motherships. The mothership class establishes luminescence-as-hull and spectral-light-as-language."
+}
+
+
+### ===== FILE: craft/cigar_cylinder.json =====
+
+{
+  "id": "cigar_cylinder",
+  "name": "Cigar / Cylinder",
+  "era": "classic",
+  "craft_class": "vehicle",
+  "description": "An elongated capsule or cylinder, typically 60–200+ feet long, smooth white or metallic, no wings, no fins, no visible propulsion. The cigar shape appears in hundreds of reports from the 1940s onward. Distinguished from the Tic Tac by scale (much larger) and era. Often reported hovering at altitude before departing at high speed. Some reports describe porthole windows along the equator.",
+
+  "geometry": {
+    "primitive_type": "capsule",
+    "aspect_ratio": 10.0,
+    "length_m": 60.0,
+    "dome": false,
+    "dome_position": "none",
+    "symmetry_order": 1,
+    "rim_segments": 0,
+    "underside_features": ["porthole_row"]
+  },
+
+  "surface": {
+    "metallic": 0.85,
+    "roughness": 0.12,
+    "albedo_hex": "#D8DADC",
+    "emissive_hex": null,
+    "clearcoat": 0.5,
+    "subsurface_mm": 0.0,
+    "normal_detail": "none"
+  },
+
+  "lights": {
+    "count": 8,
+    "positions": ["equator"],
+    "colors_hex": ["#FFFFFF"],
+    "behavior": "steady_constellation",
+    "pulse_hz": 0
+  },
+
+  "motion": {
+    "primary": "hover_bob",
+    "secondary": ["instant_translation"],
+    "hover_amplitude_m": 2.0,
+    "hover_period_s": 5.0,
+    "max_speed_knots": 0,
+    "silent": true
+  },
+
+  "ir_signature": {
+    "hotter_than_ambient": false,
+    "radiometric_saturation": false,
+    "thermal_polarity_flip": false,
+    "ir_notes": "Mostly pre-IR era. Some contemporary reports in AARO database."
+  },
+
+  "physics_subtractions": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_condensation_trail"
+  ],
+
+  "shader_params": {
+    "fresnel_power": 3.5,
+    "bloom_radius_px": 10,
+    "glow_color_hex": "#D8DADC",
+    "scanline_overlay": false,
+    "chromatic_aberration": false,
+    "era_palette": ["#D8DADC", "#C0C4C8", "#E8EAEC", "#1F3A6B", "#8A9098", "#0E1116"]
+  },
+
+  "canonical_cases": [],
+  "cultural_context": "One of the oldest documented UFO shapes — large cylindrical or cigar-shaped objects appear in reports going back to the 1896–97 mystery airship wave. Often described as 'like a blimp but metallic and silent.' Contemporary AARO filings still document this class. Overlaps with the Tic Tac archetype at smaller scales."
+}
+
+
+### ===== FILE: craft/boomerang_chevron.json =====
+
+{
+  "id": "boomerang_chevron",
+  "name": "Boomerang / Chevron",
+  "era": "modern",
+  "craft_class": "vehicle",
+  "description": "A broad V-shaped or boomerang-shaped craft, typically 200–1000 feet across. Five to ten lights positioned at the apex and along the trailing edges in amber or white. Always silent. Appears as a V-formation of lights in night sky — hull is only detectable by star occlusion. Moves slowly, sometimes hovering. The Phoenix Lights variant is mile-wide. The Hudson Valley variant appeared nightly for years.",
+
+  "geometry": {
+    "primitive_type": "chevron_plate",
+    "aspect_ratio": 0.6,
+    "length_m": 300.0,
+    "dome": false,
+    "dome_position": "none",
+    "symmetry_order": 2,
+    "rim_segments": 0,
+    "underside_features": ["light_array", "star_occlusion_mass"]
+  },
+
+  "surface": {
+    "metallic": 0.1,
+    "roughness": 0.95,
+    "albedo_hex": "#0A0A0C",
+    "emissive_hex": null,
+    "clearcoat": 0.0,
+    "subsurface_mm": 0.0,
+    "normal_detail": "none"
+  },
+
+  "lights": {
+    "count": 7,
+    "positions": ["apex", "trailing_edge"],
+    "colors_hex": ["#FFA62B", "#FFFFFF"],
+    "behavior": "steady_constellation",
+    "pulse_hz": 0
+  },
+
+  "motion": {
+    "primary": "v_formation_drift",
+    "secondary": ["hover_bob"],
+    "hover_amplitude_m": 0.5,
+    "hover_period_s": 4.0,
+    "max_speed_knots": 30,
+    "silent": true
+  },
+
+  "ir_signature": {
+    "hotter_than_ambient": false,
+    "radiometric_saturation": false,
+    "thermal_polarity_flip": false,
+    "ir_notes": "Night sightings only in canonical cases. Hull visible only by star-occlusion — blocks stars cleanly suggesting solid body at altitude."
+  },
+
+  "physics_subtractions": [
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_rotor_downwash",
+    "no_condensation_trail"
+  ],
+
+  "shader_params": {
+    "fresnel_power": 1.0,
+    "bloom_radius_px": 35,
+    "glow_color_hex": "#FFA62B",
+    "scanline_overlay": false,
+    "chromatic_aberration": false,
+    "era_palette": ["#0A0A0C", "#FFA62B", "#FFFFFF", "#1A1C20", "#2A2D33", "#070709"]
+  },
+
+  "canonical_cases": ["phoenix_lights_1997"],
+  "cultural_context": "The Phoenix Lights of March 13 1997 — witnessed from Henderson Nevada to Tucson Arizona by thousands including the governor of Arizona — remain the most widely witnessed UFO event in American history. The V-formation of amber lights, mile-wide, silent, 100 feet overhead. Governor Fife Symington called a press conference the next day... bringing out an aide in an alien costume. He later admitted he'd also seen it and was shaken by it."
+}
+
+
+### ===== FILE: craft/cube_box.json =====
+
+{
+  "id": "cube_box",
+  "name": "Cube / Box",
+  "era": "sensor",
+  "craft_class": "unknown",
+  "description": "An axis-aligned cube or rectangular box, sometimes described as a cube within a sphere. Rare but consistently reported in sensor-era military accounts. Ryan Graves described encounters where the object was described as a 'box flying into a 120-knot headwind.' Some accounts include a translucent sphere surrounding the cube. Perfect axial lock — does not rotate or yaw. May relate to the pyramid-shaped objects in USS Russell footage.",
+
+  "geometry": {
+    "primitive_type": "cube",
+    "aspect_ratio": 1.0,
+    "length_m": 2.0,
+    "dome": false,
+    "dome_position": "none",
+    "symmetry_order": 4,
+    "rim_segments": 0,
+    "underside_features": ["optional_sphere_envelope"]
+  },
+
+  "surface": {
+    "metallic": 0.9,
+    "roughness": 0.1,
+    "albedo_hex": "#1A1A1F",
+    "emissive_hex": null,
+    "clearcoat": 0.3,
+    "subsurface_mm": 0.0,
+    "normal_detail": "none"
+  },
+
+  "lights": {
+    "count": 0,
+    "positions": [],
+    "colors_hex": [],
+    "behavior": "steady_constellation",
+    "pulse_hz": 0
+  },
+
+  "motion": {
+    "primary": "hover_bob",
+    "secondary": ["instant_translation"],
+    "hover_amplitude_m": 0.1,
+    "hover_period_s": 2.0,
+    "max_speed_knots": 0,
+    "silent": true
+  },
+
+  "ir_signature": {
+    "hotter_than_ambient": false,
+    "radiometric_saturation": false,
+    "thermal_polarity_flip": false,
+    "ir_notes": "USS Russell footage (2019) shows pyramid shapes with triangular-IR-signature possibly from aperture diffraction. True cube cases are mostly verbal accounts."
+  },
+
+  "physics_subtractions": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_inertial_coupling"
+  ],
+
+  "shader_params": {
+    "fresnel_power": 2.0,
+    "bloom_radius_px": 8,
+    "glow_color_hex": "#1A1A1F",
+    "scanline_overlay": true,
+    "chromatic_aberration": false,
+    "era_palette": ["#1A1A1F", "#EDEDE9", "#9A9A94", "#2A2A2F", "#6CFF00", "#101418"]
+  },
+
+  "canonical_cases": [],
+  "cultural_context": "Cube/box UAPs are the most geometrically dissonant — nothing in aeronautics is a cube. The perfect right-angle aesthetics and axial-lock behavior suggest something that doesn't need aerodynamic form. ISS footage occasionally shows box-shaped objects (usually thermal blankets or antenna covers) feeding the visual canon. The cube-in-sphere variant from pilot accounts is particularly striking as a design object."
+}
+
+
+### ===== FILE: craft/gimbal.json =====
+
+{
+  "id": "gimbal",
+  "name": "Gimbal",
+  "era": "sensor",
+  "craft_class": "vehicle",
+  "description": "In the GIMBAL ATFLIR footage (January 2015), a dark saucer or top-hat silhouette appears in black-hot IR with a white cold-halo surrounding it. The object smoothly rotates approximately 90 degrees from horizontal to vertical while maintaining a constant flight path against 120-knot headwinds. Radar-corroborated, with 4–6 additional unknowns in the area. The object and its behavior are now its own archetype: the rotating, halo-surrounded saucer silhouette in FLIR greyscale.",
+
+  "geometry": {
+    "primitive_type": "oblate_lens",
+    "aspect_ratio": 2.5,
+    "length_m": 15.0,
+    "dome": false,
+    "dome_position": "none",
+    "symmetry_order": 1,
+    "rim_segments": 0,
+    "underside_features": []
+  },
+
+  "surface": {
+    "metallic": 0.95,
+    "roughness": 0.05,
+    "albedo_hex": "#1A1A1A",
+    "emissive_hex": "#F2F2F2",
+    "clearcoat": 0.0,
+    "subsurface_mm": 0.0,
+    "normal_detail": "none"
+  },
+
+  "lights": {
+    "count": 1,
+    "positions": ["rim_halo"],
+    "colors_hex": ["#F2F2F2"],
+    "behavior": "radiometric_halo",
+    "pulse_hz": 0
+  },
+
+  "motion": {
+    "primary": "axial_rotation",
+    "secondary": ["hover_bob"],
+    "hover_amplitude_m": 0.0,
+    "hover_period_s": 0.0,
+    "max_speed_knots": 250,
+    "silent": true
+  },
+
+  "ir_signature": {
+    "hotter_than_ambient": false,
+    "radiometric_saturation": true,
+    "thermal_polarity_flip": false,
+    "ir_notes": "BLK HOT mode: object appears dark/black (cooler than ambient) with bright white COLD halo. Smooth 90-degree axial rotation while maintaining horizontal flight path. The radiometric halo is at approximately 1.3× object radius."
+  },
+
+  "physics_subtractions": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_inertial_coupling"
+  ],
+
+  "shader_params": {
+    "fresnel_power": 0.5,
+    "bloom_radius_px": 20,
+    "glow_color_hex": "#F2F2F2",
+    "scanline_overlay": true,
+    "chromatic_aberration": false,
+    "era_palette": ["#1A1A1A", "#F2F2F2", "#9A9A94", "#2A2A2A", "#6CFF00", "#101418"]
+  },
+
+  "canonical_cases": ["gimbal_2015"],
+  "cultural_context": "Named GIMBAL by the pilots who filmed it. One says 'look at that thing, dude' and another replies 'it's rotating.' The footage shows an object that rotates 90 degrees while flying, surrounded by a distinctive white halo in black-hot FLIR. Mick West argues the rotation is a camera gimbal-lock artifact and the halo is ATFLIR engine-glare derotation. Either way, the GIMBAL visual signature — dark saucer + white halo + smooth rotation in greyscale IR — is now a standalone cultural artifact."
+}
+
+
+### ===== FILE: craft/monolith_shell.json =====
+
+{
+  "id": "monolith_shell",
+  "name": "Monolith Shell",
+  "era": "modern",
+  "craft_class": "vehicle",
+  "description": "A vertical ovoid or lozenge, aspect ratio approximately 1:2.8 (taller than wide). Surface is basalt-like stone with subtle iridescent clearcoat at grazing angles. Does not take off — dissolves into mist. Interior is luminous white void. Hovering 28 feet above ground. Denis Villeneuve's Arrival (2016) is the canonical cinematic reference. Anti-saucer minimalism. The monolith class embodies the 'Turrell interior' aesthetic — interior light as revelation.",
+
+  "geometry": {
+    "primitive_type": "ovoid_lozenge",
+    "aspect_ratio": 0.36,
+    "length_m": 450.0,
+    "dome": false,
+    "dome_position": "none",
+    "symmetry_order": 1,
+    "rim_segments": 0,
+    "underside_features": ["mist_dissolve", "luminous_interior_aperture"]
+  },
+
+  "surface": {
+    "metallic": 0.0,
+    "roughness": 0.6,
+    "albedo_hex": "#0D0D0F",
+    "emissive_hex": null,
+    "clearcoat": 0.15,
+    "subsurface_mm": 0.0,
+    "normal_detail": "basalt"
+  },
+
+  "lights": {
+    "count": 1,
+    "positions": ["interior_aperture"],
+    "colors_hex": ["#F4F1EC"],
+    "behavior": "cloaking_fade",
+    "pulse_hz": 0
+  },
+
+  "motion": {
+    "primary": "cloaking_fade",
+    "secondary": ["hover_bob"],
+    "hover_amplitude_m": 0.5,
+    "hover_period_s": 10.0,
+    "max_speed_knots": 0,
+    "silent": true
+  },
+
+  "ir_signature": {
+    "hotter_than_ambient": false,
+    "radiometric_saturation": false,
+    "thermal_polarity_flip": false,
+    "ir_notes": "Cinematic archetype, not based on sensor footage. Would read as cold-body in IR — the basalt surface absorbs rather than emits."
+  },
+
+  "physics_subtractions": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_inertial_coupling",
+    "no_shadow"
+  ],
+
+  "shader_params": {
+    "fresnel_power": 1.5,
+    "bloom_radius_px": 30,
+    "glow_color_hex": "#F4F1EC",
+    "scanline_overlay": false,
+    "chromatic_aberration": false,
+    "era_palette": ["#0D0D0F", "#F4F1EC", "#1A1A1A", "#8C8073", "#B0B8BD", "#242A2E"]
+  },
+
+  "canonical_cases": [],
+  "cultural_context": "Denis Villeneuve's Arrival (2016) — the Shell design drew on Turrell's light installation work and 2001's monolith. The lack of saucer-ness was intentional: a craft that doesn't reference any human vehicle grammar. Villeneuve and production designer Patrice Vermette called it 'a tool, not a vehicle.' The mist-dissolve departure and the luminous white interior are its defining aesthetic moments."
+}
+
+
+### ===== FILE: craft/biological_organic.json =====
+
+{
+  "id": "biological_organic",
+  "name": "Biological / Organic",
+  "era": "sensor",
+  "craft_class": "biological",
+  "description": "A craft that reads as living rather than built — origami folds, tendril appendages, single sensor-eye, fabric-like surface. Jean Jacket from Jordan Peele's Nope (2022) is the cinematic canonical form: a classic saucer at rest, unfolding into a radially symmetric angel/jellyfish when active, with a square camera-eye and green lash tendrils. Related to but distinct from the jellyfish_uap type. The biological class upends the vehicle mental model entirely.",
+
+  "geometry": {
+    "primitive_type": "organic_fold_rig",
+    "aspect_ratio": 2.0,
+    "length_m": 75.0,
+    "dome": false,
+    "dome_position": "none",
+    "symmetry_order": 4,
+    "rim_segments": 0,
+    "underside_features": ["square_sensor_eye", "tendril_lashes", "fold_surfaces"]
+  },
+
+  "surface": {
+    "metallic": 0.0,
+    "roughness": 0.8,
+    "albedo_hex": "#2A2020",
+    "emissive_hex": "#39FF14",
+    "clearcoat": 0.0,
+    "subsurface_mm": 0.0,
+    "normal_detail": "tendril"
+  },
+
+  "lights": {
+    "count": 1,
+    "positions": ["sensor_eye"],
+    "colors_hex": ["#39FF14"],
+    "behavior": "cloaking_fade",
+    "pulse_hz": 0
+  },
+
+  "motion": {
+    "primary": "cloaking_fade",
+    "secondary": ["hover_bob", "axial_rotation"],
+    "hover_amplitude_m": 2.0,
+    "hover_period_s": 6.0,
+    "max_speed_knots": 0,
+    "silent": true
+  },
+
+  "ir_signature": {
+    "hotter_than_ambient": false,
+    "radiometric_saturation": false,
+    "thermal_polarity_flip": false,
+    "ir_notes": "Cinematic archetype. The origami-fold unfolding reveal (4–6 second elastic fold hierarchy) is the defining animation. Cloud-hiding behavior: uses cumulus as cover."
+  },
+
+  "physics_subtractions": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom"
+  ],
+
+  "shader_params": {
+    "fresnel_power": 2.5,
+    "bloom_radius_px": 15,
+    "glow_color_hex": "#39FF14",
+    "scanline_overlay": false,
+    "chromatic_aberration": false,
+    "era_palette": ["#2A2020", "#39FF14", "#1A1A1A", "#4A3030", "#6A5050", "#101010"]
+  },
+
+  "canonical_cases": [],
+  "cultural_context": "Jordan Peele's Nope (2022) — Jean Jacket is 'an apex predator that evolved to mimic a saucer.' The square camera-eye stares directly at the viewer. The green lash tendrils echo alien abduction imagery and also (given the #39FF14 green) the little_green_men palette — intentional cross-repo resonance. Note: the biological_organic emissive_hex is deliberately set to the little_green_men canonical green."
+}
+
+
+### ===== FILE: craft/plasma_portal.json =====
+
+{
+  "id": "plasma_portal",
+  "name": "Plasma Portal / Doorway",
+  "era": "speculative",
+  "craft_class": "phenomenon",
+  "description": "Not a vehicle — a transition point. A Cherenkov-blue luminous aperture, circular or toroidal, with ionization fringe effects, ultraviolet edge, and void-black interior suggesting depth beyond. L-system branching lightning on the frame edge. The plasma portal class represents the 'interdimensional' hypothesis made visual: not a craft that arrived, but a location where the fabric of space is different. Raymarched SDF torus or cone frustum with animated Perlin isosurface.",
+
+  "geometry": {
+    "primitive_type": "torus_frustum",
+    "aspect_ratio": 0.2,
+    "length_m": 20.0,
+    "dome": false,
+    "dome_position": "none",
+    "symmetry_order": 0,
+    "rim_segments": 0,
+    "underside_features": ["void_aperture", "ionization_fringe"]
+  },
+
+  "surface": {
+    "metallic": 0.0,
+    "roughness": 0.0,
+    "albedo_hex": "#05060A",
+    "emissive_hex": "#2BA6FF",
+    "clearcoat": 0.0,
+    "subsurface_mm": 0.0,
+    "normal_detail": "none"
+  },
+
+  "lights": {
+    "count": 0,
+    "positions": [],
+    "colors_hex": ["#2BA6FF", "#6A00FF", "#B8F1FF"],
+    "behavior": "corona_bloom",
+    "pulse_hz": 0.5
+  },
+
+  "motion": {
+    "primary": "cloaking_fade",
+    "secondary": [],
+    "hover_amplitude_m": 0.0,
+    "hover_period_s": 0.0,
+    "max_speed_knots": 0,
+    "silent": false
+  },
+
+  "ir_signature": {
+    "hotter_than_ambient": true,
+    "radiometric_saturation": true,
+    "thermal_polarity_flip": false,
+    "ir_notes": "Speculative/theoretical class. Would appear as extreme emitter in IR — ionized plasma frame would saturate any detector."
+  },
+
+  "physics_subtractions": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_inertial_coupling"
+  ],
+
+  "shader_params": {
+    "fresnel_power": 6.0,
+    "bloom_radius_px": 50,
+    "glow_color_hex": "#2BA6FF",
+    "scanline_overlay": false,
+    "chromatic_aberration": true,
+    "era_palette": ["#2BA6FF", "#6A00FF", "#B8F1FF", "#05060A", "#FFFFFF", "#0B3D91"]
+  },
+
+  "canonical_cases": [],
+  "cultural_context": "The interdimensional portal is the most speculative archetype in this repo — not tied to any specific documented sighting but derived from persistent witness descriptions of 'lights that opened' and 'craft that seemed to come through something.' Visually it references Cherenkov radiation (the blue glow of nuclear reactors), plasma physics, and the concept of wormhole geometry. For shader work it's the most purely aesthetic class — raymarched volumetric plasma, L-system lightning, UV edge."
+}
+
+
+### ===== FILE: cases/nimitz_2004.json =====
+
+{
+  "id": "nimitz_2004",
+  "name": "USS Nimitz Tic Tac Encounter",
+  "date": "2004-11-14",
+  "location": "Pacific Ocean, ~100 miles off San Diego, CA, USA",
+  "craft_type_ref": "tic_tac",
+
+  "witnesses": {
+    "count": 6,
+    "types": ["military", "pilot"],
+    "notable": [
+      "Commander David Fravor (CO Black Aces VFA-41)",
+      "Lt. Cmdr. Alex Dietrich",
+      "Chad Underwood (WSO, filmed FLIR1)"
+    ]
+  },
+
+  "sensor": {
+    "type": "atflir_ir",
+    "device": "AN/ASQ-228 ATFLIR",
+    "resolution": "640x480",
+    "footage_available": true
+  },
+
+  "source_quality": "official_release",
+  "era": "sensor",
+
+  "visual_description": "Commander Fravor and Lt. Cmdr. Dietrich were vectored to an area showing radar contacts that had been tracked descending from 80,000 feet to sea level repeatedly over two weeks. At the target location, Fravor observed a churning white water patch below with no obvious cause — as if something large were submerged beneath. Above this patch hovered a smooth white oblong approximately 40 feet long, the size of his F/A-18F, with no wings, no exhaust ports, no markings, no visible propulsion of any kind. He described it as looking like a large Tic Tac candy. It appeared to notice Fravor's spiral descent and mirrored his maneuver, then accelerated horizontally across his nose and vanished instantaneously. The FLIR1 footage shows a small bright oblong heat source in black-hot IR, tracking smoothly, then accelerating out of frame. The entire visual impression is of total physical wrongness — a thing that moves like nothing else.",
+
+  "dimensions_reported_m": 12.0,
+  "duration_s": 300,
+
+  "motion_observed": ["hover_bob", "mirror_maneuver", "instant_translation"],
+
+  "light_behavior_observed": ["instant_translation"],
+
+  "physics_anomalies": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_rotor_downwash",
+    "no_condensation_trail",
+    "no_ir_engine_heat",
+    "no_water_ripple",
+    "no_inertial_coupling",
+    "instant_acceleration"
+  ],
+
+  "shader_params": {
+    "background_hex": "#101418",
+    "craft_albedo_hex": "#EDEDE9",
+    "glow_hex": "#F2F2F2",
+    "grain_profile": "atflir",
+    "hud_overlay": true,
+    "era_palette": ["#EDEDE9", "#9A9A94", "#1A1A1A", "#F2F2F2", "#6CFF00", "#101418"]
+  },
+
+  "authenticity_chain": "640×480 MPEG-2 greyscale, BLK HOT polarity (hot→black), radiometric bloom on thermal sources, fixed-pattern column noise 0.02 amplitude, ATFLIR HUD overlay with NAR/FLIR mode text, crosshair reticle, autotrack lock box, range/bearing telemetry strings, discrete zoom-step rescales at 2× intervals.",
+
+  "cultural_significance": "The Nimitz encounter is the defining case of the modern UAP era. Fravor's testimony, Underwood's FLIR1 footage, and the 2017 NYT disclosure by Helene Cooper and Leslie Kean mainstreamed UAP as a serious subject after decades on the fringe. Fravor's line — 'I have no idea what I saw. It had no plumes, wings, or rotors and outran our F-18s' — is the canonical sensor-era UAP description.",
+
+  "notes": "FLIR1 footage officially released by DoD April 27 2020. Underwood's name was withheld for years; he gave his first named interview to The Black Vault in 2019. The whitewater patch — selectively disturbed water with no perimeter rippling — is a signature rarely discussed but extremely visually specific."
+}
+
+
+### ===== FILE: cases/belgian_wave_1989.json =====
+
+{
+  "id": "belgian_wave_1989",
+  "name": "Belgian UFO Wave",
+  "date": "1989-11-29",
+  "location": "Eupen / Liège / Wallonia, Belgium",
+  "craft_type_ref": "black_triangle",
+
+  "witnesses": {
+    "count": 2500,
+    "types": ["civilian", "military", "police", "pilot"],
+    "notable": [
+      "Gendarme Heinrich Nicoll (Eupen ground observation)",
+      "Gendarme Hubert von Montigny (Eupen ground observation)",
+      "Maj. Gen. Wilfried de Brouwer (Belgian Air Force, led investigation)"
+    ]
+  },
+
+  "sensor": {
+    "type": "multi_sensor",
+    "device": "Ground radar (Glons/Semmerzake CRC) + F-16 airborne radar + visual",
+    "resolution": "radar tracks",
+    "footage_available": false
+  },
+
+  "source_quality": "military_radar",
+  "era": "modern",
+
+  "visual_description": "Beginning November 29 1989 and continuing through April 1990, 2,600+ sightings were filed across Belgium, with multiple police reports. Eupen gendarmes Nicoll and von Montigny observed a flat triangular craft with three powerful downward beams, three large white lights at corners, and a central red pulsating light, hovering silently 100–120 meters altitude. On March 30–31 1990, ground radar at Glons and Semmerzake simultaneously tracked unknowns; two F-16s from Beauvechain AFB intercepted. In nine intercept attempts the unknowns showed: instant acceleration from 150 knots to 1100 knots, altitude drops from 9,000 to 5,000 feet in 2 seconds, no radar warning of the F-16s' emissions. The Petit-Rechain photograph (April 4 1990) showed a dark triangle with three lights and was iconic for 20 years — until photographer Patrick Maréchal confessed in July 2011 to RTL that he'd made it from painted polystyrene with embedded flashlights. The Belgian Air Force officially closed the investigation classifying the phenomenon 'unknown.'",
+
+  "dimensions_reported_m": 30.0,
+  "duration_s": 3600,
+
+  "motion_observed": ["hover_bob", "instant_translation", "tilt_to_bank"],
+
+  "light_behavior_observed": ["steady_constellation", "beam_drop"],
+
+  "physics_anomalies": [
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_rotor_downwash",
+    "no_condensation_trail",
+    "no_inertial_coupling",
+    "instant_acceleration"
+  ],
+
+  "shader_params": {
+    "background_hex": "#070709",
+    "craft_albedo_hex": "#0A0A0C",
+    "glow_hex": "#FFA62B",
+    "grain_profile": "none",
+    "hud_overlay": false,
+    "era_palette": ["#0A0A0C", "#FFA62B", "#C1272D", "#B8B8B8", "#1A1C20", "#070709"]
+  },
+
+  "authenticity_chain": "Night sky star-field alpha mask (hull readable by star occlusion). Three amber point-lights at corners, red pulsing center. No grain — naked-eye witness context. Optional: undercast cloud layer for depth, 3 downward beam cones from corner positions.",
+
+  "cultural_significance": "The Belgian Wave is the most thoroughly documented mass-sighting event in UFO history, unique in that the Belgian government investigated officially and published findings. Gen. de Brouwer's statement that the phenomenon was genuine but unexplained remains one of the few official military admissions. The confessed Petit-Rechain hoax paradoxically strengthened the case — it showed that thousands of other genuine witness accounts existed independent of that image.",
+
+  "notes": "SOBEPS (Société Belge d'Etude des Phénomènes Spatiaux) published a 500-page investigation in 1991. The Belgian Air Force's openness was unique — no other military in the world released radar data on UFO intercepts in this period."
+}
+
+
+### ===== FILE: cases/phoenix_lights_1997.json =====
+
+{
+  "id": "phoenix_lights_1997",
+  "name": "Phoenix Lights",
+  "date": "1997-03-13",
+  "location": "Henderson NV to Tucson AZ, USA",
+  "craft_type_ref": "boomerang_chevron",
+
+  "witnesses": {
+    "count": 10000,
+    "types": ["civilian", "military"],
+    "notable": [
+      "Fife Symington (Governor of Arizona)",
+      "Frances Emma Barwood (Phoenix City Councilwoman)",
+      "Multiple Phoenix police officers"
+    ]
+  },
+
+  "sensor": {
+    "type": "vhs_ntsc",
+    "device": "Consumer camcorders (multiple)",
+    "resolution": "480i NTSC",
+    "footage_available": true
+  },
+
+  "source_quality": "multi_witness",
+  "era": "modern",
+
+  "visual_description": "Beginning around 7:30 PM MST, a formation of five to ten amber/white lights in a V-configuration was observed moving from Henderson Nevada southeastward across Arizona to Tucson. Ground witnesses described a massive craft — some estimating mile-wide — moving silently at low altitude, 100–300 feet overhead in some accounts. A Phoenix family reported the object passing directly overhead, occluding stars, with amber lights at each point of a carpenter's-square V-formation. Camcorder footage shows a formation of lights against the dark sky; the most famous footage shows a V of lights filmed from the Squaw Peak area that eventually extinguishes one by one from left to right — consistent either with flares on a para-chute sequentially released by National Guard A-10s (official explanation for the second event, ~10 PM) or lights shutting off sequentially on a single craft. The initial wave (7:30–8:45 PM), distinct from the later flare drop, has no conventional explanation.",
+
+  "dimensions_reported_m": 1600.0,
+  "duration_s": 4500,
+
+  "motion_observed": ["v_formation_drift", "hover_bob"],
+
+  "light_behavior_observed": ["steady_constellation", "cloaking_fade"],
+
+  "physics_anomalies": [
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_rotor_downwash",
+    "no_condensation_trail"
+  ],
+
+  "shader_params": {
+    "background_hex": "#050506",
+    "craft_albedo_hex": "#0A0A0C",
+    "glow_hex": "#FFA62B",
+    "grain_profile": "vhs_ntsc",
+    "hud_overlay": false,
+    "era_palette": ["#0A0A0C", "#FFA62B", "#FFFFFF", "#1A1C20", "#2A2D33", "#070709"]
+  },
+
+  "authenticity_chain": "480i NTSC interlace, chroma bleed on amber lights against dark sky, VHS luma/chroma separation artifacts, gentle rolling noise, star-field background with light-pollution haze near horizon. V-formation of 7 amber point-lights with soft corona bloom at 30px radius.",
+
+  "cultural_significance": "The most widely witnessed mass-UFO event in American history. Governor Symington called a press conference the next day and had an aide dressed in an alien costume brought out — he later admitted to investigators that he had also seen the formation from his car and was genuinely shaken. Frances Emma Barwood, the only Phoenix official who demanded a public investigation, was subsequently defeated in her next election. The event has been continuously re-examined for 25+ years.",
+
+  "notes": "Two distinct events: the V-formation sighting (7:30–8:45 PM, no conventional explanation) and the A-10 flare drop over the Estrella Mountains (~10 PM, officially explained). Much of the famous camcorder footage documents the second event. The first event — the silent mile-wide formation with witness accounts of overhead pass and star occlusion — remains unexplained."
+}
+
+
+### ===== FILE: cases/calvine_1990.json =====
+
+{
+  "id": "calvine_1990",
+  "name": "Calvine UFO Photograph",
+  "date": "1990-08-04",
+  "location": "Near Calvine, Perthshire, Scotland, UK",
+  "craft_type_ref": "diamond_rhombus",
+
+  "witnesses": {
+    "count": 2,
+    "types": ["civilian"],
+    "notable": ["Names withheld by MoD, still anonymous as of 2024"]
+  },
+
+  "sensor": {
+    "type": "film_35mm",
+    "device": "Consumer 35mm camera (model unknown)",
+    "resolution": "35mm color negative, 6 prints made",
+    "footage_available": false
+  },
+
+  "source_quality": "photographic",
+  "era": "modern",
+
+  "visual_description": "Two men walking near Calvine photographed a large dark-grey metallic-sheen diamond-shaped object hovering silently for approximately 10 minutes before ascending vertically at high speed. A Royal Air Force Harrier jet is also visible in the photographs, providing scale: the object is estimated at approximately 30 meters (100 feet) across. The surface appeared to be dark grey metal with a slight sheen. No lights, no markings, no visible propulsion. The MoD analyst who received the photographs considered them genuine and not fakes. Six color prints were taken; all were confiscated by MoD. The sole remaining print held by RAF press officer Craig Lindsay was released in June 2022 via Sheffield Hallam University — 32 years after the event. Nick Pope, who ran the MoD UFO desk 1991–1994, had an enlarged copy on his office wall and called it the best UFO photograph he had ever seen.",
+
+  "dimensions_reported_m": 30.0,
+  "duration_s": 600,
+
+  "motion_observed": ["hover_bob", "vertical_exit"],
+
+  "light_behavior_observed": [],
+
+  "physics_anomalies": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_condensation_trail",
+    "instant_acceleration"
+  ],
+
+  "shader_params": {
+    "background_hex": "#6A7A8A",
+    "craft_albedo_hex": "#1B1B1F",
+    "glow_hex": "#2E2E34",
+    "grain_profile": "kodachrome",
+    "hud_overlay": false,
+    "era_palette": ["#1B1B1F", "#2E2E34", "#9BA0A6", "#D0D4D8", "#6A7A8A", "#0A0A0C"]
+  },
+
+  "authenticity_chain": "Overcast Scottish highland sky (grey-blue, slight mist). Kodachrome/Ektachrome grain simulation. Harrier jet in frame at distance for scale reference. Object should appear as pure silhouette-shadow against lighter sky — no self-illumination, no glow, maximum geometric legibility. Slight film grain and chromatic aberration at edges.",
+
+  "cultural_significance": "Calvine is exceptional because the photographs convinced the MoD analyst rather than being dismissed. The 32-year suppression — the longest of any British UFO photo — and the eventual accidental release through a retired RAF officer's estate sale of memorabilia is itself a remarkable story. Sheffield Hallam's forensic photographic analysis (2022) found no evidence of hoaxing.",
+
+  "notes": "A reconstruction of the object was made from the description and surviving print by Dr. David Clarke (Sheffield Hallam). The witnesses have never come forward publicly despite 30+ years. The Harrier jet in frame is either coincidence or the craft was watching the military exercise taking place that day."
+}
+
+
+### ===== FILE: cases/rendlesham_1980.json =====
+
+{
+  "id": "rendlesham_1980",
+  "name": "Rendlesham Forest Incident",
+  "date": "1980-12-26",
+  "location": "Rendlesham Forest, Suffolk, UK (near RAF Woodbridge / RAF Bentwaters)",
+  "craft_type_ref": "diamond_rhombus",
+
+  "witnesses": {
+    "count": 80,
+    "types": ["military"],
+    "notable": [
+      "Sgt. Jim Penniston (USAF Security Police)",
+      "Airman John Burroughs (USAF Security Police)",
+      "Lt. Col. Charles Halt (Deputy Base Commander, RAF Woodbridge)"
+    ]
+  },
+
+  "sensor": {
+    "type": "naked_eye",
+    "device": "None (tape recorder used by Halt, recordings released)",
+    "resolution": "n/a",
+    "footage_available": false
+  },
+
+  "source_quality": "multi_witness",
+  "era": "classic",
+
+  "visual_description": "December 26 1980, 3 AM. USAF Security Police Sgt. Jim Penniston and Airman John Burroughs were dispatched after reports of lights crashing in the forest. Penniston described a triangular metallic craft approximately 3 meters long and 2 meters high, hovering a foot above the ground, with a smooth glass-like surface and symbols or hieroglyphic-like markings inscribed on the hull. He touched the craft and felt heat and an electrical charge. It departed silently into the forest. Ground traces included three depressions in a triangular pattern, broken branches above, and radiation readings significantly elevated. Lt. Col. Halt independently witnessed subsequent night events including colored lights moving through the trees — a red light like an eye, white lights, one beam that illuminated the ground briefly at his feet — and his cassette recording ('Now we're observing what appears to be a beam coming down to the ground...') remains one of the most compelling first-hand accounts in UFO history.",
+
+  "dimensions_reported_m": 3.0,
+  "duration_s": 3600,
+
+  "motion_observed": ["hover_bob", "cloaking_fade"],
+
+  "light_behavior_observed": ["steady_constellation", "beam_drop", "cloaking_fade"],
+
+  "physics_anomalies": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom"
+  ],
+
+  "shader_params": {
+    "background_hex": "#0A0C0A",
+    "craft_albedo_hex": "#1B2020",
+    "glow_hex": "#C1272D",
+    "grain_profile": "none",
+    "hud_overlay": false,
+    "era_palette": ["#0A0C0A", "#1B2020", "#C1272D", "#39FF14", "#2A3020", "#050605"]
+  },
+
+  "authenticity_chain": "Dense forest at night, no ambient light. Flashlight beams creating volumetric cones in fog/mist. Craft visible only by its own red running light and the flashlights catching its surface. Halt's cassette recording audio could accompany the visual — 'Here I am ... we're about 150 to 200 yards from the edge of the forest.' Ground traces visible: three depressions in triangular pattern, slightly darker soil.",
+
+  "cultural_significance": "Called 'Britain's Roswell' — the most significant British UFO case and one of the best-documented military encounters anywhere. The Halt memo (written days after the event and later released via FOIA) is the primary document. The three physical traces, radiation readings, and Halt's own real-time audio recording make this one of the few cases with multiple independently corroborated physical effects.",
+
+  "notes": "Penniston later claimed under regression hypnosis to have received a binary message from the craft. The binary, if decoded, reportedly contains coordinates and references to human DNA. This is disputed even among UFO researchers. The uncontested core events — the triangular marks, elevated radiation, and Halt's recording — stand independent of Penniston's later additions."
+}
+
+
+### ===== FILE: cases/trent_mcminnville_1950.json =====
+
+{
+  "id": "trent_mcminnville_1950",
+  "name": "Trent McMinnville UFO Photographs",
+  "date": "1950-05-11",
+  "location": "McMinnville, Oregon, USA",
+  "craft_type_ref": "classic_domed_saucer",
+
+  "witnesses": {
+    "count": 2,
+    "types": ["civilian"],
+    "notable": [
+      "Paul Trent",
+      "Evelyn Trent"
+    ]
+  },
+
+  "sensor": {
+    "type": "film_35mm",
+    "device": "Roamer I camera, 105mm lens, Verichrome Pan film",
+    "resolution": "35mm B&W negative",
+    "footage_available": false
+  },
+
+  "source_quality": "photographic",
+  "era": "classic",
+
+  "visual_description": "Evelyn Trent first observed the object while feeding rabbits in the backyard around 7:45 PM. She called her husband Paul, who grabbed their camera and took two photographs before the object departed to the northwest at high speed. The photographs show a classic oblate disc saucer shape — wider than tall, slight dome on top, smooth underside — suspended in the sky with an overhead power-line and the Trent property visible for scale. The object appears to be metallic, reflecting afternoon sky light on its upper curved surface while casting shadow on its underside. Extensive analysis by LIFE magazine (1950), the Condon Committee (1966–1968), and subsequently multiple photogrammetric studies found no evidence of hoax. The Condon Report notably concluded that the Trents' photographs were 'among the few UFO reports in which all factors investigated... are consistent with the assertion that an extraordinary flying object... was photographed.' A pendulum-shaped shadow beneath the object in one photograph was initially interpreted as a thread (suggesting a model), but analysis showed it to be a shadow of the house's eave.",
+
+  "dimensions_reported_m": 20.0,
+  "duration_s": 60,
+
+  "motion_observed": ["hover_bob", "instant_translation"],
+
+  "light_behavior_observed": [],
+
+  "physics_anomalies": [
+    "no_exhaust_plume",
+    "no_condensation_trail"
+  ],
+
+  "shader_params": {
+    "background_hex": "#8A9088",
+    "craft_albedo_hex": "#C8CCD0",
+    "glow_hex": "#E6E8EA",
+    "grain_profile": "kodachrome",
+    "hud_overlay": false,
+    "era_palette": ["#C8CCD0", "#8A9088", "#E6E8EA", "#3A3A3A", "#B0B0A8", "#1A1A18"]
+  },
+
+  "authenticity_chain": "Overcast Oregon dusk sky (warm grey-white, magic-hour diffuse). Verichrome Pan film grain simulation (fine grain, good tonal range). Black-and-white or sepia conversion. Overhead power-line in upper third of frame for authentic compositional context. Object should show specular highlight on upper curved surface, shadow on underside, slight motion blur on upper edge if near-departure frame.",
+
+  "cultural_significance": "The Trent photographs are the most analyzed UFO photographs in history and remain unrefuted after 75 years. Unlike many UFO photographs, the Trents never sought fame or money — they continued farming and gave interviews reluctantly for decades. The photos were nearly lost: Paul Trent gave them to a bank as collateral for a loan, the bank lost them, they were eventually recovered and displayed at the McMinnville UFO Festival, which continues annually.",
+
+  "notes": "Mick West and others have argued the photographs show a suspended model. The counterargument is that analysis of the negative grain pattern, shadow orientation, and relative size calculations under the known camera optics are inconsistent with a small nearby object. The debate continues. What's undisputed: the Trents' behavior before and after was entirely inconsistent with a hoax attempt."
+}
+
+
+### ===== FILE: cases/chilbolton_2001.json =====
+
+{
+  "id": "chilbolton_2001",
+  "name": "Chilbolton Arecibo Response and Face",
+  "date": "2001-08-01",
+  "location": "Near Chilbolton radio telescope, Hampshire, UK",
+  "craft_type_ref": "classic_domed_saucer",
+
+  "witnesses": {
+    "count": 1,
+    "types": ["civilian"],
+    "notable": ["Paul Vigay (crop circle researcher, first to analyze the formation)"]
+  },
+
+  "sensor": {
+    "type": "film_35mm",
+    "device": "Aerial photography",
+    "resolution": "color aerial",
+    "footage_available": true
+  },
+
+  "source_quality": "photographic",
+  "era": "modern",
+
+  "visual_description": "Two crop formations appeared in a grass field adjacent to the Chilbolton radio telescope in Hampshire, UK. The first, a rectangular grid formation, mirrored the 1974 Arecibo radio message sent to globular cluster M13 but with systematic alterations: the DNA helix was changed to include a different base-pair arrangement, the figure was taller with a larger head and different atomic numbers listed, the transmitter at bottom was changed from a radio dish to a circular formation, and a different solar system alignment was implied (third and fourth planets highlighted rather than third). The second formation, co-located, showed a halftone dot-matrix face using variations in standing crop density — a humanoid face with large eyes, wide skull, and small mouth rendered in grayscale via dot-matrix varying-density cells. Together they read as a response to humanity's 1974 broadcast.",
+
+  "dimensions_reported_m": 40.0,
+  "duration_s": 0,
+
+  "motion_observed": [],
+
+  "light_behavior_observed": [],
+
+  "physics_anomalies": [],
+
+  "shader_params": {
+    "background_hex": "#3A4A30",
+    "craft_albedo_hex": "#8A9A78",
+    "glow_hex": "#6A7A58",
+    "grain_profile": "none",
+    "hud_overlay": false,
+    "era_palette": ["#3A4A30", "#8A9A78", "#C8D0B0", "#1A2210", "#5A6A48", "#2A3420"]
+  },
+
+  "authenticity_chain": "Aerial photograph context — green field with darker flattened crop forming the pattern. No glow, no blur. The key visual is the contrast between standing (lighter) and flattened (darker) grass cells rendering the bitmap grid. For shader work: treat as a pixel-art face/grid on a green ground plane.",
+
+  "cultural_significance": "The Chilbolton formations are the most intellectually sophisticated crop circle event documented, and the connection to the Chilbolton radio telescope — humanity's most powerful radio transmitter aimed at space in 1974 — is either a profound coincidence or deliberate placement. The Arecibo 'response' changes were specific enough to encode a different biology and solar system, not random noise. Whether human artwork or something else, the design intelligence is real.",
+
+  "notes": "Connected in the merrypranxter ecosystem to crop_circles repo — this case bridges ufo/ and crop_circles/ as the only case that straddles both domains. The Crabwood alien face and disk (2002) followed the next year with a binary-encoded message reading 'Beware the bearers of FALSE gifts.'"
+}
+
+
+### ===== FILE: cases/aguadilla_2013.json =====
+
+{
+  "id": "aguadilla_2013",
+  "name": "Aguadilla DHS FLIR Sighting",
+  "date": "2013-04-25",
+  "location": "Rafael Hernández Airport, Aguadilla, Puerto Rico",
+  "craft_type_ref": "jellyfish_uap",
+
+  "witnesses": {
+    "count": 3,
+    "types": ["military"],
+    "notable": ["DHS/CBP DHC-8 crew (names classified)"]
+  },
+
+  "sensor": {
+    "type": "wescam_ir",
+    "device": "WESCAM MX-15D thermal camera aboard CBP DHC-8",
+    "resolution": "HD IR, 9 minutes 52 seconds footage",
+    "footage_available": true
+  },
+
+  "source_quality": "official_release_contested",
+  "era": "sensor",
+
+  "visual_description": "A US Customs and Border Protection DHC-8 aircraft was on a routine patrol over Aguadilla when the crew observed and filmed an unidentified object for 3 minutes 54 seconds using their WESCAM MX-15D thermal camera. The object appears as a glowing circle approximately 1–2 feet in diameter moving at speeds ranging from 40–120 mph. It crosses the runway of Rafael Hernández Airport (requiring tower notification — a plane was holding for it), then proceeds to the Atlantic coast, enters the water, and is tracked submerging. The most striking element of the footage is that the object then **splits into two separate objects** underwater before one re-emerges. Speed analysis by the Scientific Coalition for UAP Studies (SCU) determined peak speeds of approximately 1,200 mph at certain points. The thermal signature is complex — the object appears both warmer and cooler than ambient at different points. An independent analysis by Robert Powell found three independent sensors (IR, radar, visual) corroborating the track.",
+
+  "dimensions_reported_m": 0.6,
+  "duration_s": 234,
+
+  "motion_observed": ["hover_bob", "transmedium_entry", "instant_translation"],
+
+  "light_behavior_observed": ["corona_bloom", "thermal_polarity_flip"],
+
+  "physics_anomalies": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_water_ripple",
+    "no_inertial_coupling",
+    "transmedium_capable",
+    "instant_acceleration"
+  ],
+
+  "shader_params": {
+    "background_hex": "#1A1A1A",
+    "craft_albedo_hex": "#F2F2F2",
+    "glow_hex": "#FFFFFF",
+    "grain_profile": "atflir",
+    "hud_overlay": true,
+    "era_palette": ["#F2F2F2", "#9A9A94", "#1A1A1A", "#FFFFFF", "#6CFF00", "#101418"]
+  },
+
+  "authenticity_chain": "WESCAM HD IR, WHT HOT mode (hot→white). Object appears as small white circle with radiometric bloom halo. Water surface visible as textured grey plane. Submersion shows no splash particle — object disappears into surface smoothly. Split event: one object becomes two distinct hot spots, moving apart. Re-emergence: single object exits with no surface disturbance.",
+
+  "cultural_significance": "The Aguadilla footage is considered one of the most compelling modern UAP videos because it was officially obtained (leaked from government source), has multi-sensor corroboration, and includes behaviors (runway crossing requiring ATC awareness, water entry, object splitting) that are difficult to explain mundanely. The Scientific Coalition for UAP Studies published a 162-page analysis in 2015.",
+
+  "notes": "Mick West and others have proposed various conventional explanations including birds, insects, and atmospheric phenomena. The SCU analysis systematically addresses these. The 'splitting' event remains the most difficult to conventionally explain. Context: Puerto Rico is a known UAP concentration area — multiple Navy and DHS reports from the Caribbean corridor in this era."
+}
+
+
+### ===== FILE: cases/omaha_sphere_2019.json =====
+
+{
+  "id": "omaha_sphere_2019",
+  "name": "USS Omaha Sphere Transmedium",
+  "date": "2019-07-15",
+  "location": "Pacific Ocean off San Diego, CA (32°29'N 119°22'W)",
+  "craft_type_ref": "orb_sphere",
+
+  "witnesses": {
+    "count": 10,
+    "types": ["military"],
+    "notable": ["USS Omaha CIC crew (names classified)"]
+  },
+
+  "sensor": {
+    "type": "multi_sensor",
+    "device": "Ship IR camera, radar (three independent sensors corroborating)",
+    "resolution": "Ship-based IR, 30+ seconds footage",
+    "footage_available": true
+  },
+
+  "source_quality": "official_release",
+  "era": "sensor",
+
+  "visual_description": "The Combat Information Center of USS Omaha filmed a spherical luminous object approximately six feet in diameter. The footage shows the object hovering then descending into the Pacific Ocean. No splash is visible on entry — the surface of the water shows no disturbance. The object appears solid on three independent sensors. Footage ends with crew audio commentary: 'Splash! No... wait. Did it just go into the water? Were there any others?' Fourteen objects were recorded in the engagement area moving at speeds of 40–138 knots. No wreckage was recovered from the submersion site despite surface search. The Jeremy Corbell documentary (2021) which leaked this footage describes the objects as 'spherical, solid, and with unknown origin.' The DoD confirmed the footage as authentic.",
+
+  "dimensions_reported_m": 1.8,
+  "duration_s": 30,
+
+  "motion_observed": ["hover_bob", "transmedium_entry"],
+
+  "light_behavior_observed": ["corona_bloom", "radiometric_halo"],
+
+  "physics_anomalies": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_water_ripple",
+    "transmedium_capable"
+  ],
+
+  "shader_params": {
+    "background_hex": "#101418",
+    "craft_albedo_hex": "#EDEDE9",
+    "glow_hex": "#F2F2F2",
+    "grain_profile": "atflir",
+    "hud_overlay": true,
+    "era_palette": ["#EDEDE9", "#9A9A94", "#1A1A1A", "#F2F2F2", "#6CFF00", "#101418"]
+  },
+
+  "authenticity_chain": "Ship-mounted IR camera. WHT HOT or BLK HOT mode (varies by platform). Object as bright white sphere with radiometric bloom. Ocean surface visible as textured grey plane with gentle thermal variation. Water entry: smooth fade of object below surface plane with zero splash particle system, zero ripple ring. Radar blip visualization optional as secondary layer.",
+
+  "cultural_significance": "The USS Omaha footage is central to the 2021 UAP disclosure wave. When Jeremy Corbell released it alongside the pyramid-shaped footage from USS Russell, it marked the first time transmedium behavior (air-to-water, no surface disturbance) was captured on official military sensor equipment and subsequently confirmed by DoD. The matter-of-fact crew audio — 'Splash... did it just go into the water?' — is one of the most quietly extraordinary recordings in UAP history.",
+
+  "notes": "The USS Russell footage filmed from the same period shows objects that triangulate as pyramid shapes in the ATFLIR — later analysis by Mick West suggests this is an aperture diffraction artifact of point-sources through the optics at distance. The sphere footage from USS Omaha does not have this ambiguity."
+}
+
+
+### ===== FILE: cases/gimbal_2015.json =====
+
+{
+  "id": "gimbal_2015",
+  "name": "GIMBAL",
+  "date": "2015-01-21",
+  "location": "Atlantic Ocean off Florida coast (exact coordinates classified)",
+  "craft_type_ref": "gimbal",
+
+  "witnesses": {
+    "count": 4,
+    "types": ["military", "pilot"],
+    "notable": ["F/A-18 pilots from USS Theodore Roosevelt air wing (names classified)"]
+  },
+
+  "sensor": {
+    "type": "atflir_ir",
+    "device": "AN/ASQ-228 ATFLIR aboard F/A-18",
+    "resolution": "640x480 FLIR",
+    "footage_available": true
+  },
+
+  "source_quality": "official_release",
+  "era": "sensor",
+
+  "visual_description": "ATFLIR footage showing a dark disc/top-hat shaped object in black-hot IR mode with a distinctive bright white halo surrounding it. The object moves against a 120-knot headwind and is then observed rotating approximately 90 degrees from horizontal to vertical orientation while maintaining its flight path — without any visible roll, bank, or corresponding change in direction. Radar tracks confirm the object and 4–6 similar unknowns in the area. Pilot audio: 'Look at that thing, dude.' Second pilot: 'It's rotating.' Object holds the rotation for several seconds then steadies. The footage was filmed by the Theodore Roosevelt air wing which reported repeated UAP encounters in 2014–2015 off the Virginia and Florida coasts. Pilots from this wing later testified before Congress in July 2023.",
+
+  "dimensions_reported_m": 15.0,
+  "duration_s": 34,
+
+  "motion_observed": ["axial_rotation", "hover_bob"],
+
+  "light_behavior_observed": ["radiometric_halo"],
+
+  "physics_anomalies": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_inertial_coupling"
+  ],
+
+  "shader_params": {
+    "background_hex": "#101418",
+    "craft_albedo_hex": "#1A1A1A",
+    "glow_hex": "#F2F2F2",
+    "grain_profile": "atflir",
+    "hud_overlay": true,
+    "era_palette": ["#1A1A1A", "#F2F2F2", "#9A9A94", "#2A2A2A", "#6CFF00", "#101418"]
+  },
+
+  "authenticity_chain": "BLK HOT mode: hot→black, cold→white. Object appears dark (cold) against grey-black background. White halo at 1.3× object radius. Smooth axial rotation animation over 3 seconds. HUD overlay: FLIR mode text top-left, crosshair center, autotrack box on object, bearing/range bottom. ATFLIR grain + fixed-pattern noise.",
+
+  "cultural_significance": "GIMBAL is named by the pilots — they believed the camera's gimbal mechanism caused the rotation artifact, not the object itself rotating. Whether that's true or not (Mick West argues it is; others disagree), the visual signature of the rotating halo-wrapped dark saucer in greyscale IR is now canonical. Released by the DoD April 2020. Fravor, Graves, and other Roosevelt wing pilots testified about encounters from this deployment at the July 2023 House Oversight UAP hearings.",
+
+  "notes": "The most contested of the three official Pentagon UAP videos in terms of conventional explanation. West's gimbal-artifact analysis is technically coherent; the primary counterargument is radar corroboration of the object as a real physical target, not a sensor artifact. Both the visual and the debate are equally important for the cultural record."
+}
+
+
+### ===== FILE: cases/gofast_2015.json =====
+
+{
+  "id": "gofast_2015",
+  "name": "GO FAST",
+  "date": "2015-01-01",
+  "location": "Atlantic Ocean, approximate",
+  "craft_type_ref": "tic_tac",
+
+  "witnesses": {
+    "count": 2,
+    "types": ["military", "pilot"],
+    "notable": ["F/A-18 pilots from USS Theodore Roosevelt air wing"]
+  },
+
+  "sensor": {
+    "type": "atflir_ir",
+    "device": "AN/ASQ-228 ATFLIR",
+    "resolution": "640x480 FLIR",
+    "footage_available": true
+  },
+
+  "source_quality": "official_release",
+  "era": "sensor",
+
+  "visual_description": "ATFLIR footage showing a small white ovoid object that appears to skim at extremely low altitude over the ocean surface at high apparent speed — the name 'Go Fast' referring to the pilots' exclamation. However, analysis by Mick West and others showed that the apparent high speed is primarily a parallax effect: the aircraft was flying at 25,000 feet at 400 knots, the object was moving at approximately 30–40 knots at much lower altitude, and the combination of different velocities and altitudes creates the illusion of extreme speed in the ATFLIR frame. Even under this interpretation, a 30-40 knot smooth white featureless ovoid at low altitude with no visible propulsion is anomalous. Pilot audio: 'Oh my gosh, dude. Wow, what is that man? Look at it fly!'",
+
+  "dimensions_reported_m": 4.0,
+  "duration_s": 34,
+
+  "motion_observed": ["hover_bob", "instant_translation"],
+
+  "light_behavior_observed": [],
+
+  "physics_anomalies": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_condensation_trail"
+  ],
+
+  "shader_params": {
+    "background_hex": "#101418",
+    "craft_albedo_hex": "#EDEDE9",
+    "glow_hex": "#F2F2F2",
+    "grain_profile": "atflir",
+    "hud_overlay": true,
+    "era_palette": ["#EDEDE9", "#9A9A94", "#1A1A1A", "#F2F2F2", "#6CFF00", "#101418"]
+  },
+
+  "authenticity_chain": "ATFLIR WHT HOT mode. Small white ovoid, ocean surface visible below as textured grey. Parallax motion effect: object appears faster than it is due to altitude/velocity differential. HUD with range/altitude numerics, crosshair, mode text.",
+
+  "cultural_significance": "GO FAST is part of the canonical Pentagon UAP video trio (with FLIR1 and GIMBAL). Released April 2020 by DoD. The West parallax analysis is a good-faith attempt at conventional explanation, but the existence of the Theodore Roosevelt air wing's sustained encounters across 2014–2015 (eventually testified to before Congress) contextualizes all three videos as part of a pattern, not isolated incidents.",
+
+  "notes": "Ryan Graves, the F/A-18 pilot who reported encounters to the Pentagon and later testified before Congress, described objects from this deployment as 'solid white objects, roughly the size and shape of a sphere, moving at very high speeds with no exhaust, no wings, and behaving in ways that made no sense.' GO FAST may be from his flight group."
+}
+
+
+### ===== FILE: cases/iraq_jellyfish_2018.json =====
+
+{
+  "id": "iraq_jellyfish_2018",
+  "name": "Iraq Jellyfish UAP",
+  "date": "2018-10-01",
+  "location": "Al Taqaddum Airbase, Anbar Province, Iraq",
+  "craft_type_ref": "jellyfish_uap",
+
+  "witnesses": {
+    "count": 10,
+    "types": ["military"],
+    "notable": ["Michael Cincoski (Marine, named the object 'the spaghetti monster')"]
+  },
+
+  "sensor": {
+    "type": "aerostat_ir",
+    "device": "Aerostat-mounted IR camera at Al Taqaddum",
+    "resolution": "Standard definition IR",
+    "footage_available": true
+  },
+
+  "source_quality": "official_release_contested",
+  "era": "sensor",
+
+  "visual_description": "A 17-minute full-length video (released by Jeremy Corbell in January 2024 after a 35-second excerpt circulated in 2023) shows an elongated oval body with three dangling appendage-like structures. The object drifts over the airbase, descends toward a nearby lake, enters the lake, and remains submerged for 17 minutes before departing. The thermal signature is unusual: the dangling appendages appear to cycle between hot and cold in the IR image — cycling black (cold), grey (neutral), and white (hot) repeatedly over approximately 3-second periods. This thermal polarity flip is unlike any known aircraft or biological creature. Base personnel were reportedly disturbed by the presence of this object; Marines tracked it and it became a persistent 'ghost story' at the base. Some soldiers reported the aerostat camera operators turning off the feed when the object appeared.",
+
+  "dimensions_reported_m": 1.5,
+  "duration_s": 1020,
+
+  "motion_observed": ["hover_bob", "transmedium_entry", "cloaking_fade"],
+
+  "light_behavior_observed": ["thermal_polarity_flip", "corona_bloom"],
+
+  "physics_anomalies": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_water_ripple",
+    "no_inertial_coupling",
+    "transmedium_capable"
+  ],
+
+  "shader_params": {
+    "background_hex": "#101418",
+    "craft_albedo_hex": "#9A9A94",
+    "glow_hex": "#F2F2F2",
+    "grain_profile": "atflir",
+    "hud_overlay": false,
+    "era_palette": ["#9A9A94", "#1A1A1A", "#F2F2F2", "#5A5A56", "#2A2A2A", "#101418"]
+  },
+
+  "authenticity_chain": "Aerostat IR — wider FOV, lower resolution than ATFLIR. Object appears small relative to frame. Thermal polarity cycle on appendages: emissive channel inverts from hot-white to cold-black over 3 seconds, repeat. Lake water surface visible as flat grey plane. Submersion: object descends below surface plane, no ripple. 17-minute dwell time — camera holds position with just occasional drift.",
+
+  "cultural_significance": "The Iraq Jellyfish UAP is the most biologically suggestive documented UAP case. The thermal polarity flip — the appendages cycling through temperature states — is the defining anomaly. No conventional aircraft, drone, balloon, bird, or insect swarm produces this specific thermal signature. Marine Michael Cincoski's 'spaghetti monster' nickname captures the visceral strangeness of the thing. The 17-minute submersion suggests either an extremely capable vehicle or something genuinely not a vehicle.",
+
+  "notes": "Corbell released the full 17-minute video in January 2024 with additional context from base personnel interviews. Pentagon confirmed the footage as authentic UAP material under investigation. The Islamic concept of Jinn — invisible beings from the Quran — was reportedly invoked by some local Iraqi workers at the base in reference to the object."
+}
+
+
+### ===== FILE: shaders/classic_saucer.frag =====
+
+// classic_saucer.frag
+// 1950s chrome flying saucer — SDF-based
+// Rotating rim lights, chrome hull, optional beam below
+// Uniforms: iTime, iResolution
+
+precision mediump float;
+uniform float iTime;
+uniform vec2 iResolution;
+
+#define CHROME vec3(0.784, 0.8, 0.816)
+#define RIM_GLOW vec3(0.965, 0.886, 0.478)
+#define SKY vec3(0.122, 0.227, 0.42)
+#define BLACK vec3(0.0)
+
+vec2 rot2(vec2 p, float a) {
+  return vec2(p.x*cos(a)-p.y*sin(a), p.x*sin(a)+p.y*cos(a));
+}
+
+// SDF: oblate ellipsoid (saucer body)
+float sdEllipsoid(vec3 p, vec3 r) {
+  float k0 = length(p/r);
+  float k1 = length(p/(r*r));
+  return k0*(k0-1.0)/k1;
+}
+
+// SDF 2D capsule dome
+float sdDome(vec2 p) {
+  p.y -= 0.08;
+  return sdEllipsoid(vec3(p.x, p.y, 0.0), vec3(0.14, 0.10, 0.14));
+}
+
+// Saucer body SDF (2D cross-section)
+float sdSaucer(vec2 p) {
+  return sdEllipsoid(vec3(p.x, p.y * 1.8, 0.0), vec3(0.38, 0.22, 0.38));
+}
+
+// Rim light position at angle theta
+vec2 rimLight(float theta) {
+  return vec2(cos(theta) * 0.36, -0.01);
+}
+
+void main() {
+  vec2 uv = (gl_FragCoord.xy - 0.5 * iResolution.xy) / iResolution.y;
+  float t = iTime;
+
+  // Slight hover bob
+  uv.y -= sin(t * 0.8) * 0.02;
+
+  // Background: night sky gradient
+  vec3 col = mix(SKY * 0.3, SKY * 0.1, uv.y + 0.5);
+
+  // Stars
+  vec2 starUV = uv * 8.0;
+  float star = step(0.98, fract(sin(dot(floor(starUV), vec2(127.1, 311.7))) * 43758.5));
+  col += star * 0.6;
+
+  // Saucer outline (black backing)
+  float saucerOut = sdSaucer(uv);
+  col = mix(col, BLACK, smoothstep(0.01, -0.01, saucerOut + 0.015));
+
+  // Saucer chrome fill
+  float saucer = sdSaucer(uv);
+  vec3 chromeColor = CHROME;
+  // Fresnel-style shading: darker on underside
+  chromeColor *= mix(0.3, 1.2, smoothstep(-0.15, 0.15, uv.y));
+  col = mix(col, chromeColor, smoothstep(0.008, -0.008, saucer));
+
+  // Specular highlight on top curve
+  float spec = exp(-pow(length(uv - vec2(-0.08, 0.12)) * 6.0, 2.0));
+  col += vec3(1.0) * spec * smoothstep(0.008, -0.008, saucer) * 0.4;
+
+  // Dome
+  float dome = sdDome(uv);
+  col = mix(col, BLACK, smoothstep(0.01, -0.01, dome + 0.012));
+  col = mix(col, CHROME * 1.1, smoothstep(0.008, -0.008, dome));
+
+  // Rotating rim lights (24 of them)
+  float rimGlow = 0.0;
+  for (int i = 0; i < 24; i++) {
+    float angle = float(i) / 24.0 * 6.28318 + t * 1.2;
+    vec2 lp = rimLight(angle);
+    float d = length(uv - lp);
+    // Only show front-facing lights (simple z-cull approximation)
+    float vis = step(0.0, sin(angle - t * 1.2));
+    rimGlow += exp(-d * 80.0) * 0.5 * vis;
+    // Strobe: every 3rd light pulses
+    if (mod(float(i), 3.0) < 1.0) {
+      float pulse = step(0.5, sin(t * 4.0 + float(i) * 0.8));
+      rimGlow += exp(-d * 60.0) * 0.4 * pulse * vis;
+    }
+  }
+  col += RIM_GLOW * rimGlow;
+  col += RIM_GLOW * exp(-abs(sdSaucer(uv)) * 15.0) * 0.15;
+
+  // Abduction beam below
+  float beamActive = step(0.5, sin(t * 0.3));
+  if (beamActive > 0.5) {
+    float beamX = abs(uv.x);
+    float beamY = uv.y + 0.25;
+    float beam = smoothstep(0.15, 0.0, beamX - (-beamY * 0.15));
+    beam *= smoothstep(-0.25, -0.6, uv.y);
+    beam *= smoothstep(-0.6, -0.25, uv.y);
+    col += vec3(0.7, 0.9, 0.6) * beam * 0.3;
+  }
+
+  // Glow around whole craft
+  float craftGlow = exp(-max(0.0, sdSaucer(uv)) * 8.0);
+  col += RIM_GLOW * craftGlow * 0.1;
+
+  // Vignette
+  col *= 1.0 - length(uv) * 0.6;
+
+  gl_FragColor = vec4(col, 1.0);
+}
+
+
+### ===== FILE: shaders/tic_tac_flir.frag =====
+
+// tic_tac_flir.frag
+// Tic Tac in ATFLIR black-hot IR simulation
+// Includes: HUD overlay, fixed-pattern noise, radiometric halo, telemetry text
+// Uniforms: iTime, iResolution
+
+precision mediump float;
+uniform float iTime;
+uniform vec2 iResolution;
+
+float hash(float n) { return fract(sin(n) * 43758.5453); }
+float hash2(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+
+// SDF: capsule
+float sdCapsule(vec2 p, float r, float h) {
+  p.y = abs(p.y) - h;
+  return length(vec2(p.x, max(p.y, 0.0))) - r;
+}
+
+// Simple 7-segment digit approximation via boxes
+float digit(vec2 p, float scale) {
+  p /= scale;
+  float d = 1e5;
+  // Just render a rectangle for "telemetry block" aesthetic
+  d = min(d, length(max(abs(p) - vec2(0.4, 0.7), 0.0)));
+  return d;
+}
+
+void main() {
+  vec2 uv = (gl_FragCoord.xy - 0.5 * iResolution.xy) / iResolution.y;
+  float t = iTime;
+
+  // ── FLIR background noise ──────────────────────────────
+  // Fixed-pattern column noise
+  float fpn = (hash(floor(gl_FragCoord.x)) - 0.5) * 0.025;
+  // 1/f temporal noise
+  float temporal = (hash2(gl_FragCoord.xy + floor(t * 24.0)) - 0.5) * 0.018;
+  float bg = 0.12 + fpn + temporal;
+
+  // Quantize to 8-bit
+  bg = floor(bg * 255.0) / 255.0;
+
+  // ── Tic Tac object (BLK HOT: object is COLD → appears light) ──
+  float hover = sin(t * 0.7) * 0.018;
+  vec2 craftPos = vec2(0.0, hover);
+  float craft = sdCapsule(uv - craftPos, 0.055, 0.08);
+
+  // Object thermal: slightly cooler than ambient → appears lighter in BLK HOT
+  float craftTemp = 0.75 + sin(t * 0.3) * 0.02;
+
+  // Radiometric halo (where sensor saturates near cool object)
+  float haloRadius = 0.13;
+  float halo = exp(-max(0.0, length(uv - craftPos) - 0.065) * 12.0);
+  float haloBrightness = 0.6;
+
+  float luma = bg;
+  luma = mix(luma, craftTemp, smoothstep(0.004, -0.004, craft));
+  luma += halo * haloBrightness * 0.4;
+  luma = clamp(luma, 0.0, 1.0);
+
+  // ── Motion blur streak when craft moves fast ──
+  float speed = abs(cos(t * 0.7)) * 0.08;
+  for (int i = 1; i < 5; i++) {
+    vec2 trailPos = craftPos - vec2(0.0, float(i) * speed * 0.01);
+    float trailCraft = sdCapsule(uv - trailPos, 0.055, 0.08);
+    luma += smoothstep(0.004, -0.004, trailCraft) * (0.3 - float(i) * 0.06) * speed * 8.0;
+  }
+
+  vec3 col = vec3(luma);
+
+  // ── HUD overlay ──────────────────────────────────────
+  vec2 px = gl_FragCoord.xy;
+  vec2 res = iResolution.xy;
+  float hud = 0.0;
+
+  // Crosshair center
+  float cx = abs(px.x - res.x * 0.5);
+  float cy = abs(px.y - res.y * 0.5);
+  if (cx < 1.0 && cy < 15.0) hud = 1.0;
+  if (cy < 1.0 && cx < 15.0) hud = 1.0;
+  if (cx < 8.0 && cx > 5.0 && cy < 1.0) hud = 0.0; // gap in crosshair
+
+  // Autotrack box around craft
+  vec2 boxCenter = (craftPos * iResolution.yy + iResolution.xy * 0.5);
+  vec2 boxSize = vec2(30.0, 22.0);
+  vec2 boxDist = abs(px - boxCenter) - boxSize;
+  if (max(boxDist.x, boxDist.y) < 1.5 && max(boxDist.x, boxDist.y) > -1.5) hud = 0.8;
+
+  // HUD green tint
+  col = mix(col, vec3(0.0, 0.85, 0.1), hud * 0.9);
+
+  // Mode text region (just a glow strip, actual text would need texture)
+  float topBar = smoothstep(res.y - 18.0, res.y - 12.0, px.y);
+  col = mix(col, col + vec3(0.0, 0.1, 0.0), topBar * 0.3);
+  float bottomBar = smoothstep(18.0, 12.0, px.y);
+  col = mix(col, col + vec3(0.0, 0.05, 0.0), bottomBar * 0.3);
+
+  // Whitewater patch (churning water below craft)
+  vec2 waterPos = vec2(0.0, -0.28);
+  float waterDist = length(uv - waterPos);
+  float water = exp(-waterDist * 12.0) * 0.25;
+  water *= 0.5 + 0.5 * sin(t * 8.0 + uv.x * 20.0) * sin(t * 6.0 + uv.y * 20.0);
+  col += vec3(water * 0.8);
+
+  // Vignette
+  col *= 0.9 + (1.0 - length(uv) * 1.2) * 0.1;
+  col = clamp(col, 0.0, 1.0);
+
+  gl_FragColor = vec4(col, 1.0);
+}
+
+
+### ===== FILE: shaders/black_triangle_night.frag =====
+
+// black_triangle_night.frag
+// Belgian Wave black triangle: night sky, 3 amber corner lights + red center
+// Star occlusion via alpha mask
+// Uniforms: iTime, iResolution
+
+precision mediump float;
+uniform float iTime;
+uniform vec2 iResolution;
+
+#define AMBER vec3(1.0, 0.647, 0.169)
+#define RED   vec3(0.757, 0.145, 0.176)
+#define BLACK vec3(0.039, 0.039, 0.047)
+
+float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+
+// SDF: equilateral triangle
+float sdTriangle(vec2 p, float r) {
+  const float k = sqrt(3.0);
+  p.x = abs(p.x) - r;
+  p.y = p.y + r / k;
+  if (p.x + k * p.y > 0.0) p = vec2(p.x - k*p.y, -k*p.x - p.y) / 2.0;
+  p.x -= clamp(p.x, -2.0*r, 0.0);
+  return -length(p) * sign(p.y);
+}
+
+void main() {
+  vec2 uv = (gl_FragCoord.xy - 0.5 * iResolution.xy) / iResolution.y;
+  float t = iTime;
+
+  // Slow drift
+  uv -= vec2(sin(t * 0.08) * 0.05, t * 0.015);
+  float hover = sin(t * 0.6) * 0.008;
+  uv.y -= hover;
+
+  // ── Night sky ────────────────────────────────────────
+  vec3 col = mix(BLACK * 0.5, BLACK * 0.2, uv.y + 0.5);
+
+  // Stars — occluded by craft body
+  vec2 starUV = uv * 12.0;
+  vec2 starCell = floor(starUV);
+  float starBrightness = hash(starCell);
+  float starOn = step(0.94, starBrightness);
+  float starTwinkle = 0.7 + 0.3 * sin(t * 3.0 + starBrightness * 20.0);
+
+  // Triangle hull for occlusion
+  float triangle = sdTriangle(uv * vec2(1.0, -1.0), 0.32);
+  float hullMask = smoothstep(0.01, -0.01, triangle);
+
+  // Stars blocked by hull
+  col += vec3(starOn * starTwinkle * 0.7) * (1.0 - hullMask);
+
+  // ── Hull silhouette (barely visible, star-occlusion does the work) ──
+  col = mix(col, BLACK, hullMask * 0.95);
+
+  // Faint underside glow (city lights reflecting off hull)
+  float underbelly = hullMask * smoothstep(0.1, -0.1, uv.y) * 0.15;
+  col += AMBER * underbelly * 0.2;
+
+  // ── Corner lights ────────────────────────────────────
+  // Equilateral triangle corners
+  vec2 corners[3];
+  corners[0] = vec2(0.0, 0.32);       // apex
+  corners[1] = vec2(-0.277, -0.16);   // bottom-left
+  corners[2] = vec2(0.277, -0.16);    // bottom-right
+
+  for (int i = 0; i < 3; i++) {
+    float d = length(uv - corners[i]);
+    col += AMBER * exp(-d * 30.0) * 1.5;
+    col += AMBER * exp(-d * 8.0) * 0.4;  // wider bloom
+  }
+
+  // ── Center pulsing red light ──────────────────────────
+  float pulse = 0.5 + 0.5 * sin(t * 5.0 * 3.14159);
+  float dCenter = length(uv - vec2(0.0, 0.055));
+  col += RED * exp(-dCenter * 35.0) * (0.8 + pulse * 0.6);
+  col += RED * exp(-dCenter * 10.0) * 0.3 * pulse;
+
+  // ── Optional downward beams ───────────────────────────
+  float beamActive = step(0.5, sin(t * 0.2));
+  for (int i = 0; i < 3; i++) {
+    vec2 beamOrigin = corners[i];
+    float beamX = abs(uv.x - beamOrigin.x);
+    float beamY = uv.y - beamOrigin.y;
+    float beam = smoothstep(0.04, 0.0, beamX) * smoothstep(0.0, -0.4, beamY) * beamActive;
+    col += AMBER * beam * 0.08;
+  }
+
+  // Vignette
+  col *= 1.0 - length(uv) * 0.5;
+  col = clamp(col, 0.0, 1.0);
+
+  gl_FragColor = vec4(col, 1.0);
+}
+
+
+### ===== FILE: shaders/orb_plasma.frag =====
+
+// orb_plasma.frag
+// Luminous sphere with plasma corona / fresnel glow
+// Transmedium-capable: includes water surface below
+// Uniforms: iTime, iResolution
+
+precision mediump float;
+uniform float iTime;
+uniform vec2 iResolution;
+
+#define ORB_WHITE vec3(0.93, 0.93, 0.91)
+#define PLASMA    vec3(0.2, 0.85, 1.0)
+#define WATER     vec3(0.05, 0.12, 0.18)
+
+float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+float noise(vec2 p) {
+  vec2 i = floor(p), f = fract(p);
+  f = f * f * (3.0 - 2.0 * f);
+  return mix(mix(hash(i), hash(i+vec2(1,0)), f.x),
+             mix(hash(i+vec2(0,1)), hash(i+vec2(1,1)), f.x), f.y);
+}
+
+void main() {
+  vec2 uv = (gl_FragCoord.xy - 0.5 * iResolution.xy) / iResolution.y;
+  float t = iTime;
+
+  float hover = sin(t * 0.9) * 0.02;
+  vec2 orbPos = vec2(0.0, 0.05 + hover);
+  float orbRadius = 0.09;
+
+  // ── Background ────────────────────────────────────────
+  vec3 col = mix(vec3(0.02, 0.03, 0.04), vec3(0.06, 0.08, 0.12), uv.y + 0.5);
+
+  // Stars
+  float star = step(0.965, hash(floor(uv * 10.0)));
+  col += star * 0.4 * vec3(0.8, 0.9, 1.0);
+
+  // Water surface
+  float waterLine = -0.22;
+  if (uv.y < waterLine) {
+    float waterDepth = (waterLine - uv.y) * 4.0;
+    col = mix(WATER, vec3(0.01, 0.02, 0.03), waterDepth);
+    // Caustic-like pattern
+    float caustic = noise(uv * 8.0 + t * 0.3) * noise(uv * 12.0 - t * 0.2);
+    col += PLASMA * caustic * 0.1 * exp(-waterDepth * 2.0);
+  }
+
+  // Water line shimmer
+  float waterEdge = abs(uv.y - waterLine);
+  col += PLASMA * exp(-waterEdge * 30.0) * 0.2 * (0.5 + 0.5 * sin(uv.x * 15.0 + t * 2.0));
+
+  // ── Orb ─────────────────────────────────────────────
+  float d = length(uv - orbPos);
+  float orbSDF = d - orbRadius;
+
+  // Core: solid white
+  col = mix(col, ORB_WHITE, smoothstep(0.005, -0.005, orbSDF));
+
+  // Specular hotspot
+  vec2 specPos = orbPos + vec2(-0.03, 0.04);
+  float specD = length(uv - specPos);
+  col += vec3(1.0) * exp(-specD * 40.0) * smoothstep(0.005, -0.005, orbSDF) * 0.5;
+
+  // Fresnel plasma corona
+  float fresnel = exp(-max(0.0, d - orbRadius) * 18.0);
+  float plasmaNoiseUV = noise(uv * 6.0 + t * 0.5) * 0.3;
+  col += PLASMA * fresnel * (0.6 + plasmaNoiseUV);
+
+  // Outer diffuse glow
+  col += PLASMA * exp(-d * 5.0) * 0.15;
+  col += ORB_WHITE * exp(-d * 3.0) * 0.08;
+
+  // Plasma tendrils
+  for (int i = 0; i < 5; i++) {
+    float angle = float(i) * 1.2566 + t * 0.4;
+    vec2 tendril = orbPos + vec2(cos(angle), sin(angle)) * (orbRadius * 1.5);
+    float td = length(uv - tendril);
+    col += PLASMA * exp(-td * 25.0) * 0.3 * (0.5 + 0.5 * sin(t * 3.0 + float(i)));
+  }
+
+  // Water entry: no splash — orb just disappears below waterline
+  if (orbPos.y < waterLine + orbRadius) {
+    float submerge = (waterLine - orbPos.y + orbRadius) / (orbRadius * 2.0);
+    float clipY = waterLine;
+    if (uv.y < clipY) {
+      // Orb glow continues underwater but dimmer
+      col += PLASMA * exp(-d * 12.0) * 0.08 * (1.0 - submerge);
+    }
+  }
+
+  // Vignette
+  col *= 1.0 - length(uv) * 0.55;
+  col = clamp(col, 0.0, 1.0);
+
+  gl_FragColor = vec4(col, 1.0);
+}
+
+
+### ===== FILE: shaders/_webgl_template.html =====
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ufo_SHADERNAME</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
+    canvas { display: block; width: 100%; height: 100%; }
+  </style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+const VERT = `attribute vec2 a_position; void main() { gl_Position = vec4(a_position, 0.0, 1.0); }`;
+// REPLACE: paste shader source here
+const FRAG = `
+precision mediump float;
+uniform float iTime;
+uniform vec2 iResolution;
+void main() {
+  vec2 uv = gl_FragCoord.xy / iResolution.xy;
+  gl_FragColor = vec4(uv, 0.5 + 0.5 * sin(iTime), 1.0);
+}`;
+const c = document.getElementById('c'), gl = c.getContext('webgl');
+function cs(t,s){const sh=gl.createShader(t);gl.shaderSource(sh,s);gl.compileShader(sh);if(!gl.getShaderParameter(sh,gl.COMPILE_STATUS))console.error(gl.getShaderInfoLog(sh));return sh;}
+const p=gl.createProgram();gl.attachShader(p,cs(gl.VERTEX_SHADER,VERT));gl.attachShader(p,cs(gl.FRAGMENT_SHADER,FRAG));gl.linkProgram(p);gl.useProgram(p);
+const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
+const pl=gl.getAttribLocation(p,'a_position');gl.enableVertexAttribArray(pl);gl.vertexAttribPointer(pl,2,gl.FLOAT,false,0,0);
+const tL=gl.getUniformLocation(p,'iTime'),rL=gl.getUniformLocation(p,'iResolution');
+function resize(){c.width=innerWidth;c.height=innerHeight;gl.viewport(0,0,c.width,c.height);}
+window.addEventListener('resize',resize);resize();
+const t0=performance.now();(function r(){const t=(performance.now()-t0)/1e3;gl.uniform1f(tL,t);gl.uniform2f(rL,c.width,c.height);gl.drawArrays(gl.TRIANGLES,0,6);requestAnimationFrame(r);})();
+</script>
+</body>
+</html>
+
+
+### ===== FILE: shaders/classic_saucer_demo.html =====
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>classic saucer shader</title>
+  <style>*{margin:0;padding:0;}html,body{width:100%;height:100%;background:#000;overflow:hidden;}canvas{display:block;width:100%;height:100%;}</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+const VERT=`attribute vec2 a_position;void main(){gl_Position=vec4(a_position,0.0,1.0);}`;
+const FRAG=`
+precision mediump float;
+uniform float iTime;
+uniform vec2 iResolution;
+#define CHROME vec3(0.784,0.8,0.816)
+#define RIM_GLOW vec3(0.965,0.886,0.478)
+#define SKY vec3(0.122,0.227,0.42)
+#define BLACK vec3(0.0)
+float hash2(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+float sdEllipsoid(vec3 p,vec3 r){float k0=length(p/r);float k1=length(p/(r*r));return k0*(k0-1.0)/k1;}
+float sdSaucer(vec2 p){return sdEllipsoid(vec3(p.x,p.y*1.8,0.0),vec3(0.38,0.22,0.38));}
+float sdDome(vec2 p){p.y-=0.08;return sdEllipsoid(vec3(p.x,p.y,0.0),vec3(0.14,0.10,0.14));}
+void main(){
+  vec2 uv=(gl_FragCoord.xy-0.5*iResolution.xy)/iResolution.y;
+  float t=iTime;
+  uv.y-=sin(t*0.8)*0.02;
+  vec3 col=mix(SKY*0.3,SKY*0.1,uv.y+0.5);
+  vec2 sUV=uv*8.0;
+  float star=step(0.98,hash2(floor(sUV)));
+  col+=star*0.6;
+  float saucerOut=sdSaucer(uv);
+  col=mix(col,BLACK,smoothstep(0.01,-0.01,saucerOut+0.015));
+  float saucer=sdSaucer(uv);
+  vec3 cc=CHROME*mix(0.3,1.2,smoothstep(-0.15,0.15,uv.y));
+  col=mix(col,cc,smoothstep(0.008,-0.008,saucer));
+  float spec=exp(-pow(length(uv-vec2(-0.08,0.12))*6.0,2.0));
+  col+=vec3(1.0)*spec*smoothstep(0.008,-0.008,saucer)*0.4;
+  float dome=sdDome(uv);
+  col=mix(col,BLACK,smoothstep(0.01,-0.01,dome+0.012));
+  col=mix(col,CHROME*1.1,smoothstep(0.008,-0.008,dome));
+  float rimGlow=0.0;
+  for(int i=0;i<24;i++){
+    float angle=float(i)/24.0*6.28318+t*1.2;
+    vec2 lp=vec2(cos(angle)*0.36,-0.01);
+    float d=length(uv-lp);
+    float vis=step(0.0,sin(angle-t*1.2));
+    rimGlow+=exp(-d*80.0)*0.5*vis;
+    if(mod(float(i),3.0)<1.0){float pulse=step(0.5,sin(t*4.0+float(i)*0.8));rimGlow+=exp(-d*60.0)*0.4*pulse*vis;}
+  }
+  col+=RIM_GLOW*rimGlow;
+  col+=RIM_GLOW*exp(-abs(sdSaucer(uv))*15.0)*0.15;
+  float beamActive=step(0.5,sin(t*0.3));
+  float bX=abs(uv.x);float bY=uv.y+0.25;
+  float beam=smoothstep(0.15,0.0,bX-(-bY*0.15))*smoothstep(-0.25,-0.6,uv.y)*smoothstep(-0.6,-0.25,uv.y)*beamActive;
+  col+=vec3(0.7,0.9,0.6)*beam*0.3;
+  col*=1.0-length(uv)*0.6;
+  gl_FragColor=vec4(col,1.0);
+}`;
+const c=document.getElementById('c'),gl=c.getContext('webgl');
+function cs(t,s){const sh=gl.createShader(t);gl.shaderSource(sh,s);gl.compileShader(sh);return sh;}
+const p=gl.createProgram();gl.attachShader(p,cs(gl.VERTEX_SHADER,VERT));gl.attachShader(p,cs(gl.FRAGMENT_SHADER,FRAG));gl.linkProgram(p);gl.useProgram(p);
+const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
+const pl=gl.getAttribLocation(p,'a_position');gl.enableVertexAttribArray(pl);gl.vertexAttribPointer(pl,2,gl.FLOAT,false,0,0);
+const tL=gl.getUniformLocation(p,'iTime'),rL=gl.getUniformLocation(p,'iResolution');
+function resize(){c.width=innerWidth;c.height=innerHeight;gl.viewport(0,0,c.width,c.height);}
+window.addEventListener('resize',resize);resize();
+const t0=performance.now();(function r(){const t=(performance.now()-t0)/1e3;gl.uniform1f(tL,t);gl.uniform2f(rL,c.width,c.height);gl.drawArrays(gl.TRIANGLES,0,6);requestAnimationFrame(r);})();
+</script></body></html>
+
+
+### ===== FILE: shaders/tic_tac_flir_demo.html =====
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>tic tac FLIR shader</title>
+  <style>*{margin:0;padding:0;}html,body{width:100%;height:100%;background:#000;overflow:hidden;}canvas{display:block;width:100%;height:100%;}</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+const VERT=`attribute vec2 a_position;void main(){gl_Position=vec4(a_position,0.0,1.0);}`;
+const FRAG=`
+precision mediump float;
+uniform float iTime;
+uniform vec2 iResolution;
+float hash(float n){return fract(sin(n)*43758.5453);}
+float hash2(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+float sdCapsule(vec2 p,float r,float h){p.y=abs(p.y)-h;return length(vec2(p.x,max(p.y,0.0)))-r;}
+void main(){
+  vec2 uv=(gl_FragCoord.xy-0.5*iResolution.xy)/iResolution.y;
+  float t=iTime;
+  float fpn=(hash(floor(gl_FragCoord.x))-0.5)*0.025;
+  float temporal=(hash2(gl_FragCoord.xy+floor(t*24.0))-0.5)*0.018;
+  float bg=0.12+fpn+temporal;
+  bg=floor(bg*255.0)/255.0;
+  float hover=sin(t*0.7)*0.018;
+  vec2 cp=vec2(0.0,hover);
+  float craft=sdCapsule(uv-cp,0.055,0.08);
+  float craftTemp=0.75+sin(t*0.3)*0.02;
+  float halo=exp(-max(0.0,length(uv-cp)-0.065)*12.0);
+  float luma=bg;
+  luma=mix(luma,craftTemp,smoothstep(0.004,-0.004,craft));
+  luma+=halo*0.24;
+  float speed=abs(cos(t*0.7))*0.08;
+  for(int i=1;i<5;i++){
+    vec2 tp=cp-vec2(0.0,float(i)*speed*0.01);
+    float tc=sdCapsule(uv-tp,0.055,0.08);
+    luma+=smoothstep(0.004,-0.004,tc)*(0.3-float(i)*0.06)*speed*8.0;
+  }
+  vec3 col=vec3(clamp(luma,0.0,1.0));
+  vec2 px=gl_FragCoord.xy;vec2 res=iResolution.xy;float hud=0.0;
+  float cx=abs(px.x-res.x*0.5);float cy=abs(px.y-res.y*0.5);
+  if(cx<1.0&&cy<15.0)hud=1.0;
+  if(cy<1.0&&cx<15.0)hud=1.0;
+  vec2 bc=(cp*iResolution.yy+iResolution.xy*0.5);
+  vec2 bd=abs(px-bc)-vec2(30.0,22.0);
+  if(max(bd.x,bd.y)<1.5&&max(bd.x,bd.y)>-1.5)hud=0.8;
+  col=mix(col,vec3(0.0,0.85,0.1),hud*0.9);
+  vec2 wp=vec2(0.0,-0.28);float wd=length(uv-wp);
+  float water=exp(-wd*12.0)*0.25*(0.5+0.5*sin(t*8.0+uv.x*20.0)*sin(t*6.0+uv.y*20.0));
+  col+=vec3(water*0.8);
+  col*=0.9+(1.0-length(uv)*1.2)*0.1;
+  gl_FragColor=vec4(clamp(col,0.0,1.0),1.0);
+}`;
+const c=document.getElementById('c'),gl=c.getContext('webgl');
+function cs(t,s){const sh=gl.createShader(t);gl.shaderSource(sh,s);gl.compileShader(sh);return sh;}
+const p=gl.createProgram();gl.attachShader(p,cs(gl.VERTEX_SHADER,VERT));gl.attachShader(p,cs(gl.FRAGMENT_SHADER,FRAG));gl.linkProgram(p);gl.useProgram(p);
+const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
+const pl=gl.getAttribLocation(p,'a_position');gl.enableVertexAttribArray(pl);gl.vertexAttribPointer(pl,2,gl.FLOAT,false,0,0);
+const tL=gl.getUniformLocation(p,'iTime'),rL=gl.getUniformLocation(p,'iResolution');
+function resize(){c.width=innerWidth;c.height=innerHeight;gl.viewport(0,0,c.width,c.height);}
+window.addEventListener('resize',resize);resize();
+const t0=performance.now();(function r(){const t=(performance.now()-t0)/1e3;gl.uniform1f(tL,t);gl.uniform2f(rL,c.width,c.height);gl.drawArrays(gl.TRIANGLES,0,6);requestAnimationFrame(r);})();
+</script></body></html>
+
+
+### ===== FILE: shaders/black_triangle_night_demo.html =====
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>black triangle night shader</title>
+  <style>*{margin:0;padding:0;}html,body{width:100%;height:100%;background:#000;overflow:hidden;}canvas{display:block;width:100%;height:100%;}</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+const VERT=`attribute vec2 a_position;void main(){gl_Position=vec4(a_position,0.0,1.0);}`;
+const FRAG=`
+precision mediump float;
+uniform float iTime;
+uniform vec2 iResolution;
+#define AMBER vec3(1.0,0.647,0.169)
+#define RED   vec3(0.757,0.145,0.176)
+#define BLACK vec3(0.039,0.039,0.047)
+float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+float sdTriangle(vec2 p,float r){
+  const float k=1.732;p.x=abs(p.x)-r;p.y=p.y+r/k;
+  if(p.x+k*p.y>0.0)p=vec2(p.x-k*p.y,-k*p.x-p.y)/2.0;
+  p.x-=clamp(p.x,-2.0*r,0.0);return -length(p)*sign(p.y);
+}
+void main(){
+  vec2 uv=(gl_FragCoord.xy-0.5*iResolution.xy)/iResolution.y;
+  float t=iTime;
+  uv-=vec2(sin(t*0.08)*0.05,t*0.015);uv.y-=sin(t*0.6)*0.008;
+  vec3 col=mix(BLACK*0.5,BLACK*0.2,uv.y+0.5);
+  vec2 sUV=uv*12.0;float sB=hash(floor(sUV));float sO=step(0.94,sB);
+  float sT=0.7+0.3*sin(t*3.0+sB*20.0);
+  float tri=sdTriangle(uv*vec2(1.0,-1.0),0.32);
+  float hull=smoothstep(0.01,-0.01,tri);
+  col+=vec3(sO*sT*0.7)*(1.0-hull);
+  col=mix(col,BLACK,hull*0.95);
+  col+=AMBER*hull*smoothstep(0.1,-0.1,uv.y)*0.2;
+  vec2 c0=vec2(0.0,0.32);vec2 c1=vec2(-0.277,-0.16);vec2 c2=vec2(0.277,-0.16);
+  for(int i=0;i<3;i++){
+    vec2 cv=(i==0)?c0:(i==1)?c1:c2;
+    float d=length(uv-cv);
+    col+=AMBER*exp(-d*30.0)*1.5+AMBER*exp(-d*8.0)*0.4;
+  }
+  float pulse=0.5+0.5*sin(t*5.0*3.14159);float dC=length(uv-vec2(0.0,0.055));
+  col+=RED*exp(-dC*35.0)*(0.8+pulse*0.6)+RED*exp(-dC*10.0)*0.3*pulse;
+  col*=1.0-length(uv)*0.5;
+  gl_FragColor=vec4(clamp(col,0.0,1.0),1.0);
+}`;
+const c=document.getElementById('c'),gl=c.getContext('webgl');
+function cs(t,s){const sh=gl.createShader(t);gl.shaderSource(sh,s);gl.compileShader(sh);return sh;}
+const p=gl.createProgram();gl.attachShader(p,cs(gl.VERTEX_SHADER,VERT));gl.attachShader(p,cs(gl.FRAGMENT_SHADER,FRAG));gl.linkProgram(p);gl.useProgram(p);
+const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
+const pl=gl.getAttribLocation(p,'a_position');gl.enableVertexAttribArray(pl);gl.vertexAttribPointer(pl,2,gl.FLOAT,false,0,0);
+const tL=gl.getUniformLocation(p,'iTime'),rL=gl.getUniformLocation(p,'iResolution');
+function resize(){c.width=innerWidth;c.height=innerHeight;gl.viewport(0,0,c.width,c.height);}
+window.addEventListener('resize',resize);resize();
+const t0=performance.now();(function r(){const t=(performance.now()-t0)/1e3;gl.uniform1f(tL,t);gl.uniform2f(rL,c.width,c.height);gl.drawArrays(gl.TRIANGLES,0,6);requestAnimationFrame(r);})();
+</script></body></html>
+
+
+### ===== FILE: shaders/orb_plasma_demo.html =====
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>orb plasma shader</title>
+  <style>*{margin:0;padding:0;}html,body{width:100%;height:100%;background:#000;overflow:hidden;}canvas{display:block;width:100%;height:100%;}</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+const VERT=`attribute vec2 a_position;void main(){gl_Position=vec4(a_position,0.0,1.0);}`;
+const FRAG=`
+precision mediump float;
+uniform float iTime;
+uniform vec2 iResolution;
+#define ORB vec3(0.93,0.93,0.91)
+#define PLASMA vec3(0.2,0.85,1.0)
+#define WATER vec3(0.05,0.12,0.18)
+float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.0-2.0*f);return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);}
+void main(){
+  vec2 uv=(gl_FragCoord.xy-0.5*iResolution.xy)/iResolution.y;float t=iTime;
+  float hover=sin(t*0.9)*0.02;vec2 op=vec2(0.0,0.05+hover);float or_=0.09;
+  vec3 col=mix(vec3(0.02,0.03,0.04),vec3(0.06,0.08,0.12),uv.y+0.5);
+  col+=step(0.965,hash(floor(uv*10.0)))*0.4*vec3(0.8,0.9,1.0);
+  float wl=-0.22;
+  if(uv.y<wl){float wd=(wl-uv.y)*4.0;col=mix(WATER,vec3(0.01,0.02,0.03),wd);col+=PLASMA*noise(uv*8.0+t*0.3)*noise(uv*12.0-t*0.2)*0.1*exp(-wd*2.0);}
+  col+=PLASMA*exp(-abs(uv.y-wl)*30.0)*0.2*(0.5+0.5*sin(uv.x*15.0+t*2.0));
+  float d=length(uv-op);float sdf=d-or_;
+  col=mix(col,ORB,smoothstep(0.005,-0.005,sdf));
+  col+=vec3(1.0)*exp(-length(uv-(op+vec2(-0.03,0.04)))*40.0)*smoothstep(0.005,-0.005,sdf)*0.5;
+  float fr=exp(-max(0.0,d-or_)*18.0);float pn=noise(uv*6.0+t*0.5)*0.3;
+  col+=PLASMA*fr*(0.6+pn);col+=PLASMA*exp(-d*5.0)*0.15+ORB*exp(-d*3.0)*0.08;
+  for(int i=0;i<5;i++){float ang=float(i)*1.2566+t*0.4;vec2 tv=op+vec2(cos(ang),sin(ang))*(or_*1.5);col+=PLASMA*exp(-length(uv-tv)*25.0)*0.3*(0.5+0.5*sin(t*3.0+float(i)));}
+  col*=1.0-length(uv)*0.55;
+  gl_FragColor=vec4(clamp(col,0.0,1.0),1.0);
+}`;
+const c=document.getElementById('c'),gl=c.getContext('webgl');
+function cs(t,s){const sh=gl.createShader(t);gl.shaderSource(sh,s);gl.compileShader(sh);return sh;}
+const p=gl.createProgram();gl.attachShader(p,cs(gl.VERTEX_SHADER,VERT));gl.attachShader(p,cs(gl.FRAGMENT_SHADER,FRAG));gl.linkProgram(p);gl.useProgram(p);
+const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
+const pl=gl.getAttribLocation(p,'a_position');gl.enableVertexAttribArray(pl);gl.vertexAttribPointer(pl,2,gl.FLOAT,false,0,0);
+const tL=gl.getUniformLocation(p,'iTime'),rL=gl.getUniformLocation(p,'iResolution');
+function resize(){c.width=innerWidth;c.height=innerHeight;gl.viewport(0,0,c.width,c.height);}
+window.addEventListener('resize',resize);resize();
+const t0=performance.now();(function r(){const t=(performance.now()-t0)/1e3;gl.uniform1f(tL,t);gl.uniform2f(rL,c.width,c.height);gl.drawArrays(gl.TRIANGLES,0,6);requestAnimationFrame(r);})();
+</script></body></html>
+
+
+### ===== FILE: sketches/p5js/_p5_template.html =====
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ufo_SKETCHNAME</title>
+  <style>* { margin: 0; padding: 0; box-sizing: border-box; } html, body { width: 100%; height: 100%; background: #000; overflow: hidden; } canvas { display: block; }</style>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+  <script src="./SKETCHNAME.js"></script>
+</body>
+</html>
+
+
+### ===== FILE: sketches/p5js/saucer_dance.js =====
+
+// saucer_dance.js
+// 🛸👽 CROSSOVER SKETCH: merrypranxter/ufo × merrypranxter/little_green_men
+//
+// The classic 50s flying saucer with the little green man visible through
+// the dome — both art tropes united. He's in his saucer. He's fine.
+// He's absolutely vibing.
+//
+// Visual refs:
+//   craft type: classic_domed_saucer (ufo/craft/classic_domed_saucer.json)
+//   character:  canonical alien head (little_green_men/sketches/canvas/alien_base.js)
+
+let t = 0;
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+
+function draw() {
+  background(0, 0, 10);
+  t += 0.025;
+
+  translate(width / 2, height / 2);
+
+  // Starfield
+  drawStars();
+
+  // Saucer hover offset
+  let hoverY = sin(t * 0.8) * 14;
+  let hoverTilt = sin(t * 0.5) * 0.06; // slight tilt while hovering
+  push();
+  translate(0, hoverY);
+  rotate(hoverTilt);
+
+  // Beam (underneath saucer)
+  let beamActive = sin(t * 0.25) > 0.3;
+  if (beamActive) {
+    drawBeam(t);
+  }
+
+  // Draw saucer
+  let scale = min(width, height) / 550.0;
+  drawSaucer(scale, t);
+
+  pop();
+}
+
+function drawStars() {
+  noStroke();
+  randomSeed(99);
+  for (let i = 0; i < 120; i++) {
+    let sx = random(-width/2, width/2);
+    let sy = random(-height/2, height/2);
+    let brightness = 100 + sin(t * 2 + i) * 80;
+    fill(brightness, brightness, brightness * 1.1);
+    let sz = random(1, 2.5);
+    ellipse(sx, sy, sz, sz);
+  }
+}
+
+function drawBeam(t) {
+  // Tractor beam — green-tinged cone
+  noStroke();
+  let beamAlpha = map(sin(t * 3), -1, 1, 30, 80);
+  for (let i = 0; i < 6; i++) {
+    let w = map(i, 0, 5, 20, 130);
+    let a = map(i, 0, 5, beamAlpha, 0);
+    fill(150, 240, 150, a);
+    beginShape();
+    vertex(-w * 0.3, 40);
+    vertex(w * 0.3, 40);
+    vertex(w, height * 0.45);
+    vertex(-w, height * 0.45);
+    endShape(CLOSE);
+  }
+}
+
+function drawSaucer(sc, t) {
+  push();
+  scale(sc);
+
+  let saucerW = 220;
+  let saucerH = 60;
+
+  // ── Black backing outline ──
+  fill(0);
+  noStroke();
+  ellipse(0, 0, saucerW + 14, saucerH + 10);
+
+  // ── Chrome hull gradient simulation ──
+  // Lower half (in shadow)
+  fill(60, 65, 72);
+  arc(0, 0, saucerW, saucerH, 0, PI);
+
+  // Upper half (in light)
+  fill(180, 188, 200);
+  arc(0, 0, saucerW, saucerH, PI, TWO_PI);
+
+  // Specular highlight stripe across upper
+  fill(220, 225, 232, 180);
+  ellipse(-30, -saucerH * 0.28, 90, 12);
+
+  // ── Rotating rim lights ──
+  let numLights = 24;
+  for (let i = 0; i < numLights; i++) {
+    let angle = (i / numLights) * TWO_PI + t * 1.2;
+    let lx = cos(angle) * (saucerW * 0.44);
+    let ly = sin(angle) * (saucerH * 0.35) * 0.4;
+
+    // Only show lights on the front hemisphere (above y=0 in saucer space)
+    if (sin(angle) < 0.1) {
+      let pulsed = (i % 3 === 0) ? (sin(t * 4 + i * 0.8) > 0 ? 1.0 : 0.4) : 0.7;
+      noStroke();
+      // Glow
+      fill(255, 220, 80, 60 * pulsed);
+      ellipse(lx, ly, 16, 16);
+      // Core
+      fill(255, 226, 100, 220 * pulsed);
+      ellipse(lx, ly, 6, 6);
+    }
+  }
+
+  // ── Dome ──
+  fill(0);
+  noStroke();
+  ellipse(0, -saucerH * 0.4, 85, 68); // black backing
+
+  // Dome chrome
+  fill(160, 170, 182);
+  ellipse(0, -saucerH * 0.4, 76, 60);
+
+  // Dome window (transparent-ish blue)
+  fill(80, 140, 200, 160);
+  ellipse(0, -saucerH * 0.42, 62, 48);
+
+  // Dome glass reflection
+  fill(200, 220, 255, 100);
+  ellipse(-10, -saucerH * 0.52, 28, 14);
+
+  // ── Little green man in dome ──────────────────────────
+  // He's visible through the dome glass
+  // This is the crossover moment
+  push();
+  translate(0, -saucerH * 0.43);
+  drawAlienInDome(t);
+  pop();
+
+  pop();
+}
+
+function drawAlienInDome(t) {
+  // Canonical little green man head, scaled to fit dome
+  // Colors from merrypranxter/little_green_men visual spec
+  let GREEN = color(57, 255, 20);
+  let BLACK = color(0, 0, 0);
+
+  // Slight head bob and look-around
+  let headTilt = sin(t * 0.7) * 0.15;
+  let headBob = sin(t * 1.4) * 2;
+
+  push();
+  translate(0, headBob);
+  rotate(headTilt);
+
+  let hw = 26; // head width
+  let hh = 32; // head height
+
+  // Head black outline
+  fill(BLACK);
+  noStroke();
+  ellipse(0, 0, hw + 5, hh + 5);
+
+  // Head green fill
+  fill(GREEN);
+  ellipse(0, 0, hw, hh);
+
+  // Left eye
+  push();
+  translate(-hw * 0.28, -hh * 0.06);
+  rotate(-0.35);
+  fill(BLACK);
+  ellipse(0, 0, hw * 0.45, hh * 0.22);
+  // Eye shine — he sees you
+  fill(255, 255, 255, 120);
+  ellipse(-2, -2, 4, 4);
+  pop();
+
+  // Right eye
+  push();
+  translate(hw * 0.28, -hh * 0.06);
+  rotate(0.35);
+  fill(BLACK);
+  ellipse(0, 0, hw * 0.45, hh * 0.22);
+  fill(255, 255, 255, 120);
+  ellipse(-2, -2, 4, 4);
+  pop();
+
+  // Smirk — he knows something
+  stroke(BLACK);
+  strokeWeight(2);
+  noFill();
+  arc(2, hh * 0.22, 12, 7, 0.1, PI - 0.1);
+
+  pop();
+}
+
+
+### ===== FILE: sketches/p5js/saucer_dance_standalone.html =====
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>saucer dance — ufo × little_green_men</title>
+  <style>* { margin: 0; padding: 0; box-sizing: border-box; } html, body { width: 100%; height: 100%; background: #000; overflow: hidden; } canvas { display: block; }</style>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+  <script src="./saucer_dance.js"></script>
+</body>
+</html>
+
+
+### ===== FILE: sketches/p5js/triangle_lights.js =====
+
+// triangle_lights.js
+// Phoenix Lights — V-formation of amber lights drifting across night sky
+// Silent. No craft visible. Only the lights.
+// Ref: phoenix_lights_1997 case, boomerang_chevron craft type
+
+let t = 0;
+let formationX = 0;
+let formationY = 0;
+
+// V-formation light positions (relative to formation center)
+// Based on Phoenix Lights witness descriptions: carpenter's-square 60° V
+const LIGHTS = [
+  { x: 0,    y: -80 },  // apex
+  { x: -60,  y: -30 },  // left inner
+  { x: -120, y: 20 },   // left mid
+  { x: -180, y: 70 },   // left outer
+  { x: 60,   y: -30 },  // right inner
+  { x: 120,  y: 20 },   // right mid
+  { x: 180,  y: 70 },   // right outer
+];
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  formationX = width * 0.7;
+  formationY = height * 0.3;
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+
+function draw() {
+  background(0, 0, 8);
+  t += 0.012;
+
+  // Formation drifts slowly across sky (SE heading, like Phoenix Lights)
+  formationX -= 0.4;
+  formationY += 0.15;
+
+  // Wrap around
+  if (formationX < -width * 0.3) {
+    formationX = width * 1.2;
+    formationY = height * 0.1;
+  }
+
+  // Night sky
+  drawNightSky();
+
+  // Render formation
+  push();
+  translate(formationX, formationY);
+
+  // Star occlusion: black hull mask (barely visible)
+  // The craft reads as lights only — hull detectable by star absence
+  fill(0, 0, 8, 200);
+  noStroke();
+  beginShape();
+  // Hull silhouette (slightly larger than light positions)
+  vertex(0, -110);
+  vertex(-210, 90);
+  vertex(210, 90);
+  endShape(CLOSE);
+
+  // The lights
+  for (let i = 0; i < LIGHTS.length; i++) {
+    let lx = LIGHTS[i].x;
+    let ly = LIGHTS[i].y;
+
+    // Gentle individual flicker — each light has its own phase
+    let flicker = 0.85 + 0.15 * sin(t * 2.3 + i * 1.7);
+
+    drawAmberLight(lx, ly, flicker);
+  }
+
+  pop();
+
+  // VHS grain overlay (period-accurate 1997 camcorder aesthetic)
+  drawVHSGrain();
+}
+
+function drawNightSky() {
+  noStroke();
+  randomSeed(42);
+  for (let i = 0; i < 200; i++) {
+    let sx = random(width);
+    let sy = random(height);
+    let brightness = 80 + random(120);
+    let twinkle = 0.7 + 0.3 * sin(t * 1.5 + i * 0.9);
+    fill(brightness * twinkle, brightness * twinkle, brightness * twinkle * 1.05);
+    ellipse(sx, sy, random(1, 2.5));
+  }
+  // Light pollution glow at horizon
+  for (let y = height * 0.7; y < height; y++) {
+    let a = map(y, height * 0.7, height, 0, 15);
+    fill(255, 140, 40, a);
+    rect(0, y, width, 1);
+  }
+}
+
+function drawAmberLight(x, y, intensity) {
+  noStroke();
+  // Outer glow (wide bloom — camcorder lens artifacts)
+  fill(255, 160, 40, 20 * intensity);
+  ellipse(x, y, 80, 80);
+  fill(255, 170, 50, 40 * intensity);
+  ellipse(x, y, 40, 40);
+  fill(255, 190, 60, 80 * intensity);
+  ellipse(x, y, 20, 20);
+  // Core
+  fill(255, 220, 100, 230 * intensity);
+  ellipse(x, y, 8, 8);
+  fill(255, 240, 180, 255 * intensity);
+  ellipse(x, y, 4, 4);
+}
+
+function drawVHSGrain() {
+  // VHS-style noise lines and chroma bleed
+  for (let i = 0; i < 3; i++) {
+    let gy = random(height);
+    let ga = random(8, 20);
+    fill(255, random(180, 255), random(100, 200), ga);
+    rect(0, gy, width, random(1, 3));
+  }
+  // Random noise pixels
+  for (let i = 0; i < 80; i++) {
+    let nx = random(width);
+    let ny = random(height);
+    fill(random(200, 255), random(180, 255), random(100, 200), random(30, 80));
+    rect(nx, ny, random(1, 4), 1);
+  }
+}
+
+
+### ===== FILE: sketches/p5js/triangle_lights_standalone.html =====
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>triangle lights — Phoenix Lights</title>
+  <style>* { margin: 0; padding: 0; box-sizing: border-box; } html, body { width: 100%; height: 100%; background: #000; overflow: hidden; } canvas { display: block; }</style>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+  <script src="./triangle_lights.js"></script>
+</body>
+</html>
+
+
+### ===== FILE: index.json =====
+
+{
+  "meta": {
+    "schema_version": 1,
+    "craft_count": 15,
+    "case_count": 12,
+    "last_updated": "2026-04-21",
+    "description": "Flat manifest of all UFO craft archetypes and canonical cases in this library."
+  },
+  "craft": [
+    { "id": "tic_tac", "name": "Tic Tac", "era": "sensor", "craft_class": "unknown", "primitive_type": "capsule", "canonical_cases": ["nimitz_2004","gofast_2015"] },
+    { "id": "classic_domed_saucer", "name": "Classic Domed Saucer", "era": "classic", "craft_class": "vehicle", "primitive_type": "oblate_lens", "canonical_cases": ["trent_mcminnville_1950"] },
+    { "id": "adamski_scout", "name": "Adamski Scout Craft", "era": "classic", "craft_class": "vehicle", "primitive_type": "oblate_lens", "canonical_cases": [] },
+    { "id": "black_triangle", "name": "Black Triangle", "era": "modern", "craft_class": "vehicle", "primitive_type": "equilateral_plate", "canonical_cases": ["belgian_wave_1989","phoenix_lights_1997"] },
+    { "id": "orb_sphere", "name": "Orb / Sphere", "era": "sensor", "craft_class": "unknown", "primitive_type": "sphere", "canonical_cases": ["omaha_sphere_2019","aguadilla_2013"] },
+    { "id": "diamond_rhombus", "name": "Diamond / Rhombus", "era": "modern", "craft_class": "vehicle", "primitive_type": "rhombic_prism", "canonical_cases": ["calvine_1990"] },
+    { "id": "jellyfish_uap", "name": "Jellyfish UAP", "era": "sensor", "craft_class": "biological", "primitive_type": "spheroid_tendril", "canonical_cases": ["iraq_jellyfish_2018","aguadilla_2013"] },
+    { "id": "mothership_radial", "name": "Mothership Radial Disc", "era": "classic", "craft_class": "vehicle", "primitive_type": "radial_disc", "canonical_cases": [] },
+    { "id": "cigar_cylinder", "name": "Cigar / Cylinder", "era": "classic", "craft_class": "vehicle", "primitive_type": "capsule", "canonical_cases": [] },
+    { "id": "boomerang_chevron", "name": "Boomerang / Chevron", "era": "modern", "craft_class": "vehicle", "primitive_type": "chevron_plate", "canonical_cases": ["phoenix_lights_1997"] },
+    { "id": "cube_box", "name": "Cube / Box", "era": "sensor", "craft_class": "unknown", "primitive_type": "cube", "canonical_cases": [] },
+    { "id": "gimbal", "name": "Gimbal", "era": "sensor", "craft_class": "vehicle", "primitive_type": "oblate_lens", "canonical_cases": ["gimbal_2015"] },
+    { "id": "monolith_shell", "name": "Monolith Shell", "era": "modern", "craft_class": "vehicle", "primitive_type": "ovoid_lozenge", "canonical_cases": [] },
+    { "id": "biological_organic", "name": "Biological / Organic", "era": "sensor", "craft_class": "biological", "primitive_type": "organic_fold_rig", "canonical_cases": [] },
+    { "id": "plasma_portal", "name": "Plasma Portal / Doorway", "era": "speculative", "craft_class": "phenomenon", "primitive_type": "torus_frustum", "canonical_cases": [] }
+  ],
+  "cases": [
+    { "id": "nimitz_2004", "name": "USS Nimitz Tic Tac", "date": "2004-11-14", "craft_type_ref": "tic_tac", "era": "sensor", "source_quality": "official_release" },
+    { "id": "belgian_wave_1989", "name": "Belgian UFO Wave", "date": "1989-11-29", "craft_type_ref": "black_triangle", "era": "modern", "source_quality": "military_radar" },
+    { "id": "phoenix_lights_1997", "name": "Phoenix Lights", "date": "1997-03-13", "craft_type_ref": "boomerang_chevron", "era": "modern", "source_quality": "multi_witness" },
+    { "id": "calvine_1990", "name": "Calvine UFO Photograph", "date": "1990-08-04", "craft_type_ref": "diamond_rhombus", "era": "modern", "source_quality": "photographic" },
+    { "id": "rendlesham_1980", "name": "Rendlesham Forest Incident", "date": "1980-12-26", "craft_type_ref": "diamond_rhombus", "era": "classic", "source_quality": "multi_witness" },
+    { "id": "trent_mcminnville_1950", "name": "Trent McMinnville Photos", "date": "1950-05-11", "craft_type_ref": "classic_domed_saucer", "era": "classic", "source_quality": "photographic" },
+    { "id": "chilbolton_2001", "name": "Chilbolton Arecibo Response", "date": "2001-08-01", "craft_type_ref": "classic_domed_saucer", "era": "modern", "source_quality": "photographic" },
+    { "id": "aguadilla_2013", "name": "Aguadilla DHS FLIR", "date": "2013-04-25", "craft_type_ref": "jellyfish_uap", "era": "sensor", "source_quality": "official_release_contested" },
+    { "id": "omaha_sphere_2019", "name": "USS Omaha Sphere", "date": "2019-07-15", "craft_type_ref": "orb_sphere", "era": "sensor", "source_quality": "official_release" },
+    { "id": "gimbal_2015", "name": "GIMBAL", "date": "2015-01-21", "craft_type_ref": "gimbal", "era": "sensor", "source_quality": "official_release" },
+    { "id": "gofast_2015", "name": "GO FAST", "date": "2015-01-01", "craft_type_ref": "tic_tac", "era": "sensor", "source_quality": "official_release" },
+    { "id": "iraq_jellyfish_2018", "name": "Iraq Jellyfish UAP", "date": "2018-10-01", "craft_type_ref": "jellyfish_uap", "era": "sensor", "source_quality": "official_release_contested" }
+  ]
+}
+
+
+### ===== FILE: validate.js =====
+
+#!/usr/bin/env node
+// validate.js — validate craft/ and cases/ JSON files against ufo schema
+// Usage:
+//   node validate.js                      → validate all craft/ and cases/ files
+//   node validate.js tic_tac              → validate craft/tic_tac.json
+//   node validate.js cases/nimitz_2004    → validate cases/nimitz_2004.json
+
+const fs = require('fs');
+const path = require('path');
+
+const VALID_ERAS = ['classic', 'modern', 'sensor', 'speculative'];
+const VALID_CRAFT_CLASSES = ['vehicle', 'biological', 'phenomenon', 'unknown'];
+const VALID_PRIMITIVES = ['capsule','oblate_lens','sphere','equilateral_plate','rhombic_prism','radial_disc','ovoid_lozenge','spheroid_tendril','cube','chevron_plate','organic_fold_rig','torus_frustum'];
+const VALID_LIGHT_BEHAVIORS = ['steady_constellation','strobe_sequence','spectral_conversation','corona_bloom','cloaking_fade','beam_drop','instant_translation','thermal_polarity_flip','radiometric_halo'];
+const VALID_MOTION_TYPES = ['hover_bob','tilt_to_bank','instant_translation','falling_leaf','v_formation_drift','cloaking_fade','mirror_maneuver','vertical_exit','transmedium_entry','axial_rotation'];
+const VALID_SENSOR_TYPES = ['naked_eye','film_35mm','vhs_ntsc','atflir_ir','wescam_ir','aerostat_ir','radar_only','multi_sensor'];
+const VALID_SOURCE_QUALITY = ['anecdotal','photographic','multi_witness','military_radar','official_release','official_release_contested'];
+const VALID_PHYSICS = ['no_wings','no_exhaust_plume','no_sonic_boom','no_rotor_downwash','no_condensation_trail','no_ir_engine_heat','no_water_ripple','no_radar_return','no_shadow','no_inertial_coupling','transmedium_capable','instant_acceleration'];
+
+function getCraftIds() {
+  const dir = path.join(__dirname, 'craft');
+  if (!fs.existsSync(dir)) return [];
+  return fs.readdirSync(dir).filter(f => f.endsWith('.json')).map(f => f.replace('.json',''));
+}
+
+function validateCraft(filePath) {
+  const errors = [], warnings = [];
+  let raw;
+  try { raw = fs.readFileSync(filePath, 'utf8'); } catch(e) { return {ok:false,errors:[`Cannot read: ${e.message}`],warnings:[]}; }
+  let f;
+  try { f = JSON.parse(raw); } catch(e) { return {ok:false,errors:[`Invalid JSON: ${e.message}`],warnings:[]}; }
+
+  const name = path.basename(filePath, '.json');
+  if (!f.id) errors.push('Missing: id');
+  else if (f.id !== name) errors.push(`id "${f.id}" != filename "${name}"`);
+  if (!f.name) errors.push('Missing: name');
+  if (!f.era) errors.push('Missing: era');
+  else if (!VALID_ERAS.includes(f.era)) errors.push(`Invalid era: ${f.era}`);
+  if (!f.craft_class) errors.push('Missing: craft_class');
+  else if (!VALID_CRAFT_CLASSES.includes(f.craft_class)) errors.push(`Invalid craft_class: ${f.craft_class}`);
+  if (!f.geometry) { errors.push('Missing: geometry'); }
+  else {
+    if (!VALID_PRIMITIVES.includes(f.geometry.primitive_type)) errors.push(`Invalid primitive_type: ${f.geometry.primitive_type}`);
+    if (typeof f.geometry.aspect_ratio !== 'number') errors.push('geometry.aspect_ratio must be number');
+    if (typeof f.geometry.length_m !== 'number') errors.push('geometry.length_m must be number');
+  }
+  if (!f.surface) { errors.push('Missing: surface'); }
+  else {
+    for (const k of ['metallic','roughness','clearcoat']) {
+      if (typeof f.surface[k] !== 'number' || f.surface[k] < 0 || f.surface[k] > 1)
+        errors.push(`surface.${k} must be 0–1 number`);
+    }
+  }
+  if (!f.lights) { errors.push('Missing: lights'); }
+  else {
+    if (f.lights.behavior && !VALID_LIGHT_BEHAVIORS.includes(f.lights.behavior))
+      errors.push(`Invalid lights.behavior: ${f.lights.behavior}`);
+  }
+  if (!f.motion) { errors.push('Missing: motion'); }
+  else {
+    if (f.motion.primary && !VALID_MOTION_TYPES.includes(f.motion.primary))
+      errors.push(`Invalid motion.primary: ${f.motion.primary}`);
+    if (typeof f.motion.silent !== 'boolean') errors.push('motion.silent must be boolean');
+  }
+  if (!f.physics_subtractions || !Array.isArray(f.physics_subtractions)) errors.push('physics_subtractions must be array');
+  else f.physics_subtractions.forEach((ps,i) => { if (!VALID_PHYSICS.includes(ps)) errors.push(`physics_subtractions[${i}] invalid: ${ps}`); });
+  if (!f.canonical_cases || !Array.isArray(f.canonical_cases)) errors.push('canonical_cases must be array');
+  if (!f.shader_params) errors.push('Missing: shader_params');
+  else if (!Array.isArray(f.shader_params.era_palette) || f.shader_params.era_palette.length !== 6)
+    errors.push('shader_params.era_palette must be array of 6 hex strings');
+
+  return {ok: errors.length === 0, errors, warnings};
+}
+
+function validateCase(filePath) {
+  const errors = [], warnings = [];
+  const craftIds = getCraftIds();
+  let raw;
+  try { raw = fs.readFileSync(filePath, 'utf8'); } catch(e) { return {ok:false,errors:[`Cannot read: ${e.message}`],warnings:[]}; }
+  let f;
+  try { f = JSON.parse(raw); } catch(e) { return {ok:false,errors:[`Invalid JSON: ${e.message}`],warnings:[]}; }
+
+  const name = path.basename(filePath, '.json');
+  if (!f.id) errors.push('Missing: id');
+  else if (f.id !== name) errors.push(`id "${f.id}" != filename "${name}"`);
+  if (!f.name) errors.push('Missing: name');
+  if (!f.date) errors.push('Missing: date');
+  if (!f.craft_type_ref) errors.push('Missing: craft_type_ref');
+  else if (craftIds.length > 0 && !craftIds.includes(f.craft_type_ref))
+    errors.push(`craft_type_ref "${f.craft_type_ref}" not found in craft/`);
+  if (!f.era || !VALID_ERAS.includes(f.era)) errors.push(`Invalid era: ${f.era}`);
+  if (!f.source_quality || !VALID_SOURCE_QUALITY.includes(f.source_quality))
+    errors.push(`Invalid source_quality: ${f.source_quality}`);
+  if (!f.sensor) errors.push('Missing: sensor');
+  else if (!VALID_SENSOR_TYPES.includes(f.sensor.type)) errors.push(`Invalid sensor.type: ${f.sensor.type}`);
+  if (typeof f.dimensions_reported_m !== 'number') errors.push('dimensions_reported_m must be number');
+  if (typeof f.duration_s !== 'number') errors.push('duration_s must be number');
+  if (!Array.isArray(f.physics_anomalies)) errors.push('physics_anomalies must be array');
+  if (!f.shader_params) errors.push('Missing: shader_params');
+  if (!f.visual_description) warnings.push('No visual_description');
+  if (!f.cultural_significance) warnings.push('No cultural_significance');
+
+  return {ok: errors.length === 0, errors, warnings};
+}
+
+function getFiles(arg) {
+  if (!arg) {
+    const craftDir = path.join(__dirname, 'craft');
+    const casesDir = path.join(__dirname, 'cases');
+    const craftFiles = fs.existsSync(craftDir) ? fs.readdirSync(craftDir).filter(f=>f.endsWith('.json')).map(f=>({path:path.join(craftDir,f),type:'craft'})) : [];
+    const caseFiles = fs.existsSync(casesDir) ? fs.readdirSync(casesDir).filter(f=>f.endsWith('.json')).map(f=>({path:path.join(casesDir,f),type:'case'})) : [];
+    return [...craftFiles, ...caseFiles];
+  }
+  let resolved = arg.endsWith('.json') ? arg : arg + '.json';
+  if (resolved.startsWith('cases/')) {
+    const p = path.join(__dirname, resolved);
+    return [{path: p, type: 'case'}];
+  }
+  const inCraft = path.join(__dirname, 'craft', path.basename(resolved));
+  if (fs.existsSync(inCraft)) return [{path: inCraft, type: 'craft'}];
+  const inCases = path.join(__dirname, 'cases', path.basename(resolved));
+  if (fs.existsSync(inCases)) return [{path: inCases, type: 'case'}];
+  console.error(`Not found: ${arg}`);
+  process.exit(1);
+}
+
+const files = getFiles(process.argv[2]);
+let pass = 0, fail = 0;
+
+for (const {path: fp, type} of files) {
+  const result = type === 'craft' ? validateCraft(fp) : validateCase(fp);
+  const short = (type === 'case' ? 'cases/' : 'craft/') + path.basename(fp);
+  if (result.ok) {
+    console.log(`✅ ${short}`);
+    result.warnings.forEach(w => console.log(`   ⚠️  ${w}`));
+    pass++;
+  } else {
+    console.log(`❌ ${short}`);
+    result.errors.forEach(e => console.log(`   ERROR: ${e}`));
+    result.warnings.forEach(w => console.log(`   WARN:  ${w}`));
+    fail++;
+  }
+}
+
+console.log(`\n${pass} passed, ${fail} failed (${files.length} total)`);
+if (fail > 0) process.exit(1);
+
+
+### ===== FILE: .gitignore =====
+
+.DS_Store
+.AppleDouble
+._*
+node_modules/
+npm-debug.log*
+.env
+*.log
+*.tmp
+.idea/
+.vscode/
+
+
+### ===== FILE: LICENSE =====
+
+MIT License
+
+Copyright (c) 2026 merrypranxter
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## Configuration Notes
+- No build step. Static files + Node.js validator (stdlib only, no npm).
+- GitHub Pages auto-deploy via .github/workflows/ (add same workflow as little_green_men).
+- `docs/ufo-visual-language.md` — NOT included in this seed (it's the deep research doc from the research session — add it manually from the research artifact).
+- `saucer_dance.js` uses the little_green_men canonical green #39FF14 — intentional cross-repo color bridge.
+
+## Next Steps
+1. git clone https://github.com/merrypranxter/ufo.git
+2. Copy all files from this seed
+3. node validate.js — all 15 craft + 12 cases should pass
+4. Add docs/ufo-visual-language.md manually from research doc
+5. git add . && git commit -m "Full scaffold: 15 craft types, 12 cases, 4 shaders, saucer_dance crossover"
+6. git push origin main
+7. Enable GitHub Pages
+8. Open saucer_dance_standalone.html — he's in his saucer
