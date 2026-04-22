@@ -1,0 +1,49 @@
+{
+  "id": "chilbolton_2001",
+  "name": "Chilbolton Arecibo Response and Face",
+  "date": "2001-08-01",
+  "location": "Near Chilbolton radio telescope, Hampshire, UK",
+  "craft_type_ref": "classic_domed_saucer",
+
+  "witnesses": {
+    "count": 1,
+    "types": ["civilian"],
+    "notable": ["Paul Vigay (crop circle researcher, first to analyze the formation)"]
+  },
+
+  "sensor": {
+    "type": "film_35mm",
+    "device": "Aerial photography",
+    "resolution": "color aerial",
+    "footage_available": true
+  },
+
+  "source_quality": "photographic",
+  "era": "modern",
+
+  "visual_description": "Two crop formations appeared in a grass field adjacent to the Chilbolton radio telescope in Hampshire, UK. The first, a rectangular grid formation, mirrored the 1974 Arecibo radio message sent to globular cluster M13 but with systematic alterations: the DNA helix was changed to include a different base-pair arrangement, the figure was taller with a larger head and different atomic numbers listed, the transmitter at bottom was changed from a radio dish to a circular formation, and a different solar system alignment was implied (third and fourth planets highlighted rather than third). The second formation, co-located, showed a halftone dot-matrix face using variations in standing crop density — a humanoid face with large eyes, wide skull, and small mouth rendered in grayscale via dot-matrix varying-density cells. Together they read as a response to humanity's 1974 broadcast.",
+
+  "dimensions_reported_m": 40.0,
+  "duration_s": 0,
+
+  "motion_observed": [],
+
+  "light_behavior_observed": [],
+
+  "physics_anomalies": [],
+
+  "shader_params": {
+    "background_hex": "#3A4A30",
+    "craft_albedo_hex": "#8A9A78",
+    "glow_hex": "#6A7A58",
+    "grain_profile": "none",
+    "hud_overlay": false,
+    "era_palette": ["#3A4A30", "#8A9A78", "#C8D0B0", "#1A2210", "#5A6A48", "#2A3420"]
+  },
+
+  "authenticity_chain": "Aerial photograph context — green field with darker flattened crop forming the pattern. No glow, no blur. The key visual is the contrast between standing (lighter) and flattened (darker) grass cells rendering the bitmap grid. For shader work: treat as a pixel-art face/grid on a green ground plane.",
+
+  "cultural_significance": "The Chilbolton formations are the most intellectually sophisticated crop circle event documented, and the connection to the Chilbolton radio telescope — humanity's most powerful radio transmitter aimed at space in 1974 — is either a profound coincidence or deliberate placement. The Arecibo 'response' changes were specific enough to encode a different biology and solar system, not random noise. Whether human artwork or something else, the design intelligence is real.",
+
+  "notes": "Connected in the merrypranxter ecosystem to crop_circles repo — this case bridges ufo/ and crop_circles/ as the only case that straddles both domains. The Crabwood alien face and disk (2002) followed the next year with a binary-encoded message reading 'Beware the bearers of FALSE gifts.'"
+}

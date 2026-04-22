@@ -1,0 +1,74 @@
+{
+  "id": "jellyfish_uap",
+  "name": "Jellyfish UAP",
+  "era": "sensor",
+  "craft_class": "biological",
+  "description": "A roughly oval body 3–5 feet across with three dangling tentacle-like appendages that change thermal polarity. Glides at low altitude, enters water, submerges for extended periods, departs. The defining biological UAP archetype — or at minimum, the archetype that most resists the 'vehicle' interpretation. Seen in both the 2013 Aguadilla footage and the 2018 Iraq base footage. The thermal polarity flip (the appendages cycling between hot and cold) is unlike any known aircraft or natural phenomenon.",
+
+  "geometry": {
+    "primitive_type": "spheroid_tendril",
+    "aspect_ratio": 1.3,
+    "length_m": 1.5,
+    "dome": false,
+    "dome_position": "none",
+    "symmetry_order": 3,
+    "rim_segments": 0,
+    "underside_features": ["three_tendrils", "trailing_appendages"]
+  },
+
+  "surface": {
+    "metallic": 0.0,
+    "roughness": 0.7,
+    "albedo_hex": "#9A9A94",
+    "emissive_hex": "#F2F2F2",
+    "clearcoat": 0.0,
+    "subsurface_mm": 0.0,
+    "normal_detail": "tendril"
+  },
+
+  "lights": {
+    "count": 3,
+    "positions": ["tendril_tips"],
+    "colors_hex": ["#F2F2F2"],
+    "behavior": "thermal_polarity_flip",
+    "pulse_hz": 0.3
+  },
+
+  "motion": {
+    "primary": "hover_bob",
+    "secondary": ["transmedium_entry", "instant_translation"],
+    "hover_amplitude_m": 0.3,
+    "hover_period_s": 2.5,
+    "max_speed_knots": 1200,
+    "silent": true
+  },
+
+  "ir_signature": {
+    "hotter_than_ambient": true,
+    "radiometric_saturation": false,
+    "thermal_polarity_flip": true,
+    "ir_notes": "Thermal polarity flip: appendages cycle hot→grey→cold→grey→hot over approximately 3-second period. No known aircraft or biological explanation. Iraq footage shows 17-minute submersion in lake."
+  },
+
+  "physics_subtractions": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_water_ripple",
+    "no_inertial_coupling",
+    "transmedium_capable",
+    "instant_acceleration"
+  ],
+
+  "shader_params": {
+    "fresnel_power": 3.5,
+    "bloom_radius_px": 15,
+    "glow_color_hex": "#F2F2F2",
+    "scanline_overlay": true,
+    "chromatic_aberration": false,
+    "era_palette": ["#9A9A94", "#1A1A1A", "#F2F2F2", "#5A5A56", "#2A2A2A", "#101418"]
+  },
+
+  "canonical_cases": ["iraq_jellyfish_2018", "aguadilla_2013"],
+  "cultural_context": "The jellyfish class is the most unsettling contemporary UAP category because it defies the 'vehicle' mental model most completely. Jordan Peele's Jean Jacket in Nope (2022) is the cinematic equivalent — an unfolding, ingesting, biological-seeming craft. The Iraq footage (October 2018, released January 2024 by Jeremy Corbell) was filmed from an aerostat over Al Taqaddum airbase. Soldiers nicknamed it 'the spaghetti monster.'"
+}

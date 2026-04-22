@@ -1,0 +1,71 @@
+{
+  "id": "cigar_cylinder",
+  "name": "Cigar / Cylinder",
+  "era": "classic",
+  "craft_class": "vehicle",
+  "description": "An elongated capsule or cylinder, typically 60–200+ feet long, smooth white or metallic, no wings, no fins, no visible propulsion. The cigar shape appears in hundreds of reports from the 1940s onward. Distinguished from the Tic Tac by scale (much larger) and era. Often reported hovering at altitude before departing at high speed. Some reports describe porthole windows along the equator.",
+
+  "geometry": {
+    "primitive_type": "capsule",
+    "aspect_ratio": 10.0,
+    "length_m": 60.0,
+    "dome": false,
+    "dome_position": "none",
+    "symmetry_order": 1,
+    "rim_segments": 0,
+    "underside_features": ["porthole_row"]
+  },
+
+  "surface": {
+    "metallic": 0.85,
+    "roughness": 0.12,
+    "albedo_hex": "#D8DADC",
+    "emissive_hex": null,
+    "clearcoat": 0.5,
+    "subsurface_mm": 0.0,
+    "normal_detail": "none"
+  },
+
+  "lights": {
+    "count": 8,
+    "positions": ["equator"],
+    "colors_hex": ["#FFFFFF"],
+    "behavior": "steady_constellation",
+    "pulse_hz": 0
+  },
+
+  "motion": {
+    "primary": "hover_bob",
+    "secondary": ["instant_translation"],
+    "hover_amplitude_m": 2.0,
+    "hover_period_s": 5.0,
+    "max_speed_knots": 0,
+    "silent": true
+  },
+
+  "ir_signature": {
+    "hotter_than_ambient": false,
+    "radiometric_saturation": false,
+    "thermal_polarity_flip": false,
+    "ir_notes": "Mostly pre-IR era. Some contemporary reports in AARO database."
+  },
+
+  "physics_subtractions": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_condensation_trail"
+  ],
+
+  "shader_params": {
+    "fresnel_power": 3.5,
+    "bloom_radius_px": 10,
+    "glow_color_hex": "#D8DADC",
+    "scanline_overlay": false,
+    "chromatic_aberration": false,
+    "era_palette": ["#D8DADC", "#C0C4C8", "#E8EAEC", "#1F3A6B", "#8A9098", "#0E1116"]
+  },
+
+  "canonical_cases": [],
+  "cultural_context": "One of the oldest documented UFO shapes — large cylindrical or cigar-shaped objects appear in reports going back to the 1896–97 mystery airship wave. Often described as 'like a blimp but metallic and silent.' Contemporary AARO filings still document this class. Overlaps with the Tic Tac archetype at smaller scales."
+}

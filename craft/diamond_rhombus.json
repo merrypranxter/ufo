@@ -1,0 +1,72 @@
+{
+  "id": "diamond_rhombus",
+  "name": "Diamond / Rhombus",
+  "era": "modern",
+  "craft_class": "vehicle",
+  "description": "A rhombic prism shape — essentially a 3D diamond or double pyramid. Dark grey to near-black metallic sheen. No lights, no markings, no sound. Defined almost entirely by its geometric silhouette against the sky. The Calvine photograph (1990) is the canonical case: a roughly 30-meter dark-grey diamond hanging in the Scottish sky alongside a Harrier jet. Vertical-only departure — straight up at high speed with no banking or turning.",
+
+  "geometry": {
+    "primitive_type": "rhombic_prism",
+    "aspect_ratio": 1.2,
+    "length_m": 30.0,
+    "dome": false,
+    "dome_position": "none",
+    "symmetry_order": 4,
+    "rim_segments": 0,
+    "underside_features": []
+  },
+
+  "surface": {
+    "metallic": 0.9,
+    "roughness": 0.15,
+    "albedo_hex": "#1B1B1F",
+    "emissive_hex": null,
+    "clearcoat": 0.1,
+    "subsurface_mm": 0.0,
+    "normal_detail": "none"
+  },
+
+  "lights": {
+    "count": 0,
+    "positions": [],
+    "colors_hex": [],
+    "behavior": "steady_constellation",
+    "pulse_hz": 0
+  },
+
+  "motion": {
+    "primary": "hover_bob",
+    "secondary": ["vertical_exit"],
+    "hover_amplitude_m": 0.0,
+    "hover_period_s": 0.0,
+    "max_speed_knots": 0,
+    "silent": true
+  },
+
+  "ir_signature": {
+    "hotter_than_ambient": false,
+    "radiometric_saturation": false,
+    "thermal_polarity_flip": false,
+    "ir_notes": "No IR footage exists for canonical Calvine case. Photographic evidence only: color prints showing dark metallic sheen."
+  },
+
+  "physics_subtractions": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_condensation_trail",
+    "instant_acceleration"
+  ],
+
+  "shader_params": {
+    "fresnel_power": 2.0,
+    "bloom_radius_px": 5,
+    "glow_color_hex": "#1B1B1F",
+    "scanline_overlay": false,
+    "chromatic_aberration": false,
+    "era_palette": ["#1B1B1F", "#2E2E34", "#9BA0A6", "#D0D4D8", "#1F3A6B", "#0A0A0C"]
+  },
+
+  "canonical_cases": ["calvine_1990"],
+  "cultural_context": "The Calvine photograph, taken August 4 1990 near Calvine, Scotland, is considered one of the most significant UFO photographs ever taken by British MoD analysts who studied it. Six color prints were confiscated; the sole remaining print held by RAF press officer Craig Lindsay was published in August 2022 via Sheffield Hallam University — 32 years after the event. Nick Pope, who ran the MoD UFO desk, called it the best UFO photograph he'd ever seen."
+}

@@ -1,0 +1,57 @@
+{
+  "id": "aguadilla_2013",
+  "name": "Aguadilla DHS FLIR Sighting",
+  "date": "2013-04-25",
+  "location": "Rafael Hernández Airport, Aguadilla, Puerto Rico",
+  "craft_type_ref": "jellyfish_uap",
+
+  "witnesses": {
+    "count": 3,
+    "types": ["military"],
+    "notable": ["DHS/CBP DHC-8 crew (names classified)"]
+  },
+
+  "sensor": {
+    "type": "wescam_ir",
+    "device": "WESCAM MX-15D thermal camera aboard CBP DHC-8",
+    "resolution": "HD IR, 9 minutes 52 seconds footage",
+    "footage_available": true
+  },
+
+  "source_quality": "official_release_contested",
+  "era": "sensor",
+
+  "visual_description": "A US Customs and Border Protection DHC-8 aircraft was on a routine patrol over Aguadilla when the crew observed and filmed an unidentified object for 3 minutes 54 seconds using their WESCAM MX-15D thermal camera. The object appears as a glowing circle approximately 1–2 feet in diameter moving at speeds ranging from 40–120 mph. It crosses the runway of Rafael Hernández Airport (requiring tower notification — a plane was holding for it), then proceeds to the Atlantic coast, enters the water, and is tracked submerging. The most striking element of the footage is that the object then splits into two separate objects underwater before one re-emerges. Speed analysis by the Scientific Coalition for UAP Studies (SCU) determined peak speeds of approximately 1,200 mph at certain points. The thermal signature is complex — the object appears both warmer and cooler than ambient at different points. An independent analysis by Robert Powell found three independent sensors (IR, radar, visual) corroborating the track.",
+
+  "dimensions_reported_m": 0.6,
+  "duration_s": 234,
+
+  "motion_observed": ["hover_bob", "transmedium_entry", "instant_translation"],
+
+  "light_behavior_observed": ["corona_bloom", "thermal_polarity_flip"],
+
+  "physics_anomalies": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_water_ripple",
+    "no_inertial_coupling",
+    "transmedium_capable",
+    "instant_acceleration"
+  ],
+
+  "shader_params": {
+    "background_hex": "#1A1A1A",
+    "craft_albedo_hex": "#F2F2F2",
+    "glow_hex": "#FFFFFF",
+    "grain_profile": "atflir",
+    "hud_overlay": true,
+    "era_palette": ["#F2F2F2", "#9A9A94", "#1A1A1A", "#FFFFFF", "#6CFF00", "#101418"]
+  },
+
+  "authenticity_chain": "WESCAM HD IR, WHT HOT mode (hot→white). Object appears as small white circle with radiometric bloom halo. Water surface visible as textured grey plane. Submersion shows no splash particle — object disappears into surface smoothly. Split event: one object becomes two distinct hot spots, moving apart. Re-emergence: single object exits with no surface disturbance.",
+
+  "cultural_significance": "The Aguadilla footage is considered one of the most compelling modern UAP videos because it was officially obtained (leaked from government source), has multi-sensor corroboration, and includes behaviors (runway crossing requiring ATC awareness, water entry, object splitting) that are difficult to explain mundanely. The Scientific Coalition for UAP Studies published a 162-page analysis in 2015.",
+
+  "notes": "Mick West and others have proposed various conventional explanations including birds, insects, and atmospheric phenomena. The SCU analysis systematically addresses these. The 'splitting' event remains the most difficult to conventionally explain. Context: Puerto Rico is a known UAP concentration area — multiple Navy and DHS reports from the Caribbean corridor in this era."
+}

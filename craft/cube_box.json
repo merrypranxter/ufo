@@ -1,0 +1,71 @@
+{
+  "id": "cube_box",
+  "name": "Cube / Box",
+  "era": "sensor",
+  "craft_class": "unknown",
+  "description": "An axis-aligned cube or rectangular box, sometimes described as a cube within a sphere. Rare but consistently reported in sensor-era military accounts. Ryan Graves described encounters where the object was described as a 'box flying into a 120-knot headwind.' Some accounts include a translucent sphere surrounding the cube. Perfect axial lock — does not rotate or yaw. May relate to the pyramid-shaped objects in USS Russell footage.",
+
+  "geometry": {
+    "primitive_type": "cube",
+    "aspect_ratio": 1.0,
+    "length_m": 2.0,
+    "dome": false,
+    "dome_position": "none",
+    "symmetry_order": 4,
+    "rim_segments": 0,
+    "underside_features": ["optional_sphere_envelope"]
+  },
+
+  "surface": {
+    "metallic": 0.9,
+    "roughness": 0.1,
+    "albedo_hex": "#1A1A1F",
+    "emissive_hex": null,
+    "clearcoat": 0.3,
+    "subsurface_mm": 0.0,
+    "normal_detail": "none"
+  },
+
+  "lights": {
+    "count": 0,
+    "positions": [],
+    "colors_hex": [],
+    "behavior": "steady_constellation",
+    "pulse_hz": 0
+  },
+
+  "motion": {
+    "primary": "hover_bob",
+    "secondary": ["instant_translation"],
+    "hover_amplitude_m": 0.1,
+    "hover_period_s": 2.0,
+    "max_speed_knots": 0,
+    "silent": true
+  },
+
+  "ir_signature": {
+    "hotter_than_ambient": false,
+    "radiometric_saturation": false,
+    "thermal_polarity_flip": false,
+    "ir_notes": "USS Russell footage (2019) shows pyramid shapes with triangular-IR-signature possibly from aperture diffraction. True cube cases are mostly verbal accounts."
+  },
+
+  "physics_subtractions": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_inertial_coupling"
+  ],
+
+  "shader_params": {
+    "fresnel_power": 2.0,
+    "bloom_radius_px": 8,
+    "glow_color_hex": "#1A1A1F",
+    "scanline_overlay": true,
+    "chromatic_aberration": false,
+    "era_palette": ["#1A1A1F", "#EDEDE9", "#9A9A94", "#2A2A2F", "#6CFF00", "#101418"]
+  },
+
+  "canonical_cases": [],
+  "cultural_context": "Cube/box UAPs are the most geometrically dissonant — nothing in aeronautics is a cube. The perfect right-angle aesthetics and axial-lock behavior suggest something that doesn't need aerodynamic form. ISS footage occasionally shows box-shaped objects (usually thermal blankets or antenna covers) feeding the visual canon. The cube-in-sphere variant from pilot accounts is particularly striking as a design object."
+}

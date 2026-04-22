@@ -1,0 +1,60 @@
+{
+  "id": "belgian_wave_1989",
+  "name": "Belgian UFO Wave",
+  "date": "1989-11-29",
+  "location": "Eupen / Liège / Wallonia, Belgium",
+  "craft_type_ref": "black_triangle",
+
+  "witnesses": {
+    "count": 2500,
+    "types": ["civilian", "military", "police", "pilot"],
+    "notable": [
+      "Gendarme Heinrich Nicoll (Eupen ground observation)",
+      "Gendarme Hubert von Montigny (Eupen ground observation)",
+      "Maj. Gen. Wilfried de Brouwer (Belgian Air Force, led investigation)"
+    ]
+  },
+
+  "sensor": {
+    "type": "multi_sensor",
+    "device": "Ground radar (Glons/Semmerzake CRC) + F-16 airborne radar + visual",
+    "resolution": "radar tracks",
+    "footage_available": false
+  },
+
+  "source_quality": "military_radar",
+  "era": "modern",
+
+  "visual_description": "Beginning November 29 1989 and continuing through April 1990, 2,600+ sightings were filed across Belgium, with multiple police reports. Eupen gendarmes Nicoll and von Montigny observed a flat triangular craft with three powerful downward beams, three large white lights at corners, and a central red pulsating light, hovering silently 100–120 meters altitude. On March 30–31 1990, ground radar at Glons and Semmerzake simultaneously tracked unknowns; two F-16s from Beauvechain AFB intercepted. In nine intercept attempts the unknowns showed: instant acceleration from 150 knots to 1100 knots, altitude drops from 9,000 to 5,000 feet in 2 seconds, no radar warning of the F-16s' emissions. The Petit-Rechain photograph (April 4 1990) showed a dark triangle with three lights and was iconic for 20 years — until photographer Patrick Maréchal confessed in July 2011 to RTL that he'd made it from painted polystyrene with embedded flashlights. The Belgian Air Force officially closed the investigation classifying the phenomenon 'unknown.'",
+
+  "dimensions_reported_m": 30.0,
+  "duration_s": 3600,
+
+  "motion_observed": ["hover_bob", "instant_translation", "tilt_to_bank"],
+
+  "light_behavior_observed": ["steady_constellation", "beam_drop"],
+
+  "physics_anomalies": [
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_rotor_downwash",
+    "no_condensation_trail",
+    "no_inertial_coupling",
+    "instant_acceleration"
+  ],
+
+  "shader_params": {
+    "background_hex": "#070709",
+    "craft_albedo_hex": "#0A0A0C",
+    "glow_hex": "#FFA62B",
+    "grain_profile": "none",
+    "hud_overlay": false,
+    "era_palette": ["#0A0A0C", "#FFA62B", "#C1272D", "#B8B8B8", "#1A1C20", "#070709"]
+  },
+
+  "authenticity_chain": "Night sky star-field alpha mask (hull readable by star occlusion). Three amber point-lights at corners, red pulsing center. No grain — naked-eye witness context. Optional: undercast cloud layer for depth, 3 downward beam cones from corner positions.",
+
+  "cultural_significance": "The Belgian Wave is the most thoroughly documented mass-sighting event in UFO history, unique in that the Belgian government investigated officially and published findings. Gen. de Brouwer's statement that the phenomenon was genuine but unexplained remains one of the few official military admissions. The confessed Petit-Rechain hoax paradoxically strengthened the case — it showed that thousands of other genuine witness accounts existed independent of that image.",
+
+  "notes": "SOBEPS (Société Belge d'Etude des Phénomènes Spatiaux) published a 500-page investigation in 1991. The Belgian Air Force's openness was unique — no other military in the world released radar data on UFO intercepts in this period."
+}

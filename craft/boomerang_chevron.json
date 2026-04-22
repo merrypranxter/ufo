@@ -1,0 +1,71 @@
+{
+  "id": "boomerang_chevron",
+  "name": "Boomerang / Chevron",
+  "era": "modern",
+  "craft_class": "vehicle",
+  "description": "A broad V-shaped or boomerang-shaped craft, typically 200–1000 feet across. Five to ten lights positioned at the apex and along the trailing edges in amber or white. Always silent. Appears as a V-formation of lights in night sky — hull is only detectable by star occlusion. Moves slowly, sometimes hovering. The Phoenix Lights variant is mile-wide. The Hudson Valley variant appeared nightly for years.",
+
+  "geometry": {
+    "primitive_type": "chevron_plate",
+    "aspect_ratio": 0.6,
+    "length_m": 300.0,
+    "dome": false,
+    "dome_position": "none",
+    "symmetry_order": 2,
+    "rim_segments": 0,
+    "underside_features": ["light_array", "star_occlusion_mass"]
+  },
+
+  "surface": {
+    "metallic": 0.1,
+    "roughness": 0.95,
+    "albedo_hex": "#0A0A0C",
+    "emissive_hex": null,
+    "clearcoat": 0.0,
+    "subsurface_mm": 0.0,
+    "normal_detail": "none"
+  },
+
+  "lights": {
+    "count": 7,
+    "positions": ["apex", "trailing_edge"],
+    "colors_hex": ["#FFA62B", "#FFFFFF"],
+    "behavior": "steady_constellation",
+    "pulse_hz": 0
+  },
+
+  "motion": {
+    "primary": "v_formation_drift",
+    "secondary": ["hover_bob"],
+    "hover_amplitude_m": 0.5,
+    "hover_period_s": 4.0,
+    "max_speed_knots": 30,
+    "silent": true
+  },
+
+  "ir_signature": {
+    "hotter_than_ambient": false,
+    "radiometric_saturation": false,
+    "thermal_polarity_flip": false,
+    "ir_notes": "Night sightings only in canonical cases. Hull visible only by star-occlusion — blocks stars cleanly suggesting solid body at altitude."
+  },
+
+  "physics_subtractions": [
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_rotor_downwash",
+    "no_condensation_trail"
+  ],
+
+  "shader_params": {
+    "fresnel_power": 1.0,
+    "bloom_radius_px": 35,
+    "glow_color_hex": "#FFA62B",
+    "scanline_overlay": false,
+    "chromatic_aberration": false,
+    "era_palette": ["#0A0A0C", "#FFA62B", "#FFFFFF", "#1A1C20", "#2A2D33", "#070709"]
+  },
+
+  "canonical_cases": ["phoenix_lights_1997"],
+  "cultural_context": "The Phoenix Lights of March 13 1997 — witnessed from Henderson Nevada to Tucson Arizona by thousands including the governor of Arizona — remain the most widely witnessed UFO event in American history. The V-formation of amber lights, mile-wide, silent, 100 feet overhead. Governor Fife Symington called a press conference the next day... bringing out an aide in an alien costume. He later admitted he'd also seen it and was shaken by it."
+}

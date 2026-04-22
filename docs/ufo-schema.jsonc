@@ -1,0 +1,197 @@
+// ufo-schema.jsonc
+// Schema definitions for craft/ and cases/ JSON files.
+// JSONC — strip comments for strict JSON parsing.
+// This file is the source of truth for field names and enums.
+{
+  "schema_version": 1,
+
+  "enums": {
+    "era": ["classic", "modern", "sensor", "speculative"],
+    "craft_class": ["vehicle", "biological", "phenomenon", "unknown"],
+    "primitive_type": [
+      "capsule",            // Tic Tac, cigar
+      "oblate_lens",        // classic saucer
+      "sphere",             // orb
+      "equilateral_plate",  // black triangle
+      "rhombic_prism",      // diamond
+      "radial_disc",        // mothership
+      "ovoid_lozenge",      // monolith
+      "spheroid_tendril",   // jellyfish
+      "cube",               // cube/box
+      "chevron_plate",      // boomerang
+      "organic_fold_rig",   // biological
+      "torus_frustum"       // plasma portal
+    ],
+    "light_behavior": [
+      "steady_constellation",   // Phoenix V, Belgian triangle
+      "strobe_sequence",        // 50s rim lights
+      "spectral_conversation",  // CE3K mothership
+      "corona_bloom",           // orbs, Gulf Breeze
+      "cloaking_fade",          // star occlusion
+      "beam_drop",              // abduction column
+      "instant_translation",    // Tic Tac, sophon
+      "thermal_polarity_flip",  // jellyfish IR
+      "radiometric_halo"        // Gimbal
+    ],
+    "motion_type": [
+      "hover_bob",
+      "tilt_to_bank",
+      "instant_translation",
+      "falling_leaf",
+      "v_formation_drift",
+      "cloaking_fade",
+      "mirror_maneuver",
+      "vertical_exit",
+      "transmedium_entry",
+      "axial_rotation"
+    ],
+    "sensor_type": [
+      "naked_eye",
+      "film_35mm",
+      "vhs_ntsc",
+      "atflir_ir",
+      "wescam_ir",
+      "aerostat_ir",
+      "radar_only",
+      "multi_sensor"
+    ],
+    "source_quality": [
+      "anecdotal",
+      "photographic",
+      "multi_witness",
+      "military_radar",
+      "official_release",
+      "official_release_contested"
+    ],
+    "physics_subtraction": [
+      "no_wings",
+      "no_exhaust_plume",
+      "no_sonic_boom",
+      "no_rotor_downwash",
+      "no_condensation_trail",
+      "no_ir_engine_heat",
+      "no_water_ripple",
+      "no_radar_return",
+      "no_shadow",
+      "no_inertial_coupling",
+      "transmedium_capable",
+      "instant_acceleration"
+    ]
+  },
+
+  // ── craft/ file schema ──────────────────────────────────────────────────
+  "craft_schema": {
+    "id": "string",                    // matches filename
+    "name": "string",                  // human-readable
+    "era": "era",
+    "craft_class": "craft_class",
+    "description": "string",           // one paragraph visual description
+
+    "geometry": {
+      "primitive_type": "primitive_type",
+      "aspect_ratio": "number",        // diameter:height or length:width
+      "length_m": "number",            // estimated meters
+      "dome": "boolean",
+      "dome_position": "string",       // "top", "bottom", "none"
+      "symmetry_order": "number",      // rotational symmetry
+      "rim_segments": "number",        // 0 if no segmented rim
+      "underside_features": ["string"] // "central_sphere", "landing_pads", etc.
+    },
+
+    "surface": {
+      "metallic": "number",            // 0–1 PBR metallic
+      "roughness": "number",           // 0–1 PBR roughness
+      "albedo_hex": "string",
+      "emissive_hex": "string",        // null if no emission
+      "clearcoat": "number",           // 0–1
+      "subsurface_mm": "number",       // SSS depth in mm, 0 if none
+      "normal_detail": "string"        // "none", "rivets", "greeble", "basalt", "tendril"
+    },
+
+    "lights": {
+      "count": "number",
+      "positions": ["string"],         // "corners", "rim", "underside", "dome_top"
+      "colors_hex": ["string"],
+      "behavior": "light_behavior",
+      "pulse_hz": "number"             // 0 = steady
+    },
+
+    "motion": {
+      "primary": "motion_type",
+      "secondary": ["motion_type"],
+      "hover_amplitude_m": "number",
+      "hover_period_s": "number",
+      "max_speed_knots": "number",     // 0 = unknown
+      "silent": "boolean"
+    },
+
+    "ir_signature": {
+      "hotter_than_ambient": "boolean",
+      "radiometric_saturation": "boolean",
+      "thermal_polarity_flip": "boolean",
+      "ir_notes": "string"
+    },
+
+    "physics_subtractions": ["physics_subtraction"],
+
+    "shader_params": {
+      "fresnel_power": "number",
+      "bloom_radius_px": "number",
+      "glow_color_hex": "string",
+      "scanline_overlay": "boolean",
+      "chromatic_aberration": "boolean",
+      "era_palette": ["string"]        // hex array, 6 values
+    },
+
+    "canonical_cases": ["string"],     // case ids
+    "cultural_context": "string"
+  },
+
+  // ── cases/ file schema ──────────────────────────────────────────────────
+  "case_schema": {
+    "id": "string",
+    "name": "string",
+    "date": "string",                  // ISO 8601 YYYY-MM-DD
+    "location": "string",
+    "craft_type_ref": "string",        // must match a craft/ id
+
+    "witnesses": {
+      "count": "number",
+      "types": ["string"],             // "civilian", "military", "pilot", "police"
+      "notable": ["string"]            // named witnesses
+    },
+
+    "sensor": {
+      "type": "sensor_type",
+      "device": "string",              // e.g. "ATFLIR", "WESCAM MX-15D"
+      "resolution": "string",
+      "footage_available": "boolean"
+    },
+
+    "source_quality": "source_quality",
+    "era": "era",
+
+    "visual_description": "string",    // detailed prose from witnesses/footage
+    "dimensions_reported_m": "number", // best estimate in meters
+    "duration_s": "number",            // observation duration in seconds
+
+    "motion_observed": ["motion_type"],
+
+    "light_behavior_observed": ["light_behavior"],
+
+    "physics_anomalies": ["physics_subtraction"],
+
+    "shader_params": {
+      "background_hex": "string",
+      "craft_albedo_hex": "string",
+      "glow_hex": "string",
+      "grain_profile": "string",       // "kodachrome", "vhs_ntsc", "atflir", "none"
+      "hud_overlay": "boolean",
+      "era_palette": ["string"]
+    },
+
+    "authenticity_chain": "string",    // post-processing recipe description
+    "cultural_significance": "string",
+    "notes": "string"
+  }
+}

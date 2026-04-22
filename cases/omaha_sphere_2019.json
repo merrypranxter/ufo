@@ -1,0 +1,55 @@
+{
+  "id": "omaha_sphere_2019",
+  "name": "USS Omaha Sphere Transmedium",
+  "date": "2019-07-15",
+  "location": "Pacific Ocean off San Diego, CA (32°29'N 119°22'W)",
+  "craft_type_ref": "orb_sphere",
+
+  "witnesses": {
+    "count": 10,
+    "types": ["military"],
+    "notable": ["USS Omaha CIC crew (names classified)"]
+  },
+
+  "sensor": {
+    "type": "multi_sensor",
+    "device": "Ship IR camera, radar (three independent sensors corroborating)",
+    "resolution": "Ship-based IR, 30+ seconds footage",
+    "footage_available": true
+  },
+
+  "source_quality": "official_release",
+  "era": "sensor",
+
+  "visual_description": "The Combat Information Center of USS Omaha filmed a spherical luminous object approximately six feet in diameter. The footage shows the object hovering then descending into the Pacific Ocean. No splash is visible on entry — the surface of the water shows no disturbance. The object appears solid on three independent sensors. Footage ends with crew audio commentary: 'Splash! No... wait. Did it just go into the water? Were there any others?' Fourteen objects were recorded in the engagement area moving at speeds of 40–138 knots. No wreckage was recovered from the submersion site despite surface search. The Jeremy Corbell documentary (2021) which leaked this footage describes the objects as 'spherical, solid, and with unknown origin.' The DoD confirmed the footage as authentic.",
+
+  "dimensions_reported_m": 1.8,
+  "duration_s": 30,
+
+  "motion_observed": ["hover_bob", "transmedium_entry"],
+
+  "light_behavior_observed": ["corona_bloom", "radiometric_halo"],
+
+  "physics_anomalies": [
+    "no_wings",
+    "no_exhaust_plume",
+    "no_sonic_boom",
+    "no_water_ripple",
+    "transmedium_capable"
+  ],
+
+  "shader_params": {
+    "background_hex": "#101418",
+    "craft_albedo_hex": "#EDEDE9",
+    "glow_hex": "#F2F2F2",
+    "grain_profile": "atflir",
+    "hud_overlay": true,
+    "era_palette": ["#EDEDE9", "#9A9A94", "#1A1A1A", "#F2F2F2", "#6CFF00", "#101418"]
+  },
+
+  "authenticity_chain": "Ship-mounted IR camera. WHT HOT or BLK HOT mode (varies by platform). Object as bright white sphere with radiometric bloom. Ocean surface visible as textured grey plane with gentle thermal variation. Water entry: smooth fade of object below surface plane with zero splash particle system, zero ripple ring. Radar blip visualization optional as secondary layer.",
+
+  "cultural_significance": "The USS Omaha footage is central to the 2021 UAP disclosure wave. When Jeremy Corbell released it alongside the pyramid-shaped footage from USS Russell, it marked the first time transmedium behavior (air-to-water, no surface disturbance) was captured on official military sensor equipment and subsequently confirmed by DoD. The matter-of-fact crew audio — 'Splash... did it just go into the water?' — is one of the most quietly extraordinary recordings in UAP history.",
+
+  "notes": "The USS Russell footage filmed from the same period shows objects that triangulate as pyramid shapes in the ATFLIR — later analysis by Mick West suggests this is an aperture diffraction artifact of point-sources through the optics at distance. The sphere footage from USS Omaha does not have this ambiguity."
+}
