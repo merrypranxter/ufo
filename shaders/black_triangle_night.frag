@@ -15,7 +15,7 @@ float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
 
 // SDF: equilateral triangle
 float sdTriangle(vec2 p, float r) {
-  const float k = sqrt(3.0);
+  const float k = 1.7320508;
   p.x = abs(p.x) - r;
   p.y = p.y + r / k;
   if (p.x + k * p.y > 0.0) p = vec2(p.x - k*p.y, -k*p.x - p.y) / 2.0;
